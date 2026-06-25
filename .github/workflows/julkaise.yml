@@ -1,0 +1,43 @@
+name: Julkaise Instagramiin
+
+# Pyörii 15 min välein ja tarkistaa jono.json:sta erääntyneet postaukset.
+# Voi myös ajaa käsin (workflow_dispatch) testausta varten.
+# HUOM: cron-ajat ovat UTC. Suomen kesäaika = UTC+3 (esim. 18:00 EEST = 15:00 UTC).
+# Tarkkaa kellonaikaa ei tarvita — jono.json:n "aika" päättää, cron vain herättää tarpeeksi usein.
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+# Estä päällekkäiset ajot (ei kahta julkaisua samaan aikaan)
+concurrency:
+  group: julkaise
+  cancel-in-progress: false
+
+jobs:
+  julkaise:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write          # tarvitaan jono.json:n committaamiseen takaisin
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Julkaise erääntyneet postaukset
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_ID: ${{ secrets.IG_ID }}
+        run: python3 julkaise.py
+
+      - name: Tallenna jonon tila (merkitse julkaistut)
+        if: always()
+        run: |
+          git config user.name "cdb-julkaisin"
+          git config user.email "bot@coaches.database"
+          git add jono.json
+          git diff --staged --quiet || git commit -m "jono: päivitä julkaisutila"
+          git push
