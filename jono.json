@@ -28,5 +28,29 @@
     "tila": "julkaistu",
     "media_id": "18099584617932475",
     "julkaistu_aika": "2026-06-30T16:38:46.105173+00:00"
+  },
+  {
+    "id": "vt-04",
+    "otsikko": "PALAUTE (ON)",
+    "kuva": "kuvat/04-palaute.png",
+    "caption": "Mikä valmennuksessa on tärkeää? 🤔\n\nHyvä valmennus perustuu rakentavaan palautteeseen. ✅\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #tärkeäävalmennuksessa #palaute #oppiminen #vuorovaikutus",
+    "aika": "2026-07-04T18:00:00+03:00",
+    "tila": "odottaa"
+  },
+  {
+    "id": "vt-05",
+    "otsikko": "KAPEAKATSEISUUS (EI)",
+    "kuva": "kuvat/05-kapeakatseisuus.png",
+    "caption": "Mikä valmennuksessa on tärkeää? 🤔\n\nFyysinen kehitys on valmennuksen ydin, mutta se ei synny irrallaan muusta elämästä. ❌\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #tärkeäävalmennuksessa #palautuminen #kokonaisvaltaisuus #hyvinvointi",
+    "aika": "2026-07-05T18:00:00+03:00",
+    "tila": "odottaa"
+  },
+  {
+    "id": "vt-06",
+    "otsikko": "MALTTI (ON)",
+    "kuva": "kuvat/06-maltti.png",
+    "caption": "Mikä valmennuksessa on tärkeää? 🤔\n\nMaltti erottaa pitkäjänteisen kehityksen hetkellisestä tuloksesta sekä nopeiden palkintojen ja mielihyvän tavoittelusta. ✅\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #tärkeäävalmennuksessa #pitkäjänteisyys #kestäväkehitys #johdonmukaisuus",
+    "aika": "2026-07-07T18:00:00+03:00",
+    "tila": "odottaa"
   }
 ]
