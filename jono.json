@@ -68,5 +68,29 @@
     "tila": "julkaistu",
     "media_id": "18060338648578175",
     "julkaistu_aika": "2026-07-14T15:57:44.663734+00:00"
+  },
+  {
+    "id": "vt-08",
+    "otsikko": "USKO (ON)",
+    "kuva": "kuvat/08-usko.png",
+    "caption": "Mikä valmennuksessa on tärkeää? 🤔\n\nKokenut valmentaja tunnistaa urheilijan potentiaalin jo ennen kuin tulokset kertovat niistä. ✅\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #tärkeäävalmennuksessa #luottamus #usko #valmennussuhde",
+    "aika": "2026-07-16T18:00:00+03:00",
+    "tila": "odottaa"
+  },
+  {
+    "id": "vt-09",
+    "otsikko": "VERTAILU (EI)",
+    "kuva": "kuvat/09-vertailu.png",
+    "caption": "Mikä valmennuksessa on tärkeää? 🤔\n\nMuihin vertaaminen mittaa väärää asiaa, koska se ohittaa urheilijan omat tavoitteet ja tilanteen. ❌\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #tärkeäävalmennuksessa #vertailu #tavoitteet #itsevertailu",
+    "aika": "2026-07-19T18:00:00+03:00",
+    "tila": "odottaa"
+  },
+  {
+    "id": "vt-10",
+    "otsikko": "ITSENÄISTÄMINEN (ON)",
+    "kuva": "kuvat/10-itsenaistaminen.png",
+    "caption": "Mikä valmennuksessa on tärkeää? 🤔\n\nValmennuksen päämäärä on tehdä valmentajasta vähitellen tarpeeton. ✅\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #tärkeäävalmennuksessa #itsenäisyys #omatoimisuus #vastuunotto",
+    "aika": "2026-07-21T18:00:00+03:00",
+    "tila": "odottaa"
   }
 ]
