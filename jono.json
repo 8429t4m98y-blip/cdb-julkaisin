@@ -98,5 +98,29 @@
     "tila": "julkaistu",
     "media_id": "18107125382471256",
     "julkaistu_aika": "2026-07-21T15:04:46.444252+00:00"
+  },
+  {
+    "id": "vt-11",
+    "otsikko": "RIIPPUVAISUUS (EI)",
+    "kuva": "kuvat/11-riippuvaisuus.png",
+    "caption": "Mikä valmennuksessa on tärkeää? 🤔\n\nValmennuksen tehtävä on kasvattaa urheilijan omaa osaamista eikä tehdä riippuvaista valmentajastaan. ❌\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #tärkeäävalmennuksessa #osaaminen #tiedonjakaminen #valmennusfilosofia",
+    "aika": "2026-07-23T18:00:00+03:00",
+    "tila": "odottaa"
+  },
+  {
+    "id": "vt-12",
+    "otsikko": "TOISTO (ON)",
+    "kuva": "kuvat/12-toisto.png",
+    "caption": "Mikä valmennuksessa on tärkeää? 🤔\n\nKehitys vaatii samojen asioiden toistamista riittävän pitkään. ✅\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #tärkeäävalmennuksessa #harjoittelu #nousujohteisuus #perusasiat",
+    "aika": "2026-07-26T18:00:00+03:00",
+    "tila": "odottaa"
+  },
+  {
+    "id": "vt-13",
+    "otsikko": "ERIMIELISYYS (ON)",
+    "kuva": "kuvat/13-erimielisyys.png",
+    "caption": "Mikä valmennuksessa on tärkeää? 🤔\n\nPerusteltu vastaväite vahvistaa toimivaa valmennussuhdetta. ✅\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #tärkeäävalmennuksessa #vuorovaikutus #kuunteleminen #luottamus",
+    "aika": "2026-07-28T18:00:00+03:00",
+    "tila": "odottaa"
   }
 ]
