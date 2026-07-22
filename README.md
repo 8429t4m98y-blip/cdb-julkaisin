@@ -38,9 +38,10 @@ Committaa muutos → Actions hoitaa loput. Tila päivittyy takaisin `jono.json`:
    - `IG_ID` = @coaches.database IG Business Account ID (`Instagram API/.env` → `IG_COACHES_DB`)
 4. **Testaa:** Actions-välilehti → "Julkaise Instagramiin" → Run workflow. Tai aseta yhden postauksen `aika` muutaman minuutin päähän ja `tila: "odottaa"`.
 
-## ⚠️ Token vanhenee — hoidettava ennen ~2026-07-31
-`LONG_TOKEN` on voimassa vain 60 pv. Ajastin lakkaa toimimasta kun se vanhenee.
-**Kestävä korjaus:** luo **system-user-token** Metan Business Managerissa (Business Settings → System Users → lisää token, oikeudet `instagram_basic` + `instagram_content_publish` + `pages_read_engagement`). Se **ei vanhene** → päivitä `IG_TOKEN`-Secret kerran, ei enää huolta.
+## Token — ei deadlinea (korjattu 2026-07-21)
+❌ **Tässä luki aiemmin "vanhenee — hoidettava ennen ~2026-07-31" ja "voimassa vain 60 pv". Molemmat olivat vääriä.** Metalta kysyttiin ensimmäistä kertaa 07-21 (`debug_token`): token **ei vanhene**. Ainoa kello on data-access-ikkuna, ja se asuu omistajallaan.
+**Tila, mitattu fakta ja tekeminen: `Projektit/Instagram API/CLAUDE.md` §AVOIMET 1. rivi (omistaja).** Muistutus on Apple Calendarissa. ⛔ **Älä kirjoita päivämäärää tähän tiedostoon** — juuri se kopioituminen tuotti kahden eri päivän tilanteen (root `CLAUDE.md` §Osoitinsääntö).
+⛔ **Älä ehdota system-user-tokenia.** Se luki tässä "kestävänä korjauksena", mutta **Meta esti sen 07-21** (appi ja IG-tilit ovat eri yritysportfolioissa). Mittaus ja purkuehto: sama omistajarivi.
 
 ## Rajat ja varautuminen
 - **Cron-tarkkuus:** GitHub voi viivästyttää ajoa 5–15 min ruuhkassa. Siksi julkaisuikkuna (18–20) eikä tarkka minuutti.
