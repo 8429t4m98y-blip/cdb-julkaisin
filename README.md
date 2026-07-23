@@ -10,6 +10,9 @@ kuvat/  ──>  raw.githubusercontent.com  ──>  Instagram hakee kuvan täst
 ```
 
 ## Miten lisään postauksen jonoon
+
+Jonon tila: `Projektit/Coaches Database/Julkaisuautomaatio/jono.json` (omistaja). ⚠️ **Aktiivinen lähde on `origin/main`, ei paikallinen työkopio** — lue `git show origin/main:jono.json`. (Mitattu 07-20: paikallinen kopio oli 2 committia jäljessä ja siitä johdettu väite oli väärä.)
+
 Lisää `jono.json`:iin objekti ja vaihda `tila` → `"odottaa"`:
 
 ```json
