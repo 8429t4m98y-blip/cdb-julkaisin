@@ -27,6 +27,12 @@ BASE = "https://graph.facebook.com/v25.0"
 HERE = os.path.dirname(os.path.abspath(__file__))
 JONO_PATH = os.path.join(HERE, "jono.json")
 
+# Uudelleenyritys saman ajon sisällä (Metan container-kilpajuoksu).
+JULKAISU_YRITYKSET = 4
+JULKAISU_ODOTUS = 15          # sekuntia yritysten välissä
+# Montako cron-ajoa saa yrittää samaa postausta ennen kuin se jää virheeseen.
+MAX_AJOYRITYKSET = 3
+
 
 # --------------------------------------------------------------------------- #
 # Konfiguraatio
@@ -81,6 +87,44 @@ def api_get(path, params):
         return json.loads(r.read())
 
 
+def on_ohimeneva(body):
+    """Kannattaako sama julkaisuyritys toistaa hetken päästä?
+
+    Metan container voi raportoida status_code=FINISHED hetkeä ennen kuin se on
+    oikeasti julkaisukelpoinen; media_publish vastaa silloin 9007 / 2207027
+    ("Media ID is not available"). Odottaminen korjaa sen. Todettu 2026-07-23,
+    kun vt-11 kaatui juuri tähän.
+    """
+    try:
+        virhe = json.loads(body).get("error", {})
+    except ValueError:
+        return False
+    if virhe.get("is_transient"):
+        return True
+    return virhe.get("code") == 9007 or virhe.get("error_subcode") == 2207027
+
+
+def jo_julkaistu(ig_id, token, caption):
+    """Onko sama caption jo tilillä? Palauttaa media_id:n tai None.
+
+    Ajetaan vain ennen UUSINTAyritystä: jos edellinen ajo ehti julkaista mutta
+    kaatui ennen tilan tallennusta, uusinta tekisi tuplapostauksen. Jos kysely
+    epäonnistuu, palautetaan None — tarkistuksen puute ei saa estää julkaisua.
+    """
+    try:
+        res = api_get(f"{ig_id}/media", {
+            "fields": "id,caption",
+            "limit": "25",
+            "access_token": token,
+        })
+    except (urllib.error.HTTPError, urllib.error.URLError, ValueError):
+        return None
+    for media in res.get("data", []):
+        if (media.get("caption") or "").strip() == caption.strip():
+            return media.get("id")
+    return None
+
+
 def julkaise_kuva(ig_id, token, image_url, caption):
     """Kaksivaiheinen julkaisu: luo container → odota valmista → media_publish.
     Palauttaa julkaistun median ID:n."""
@@ -107,12 +151,20 @@ def julkaise_kuva(ig_id, token, image_url, caption):
     else:
         raise RuntimeError(f"Container ei valmistunut ajoissa (creation_id={creation_id})")
 
-    # 3) Julkaise
-    pub = api_post(f"{ig_id}/media_publish", {
-        "creation_id": creation_id,
-        "access_token": token,
-    })
-    return pub["id"]
+    # 3) Julkaise. Ohimenevä "ei vielä valmis" → odota ja yritä uudelleen.
+    for yritys in range(1, JULKAISU_YRITYKSET + 1):
+        try:
+            pub = api_post(f"{ig_id}/media_publish", {
+                "creation_id": creation_id,
+                "access_token": token,
+            })
+            return pub["id"]
+        except urllib.error.HTTPError as e:
+            body = e.read().decode()
+            if not on_ohimeneva(body) or yritys == JULKAISU_YRITYKSET:
+                raise RuntimeError(body)
+            print(f"  … ei vielä julkaisukelpoinen (yritys {yritys}/{JULKAISU_YRITYKSET}), odotetaan {JULKAISU_ODOTUS} s")
+            time.sleep(JULKAISU_ODOTUS)
 
 
 # --------------------------------------------------------------------------- #
@@ -129,7 +181,9 @@ def main():
     virheita = 0
 
     for item in jono:
-        if item.get("tila") != "odottaa":
+        tila = item.get("tila")
+        uusinta = tila == "virhe" and item.get("ajoyrityksia", 1) < MAX_AJOYRITYKSET
+        if tila != "odottaa" and not uusinta:
             continue
         aika_str = item.get("aika")
         if not aika_str:
@@ -148,6 +202,20 @@ def main():
             sys.exit("✗ RAW_BASE / GITHUB_REPOSITORY puuttuu — kuvan URL:ä ei voi rakentaa.")
         image_url = f"{raw_base}/{urllib.parse.quote(item['kuva'])}"
 
+        # Uusinnassa: meniköhän se sittenkin ulos? Tuplapostaus on pahempi
+        # kuin julkaisematta jäänyt postaus.
+        if uusinta:
+            vanha = jo_julkaistu(ig_id, token, item["caption"])
+            if vanha:
+                print(f"→ {item['id']} oli jo tilillä (media_id={vanha}) — merkitään julkaistuksi, ei julkaista uudelleen.")
+                item["tila"] = "julkaistu"
+                item["media_id"] = vanha
+                item["julkaistu_aika"] = nyt.isoformat()
+                item.pop("virhe", None)
+                item.pop("ajoyrityksia", None)
+                continue
+            print(f"→ {item['id']}: uusintayritys {item.get('ajoyrityksia', 1) + 1}/{MAX_AJOYRITYKSET}")
+
         print(f"→ Julkaistaan {item['id']} ({item['kuva']}) …")
         try:
             media_id = julkaise_kuva(ig_id, token, image_url, item["caption"])
@@ -155,14 +223,18 @@ def main():
             item["media_id"] = media_id
             item["julkaistu_aika"] = nyt.isoformat()
             item.pop("virhe", None)
+            item.pop("ajoyrityksia", None)
             julkaistu += 1
             print(f"  ✓ julkaistu, media_id={media_id}")
         except (urllib.error.HTTPError, RuntimeError, KeyError) as e:
             msg = e.read().decode() if isinstance(e, urllib.error.HTTPError) else str(e)
             item["tila"] = "virhe"
             item["virhe"] = msg
+            item["ajoyrityksia"] = item.get("ajoyrityksia", 0) + 1
             virheita += 1
+            jaljella = MAX_AJOYRITYKSET - item["ajoyrityksia"]
             print(f"  ✗ VIRHE: {msg}")
+            print(f"    ({'yritetään seuraavassa ajossa uudelleen, ' + str(jaljella) + ' yritystä jäljellä' if jaljella > 0 else 'yritykset käytetty — jää virheeseen, vaatii käsin korjauksen'})")
 
     # Tallenna jonon tila takaisin (workflow committaa tämän)
     with open(JONO_PATH, "w", encoding="utf-8") as f:
