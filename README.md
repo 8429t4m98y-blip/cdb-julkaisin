@@ -1,9 +1,9 @@
 # CDB-julkaisuautomaatio (ilmainen DIY-ajastin)
 
-Ajastaa Instagram-postaukset @coaches.databaseen **ilman että kone on auki ja ilman kuukausimaksua.** GitHub Actions pyörii pilvessä 15 min välein, tarkistaa jonon ja julkaisee erääntyneet postaukset Metan rajapinnan kautta.
+Ajastaa Instagram-postaukset @coaches.databaseen **ilman että kone on auki ja ilman kuukausimaksua.** GitHub Actions pyörii pilvessä, tarkistaa jonon ja julkaisee erääntyneet postaukset Metan rajapinnan kautta. ⏱ **Ajotahti on nimellistä harvempi — ks. §Rajat ja varautuminen.**
 
 ```
-jono.json  ──>  GitHub Actions (cron 15 min)  ──>  julkaise.py  ──>  Instagram
+jono.json  ──>  GitHub Actions (cron)  ──>  julkaise.py  ──>  Instagram
    ▲                                                   │
    └────────── merkitsee "julkaistu" takaisin ─────────┘
 kuvat/  ──>  raw.githubusercontent.com  ──>  Instagram hakee kuvan tästä
@@ -47,8 +47,9 @@ Committaa muutos → Actions hoitaa loput. Tila päivittyy takaisin `jono.json`:
 ⛔ **Älä ehdota system-user-tokenia.** Se luki tässä "kestävänä korjauksena", mutta **Meta esti sen 07-21** (appi ja IG-tilit ovat eri yritysportfolioissa). Mittaus ja purkuehto: sama omistajarivi.
 
 ## Rajat ja varautuminen
-- **Cron-tarkkuus:** GitHub voi viivästyttää ajoa 5–15 min ruuhkassa. Siksi julkaisuikkuna (18–20) eikä tarkka minuutti.
-- **Virhe → sähköposti:** jos julkaisu epäonnistuu, ajo merkitään punaiseksi ja GitHub lähettää repo-omistajalle sähköpostin. Postaus saa `tila: "virhe"` + virheviesti jonossa.
+- **Cron-tarkkuus:** ❌ **Tässä luki aiemmin "5–15 min ruuhkassa". Se oli väärä.** Mitattu 07-23: workflow lupaa `*/15` (96 ajoa/vrk), toteuma **~8,8 ajoa/vrk, välit 1 h 43 min – 2 h 45 min**. Postaus julkaistuu mediaani **56 min** myöhässä, pahin mitattu **3 h 26 min**. Siksi julkaisuikkuna, ei tarkka minuutti. **Mitatut luvut ja purkuehto: `../julkaisuautomaatio.md` §⏱ TODELLINEN AJOTAHTI (omistaja).**
+- **Jos postaus on saatava ulos heti:** älä odota cronia — aja `julkaise.py` paikallisesti (ks. §Paikallinen testi) ja pushaa `jono.json` perään.
+- **Virhe → sähköposti:** jos julkaisu epäonnistuu, ajo merkitään punaiseksi ja GitHub lähettää repo-omistajalle sähköpostin. Postaus saa `tila: "virhe"` + virheviesti jonossa. **Uudelleenyritys on automaattinen** (07-23): ohimenevä Metan virhe yritetään 4× saman ajon sisällä, ja `virhe`-rivi poimitaan vielä 3 seuraavassa ajossa (`ajoyrityksia`). Ennen uusintaa tarkistetaan ettei sama caption ole jo tilillä.
 - **Inaktiivisuus:** GitHub poistaa cronin käytöstä jos repoon ei kosketa 60 pv. Postausten lisääminen pitää sen elossa.
 
 ## Paikallinen testi (valinnainen)
