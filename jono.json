@@ -105,7 +105,8 @@
     "kuva": "kuvat/11-riippuvaisuus.png",
     "caption": "Mikä valmennuksessa on tärkeää? 🤔\n\nValmennuksen tehtävä on kasvattaa urheilijan omaa osaamista eikä tehdä riippuvaista valmentajastaan. ❌\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #tärkeäävalmennuksessa #osaaminen #tiedonjakaminen #valmennusfilosofia",
     "aika": "2026-07-23T18:00:00+03:00",
-    "tila": "odottaa"
+    "tila": "virhe",
+    "virhe": "{\"error\":{\"message\":\"Media ID is not available\",\"type\":\"OAuthException\",\"code\":9007,\"error_subcode\":2207027,\"is_transient\":false,\"error_user_title\":\"Julkaiseminen ei onnistu\",\"error_user_msg\":\"Media ei ole valmis julkaisua varten. Odota hetki.\",\"fbtrace_id\":\"AW0ctVMNjIO90MvLiuWRGSL\"}}"
   },
   {
     "id": "vt-12",
