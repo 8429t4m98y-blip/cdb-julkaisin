@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 # CDB-julkaisin — pysyvä push GitHubiin.
-# Lukee GH_TOKEN:n keskitetystä .env:stä (../../Instagram API/.env), ei tallenna
-# tokenia git-configiin eikä tulosta sitä. Työntää nykyisen mainin originiin,
+# Lukee GH_TOKEN:n TÄMÄN kansion omasta .env:stä, ei tallenna tokenia
+# git-configiin eikä tulosta sitä. Työntää nykyisen mainin originiin,
 # jonka jälkeen GitHub Actions -cron julkaisee erääntyneet postaukset.
+#
+# Eriytetty Instagram API:n .env:stä 2026-08-06 (Miikan päätös): yhdessä
+# tiedostossa olivat sekä Metan julkaisutoken että GitHub-token, jolloin
+# yhden tiedoston vuoto olisi kaatanut molemmat. Blast radius pienempi kun
+# jokainen salaisuus asuu sen työn vieressä joka sitä käyttää.
 set -euo pipefail
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
-ENV_FILE="$DIR/../../Instagram API/.env"
+ENV_FILE="$DIR/.env"
 REPO="github.com/8429t4m98y-blip/cdb-julkaisin.git"
 
 if [ ! -f "$ENV_FILE" ]; then
