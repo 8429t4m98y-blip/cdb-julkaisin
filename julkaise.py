@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
 """
-CDB-julkaisin — DIY-ajastin Instagramiin.
+Julkaisin — DIY-ajastin Instagramiin. Monitili: kuvat ja reelit.
 
 Lukee jono.json:n, julkaisee jokaisen postauksen jonka aika on jo mennyt ja
 joka on tilassa "odottaa", ja merkitsee sen julkaistuksi. Pyörii GitHub
 Actionsissa cron-ajastimella (ks. .github/workflows/julkaise.yml).
 
-Token + tili-ID luetaan ympäristömuuttujista (GitHub Secrets):
-    IG_TOKEN   = pitkäkestoinen / system-user access token
-    IG_ID      = @coaches.database Instagram Business Account ID
-Paikallisessa ajossa fallback: ../Instagram API/.env (LONG_TOKEN + IG_COACHES_DB).
+Jonorivi valitsee tilin kentällä "tili" (oletus "cdb") ja median joko
+kentällä "kuva" (repon polku -> raw.githubusercontent) tai "video"
+("<release-tagi>/<tiedosto.mp4>" -> Release-liite). Video menee ulos
+reelinä: media_type=REELS + video_url.
 
-Kuvat haetaan julkisesta raw.githubusercontent.com-osoitteesta. Instagramin
-palvelin hakee kuvan tästä URL:sta, joten repon on oltava julkinen.
+Token luetaan ympäristömuuttujasta IG_TOKEN (GitHub Secret); paikallisessa
+ajossa fallback ../../Instagram API/.env (LONG_TOKEN). Tili-ID:t ovat
+allowlistissa alla — ne eivät ole salaisuuksia, vain token on.
+
+Meta hakee median itse annetusta osoitteesta, joten repon on oltava julkinen
+ja osoitteen toimittava ilman kirjautumista. Tämä on eri latauspolku kuin
+Instagram API/ig_publish_reel.py:n rupload — ja se on syy tämän olemassaoloon:
+rupload kaatuu yli ~60 s klipeillä, video_url ei [mitattu 2026-08-19].
 """
 import json
 import os
@@ -33,42 +39,91 @@ JULKAISU_ODOTUS = 15          # sekuntia yritysten välissä
 # Montako cron-ajoa saa yrittää samaa postausta ennen kuin se jää virheeseen.
 MAX_AJOYRITYKSET = 3
 
+# Kontin valmistumisen pollaus: kuva on heti valmis, video transkoodataan.
+POLLAUS = {"kuva": (10, 3), "video": (40, 15)}   # (kierrosta, sekuntia välissä)
+
+# Tili-allowlist. IG Business Account -ID:t EIVÄT ole salaisuuksia (sama lista
+# on Instagram API/ig_publish_reel.py:n turvaportissa) — vain token on. Lista
+# on tässä siksi, ettei uusi tili vaadi käyntiä GitHubin secret-näkymässä.
+# Ympäristömuuttuja IG_ID_<AVAIN> ohittaa rivin; vanha IG_ID = @coaches.database.
+TILIT = {
+    "cdb":        "17841437462011709",   # @coaches.database
+    "monologi":   "17841435019135389",   # @monologi.podcast
+    "miikameier": "17841400232383202",   # @miikameier
+    "teamera":    "17841441289626947",   # @teamera.coaching
+}
+OLETUSTILI = "cdb"
+
 
 # --------------------------------------------------------------------------- #
 # Konfiguraatio
 # --------------------------------------------------------------------------- #
 def load_config():
-    """Token + IG-ID + kuvien raw-perusosoite. Env ensin, sitten paikallinen .env."""
+    """Token + tili-ID:t + median julkiset perusosoitteet."""
     token = os.environ.get("IG_TOKEN")
-    ig_id = os.environ.get("IG_ID")
 
     # Paikallinen fallback: keskitetty Instagram API -kansion .env
-    if not token or not ig_id:
+    if not token:
         env_path = os.path.join(HERE, "..", "..", "Instagram API", ".env")
         if os.path.exists(env_path):
             with open(env_path, encoding="utf-8") as f:
                 for line in f:
                     line = line.strip()
-                    if not line or line.startswith("#") or "=" not in line:
-                        continue
-                    k, _, v = line.partition("=")
-                    k, v = k.strip(), v.strip()
-                    if k == "LONG_TOKEN" and not token:
-                        token = v
-                    elif k == "IG_COACHES_DB" and not ig_id:
-                        ig_id = v
+                    if line.startswith("LONG_TOKEN="):
+                        token = line.partition("=")[2].strip()
+    if not token:
+        sys.exit("✗ IG_TOKEN puuttuu (env / Instagram API/.env LONG_TOKEN).")
 
-    # Kuvien julkinen perusosoite. Actionsissa rakennetaan automaattisesti.
+    # Tili-ID:t: allowlist + ympäristön ohitukset. IG_ID = vanha yhden tilin secret.
+    tilit = dict(TILIT)
+    if os.environ.get("IG_ID"):
+        tilit[OLETUSTILI] = os.environ["IG_ID"]
+    for avain in list(tilit):
+        oma = os.environ.get(f"IG_ID_{avain.upper()}")
+        if oma:
+            tilit[avain] = oma
+
+    # Median julkiset perusosoitteet. Actionsissa rakennetaan automaattisesti.
+    repo = os.environ.get("GITHUB_REPOSITORY")       # "owner/repo"
+    ref = os.environ.get("GITHUB_REF_NAME", "main")  # branch
     raw_base = os.environ.get("RAW_BASE")
-    if not raw_base:
-        repo = os.environ.get("GITHUB_REPOSITORY")     # "owner/repo"
-        ref = os.environ.get("GITHUB_REF_NAME", "main")  # branch
-        if repo:
-            raw_base = f"https://raw.githubusercontent.com/{repo}/{ref}"
+    if not raw_base and repo:
+        raw_base = f"https://raw.githubusercontent.com/{repo}/{ref}"
+    release_base = os.environ.get("RELEASE_BASE")
+    if not release_base and repo:
+        release_base = f"https://github.com/{repo}/releases/download"
 
-    if not token or not ig_id:
-        sys.exit("✗ IG_TOKEN tai IG_ID puuttuu (env / .env).")
-    return token, ig_id, raw_base
+    return token, tilit, raw_base, release_base
+
+
+def valitse_tili(item, tilit):
+    """Jonorivin tili -> IG-ID. Tuntematon tili pysäyttää tämän rivin."""
+    avain = (item.get("tili") or OLETUSTILI).strip().lower()
+    if avain not in tilit:
+        raise RuntimeError(
+            f"tuntematon tili {avain!r} — sallitut: {', '.join(sorted(tilit))}"
+        )
+    return avain, tilit[avain]
+
+
+def media_osoite(item, raw_base, release_base):
+    """Jonorivi -> (laji, julkinen URL). laji on "kuva" tai "video"."""
+    if item.get("video_url"):                       # valmis osoite sellaisenaan
+        return "video", item["video_url"]
+    if item.get("video"):                           # "<tagi>/<tiedosto.mp4>"
+        if not release_base:
+            raise RuntimeError("RELEASE_BASE / GITHUB_REPOSITORY puuttuu")
+        tagi, _, nimi = item["video"].partition("/")
+        if not nimi:
+            raise RuntimeError(
+                f"video-kentän muoto on '<release-tagi>/<tiedosto.mp4>', sai {item['video']!r}"
+            )
+        return "video", f"{release_base}/{urllib.parse.quote(tagi)}/{urllib.parse.quote(nimi)}"
+    if item.get("kuva"):
+        if not raw_base:
+            raise RuntimeError("RAW_BASE / GITHUB_REPOSITORY puuttuu")
+        return "kuva", f"{raw_base}/{urllib.parse.quote(item['kuva'])}"
+    raise RuntimeError("rivillä ei ole kenttää kuva, video eikä video_url")
 
 
 # --------------------------------------------------------------------------- #
@@ -125,29 +180,42 @@ def jo_julkaistu(ig_id, token, caption):
     return None
 
 
-def julkaise_kuva(ig_id, token, image_url, caption):
+def julkaise_media(ig_id, token, laji, url, item):
     """Kaksivaiheinen julkaisu: luo container → odota valmista → media_publish.
     Palauttaa julkaistun median ID:n."""
-    # 1) Luo media-container
-    res = api_post(f"{ig_id}/media", {
-        "image_url": image_url,
-        "caption": caption,
-        "access_token": token,
-    })
+    # 1) Luo media-container. Video menee reelinä; Meta hakee tiedoston itse.
+    params = {"caption": item["caption"], "access_token": token}
+    if laji == "video":
+        params["media_type"] = "REELS"
+        params["video_url"] = url
+    else:
+        params["image_url"] = url
+    # Collab-kutsu, valinnainen: vastaanottaja hyväksyy tai hylkää IG:ssä.
+    # ⚠️ EI MITATTU — Metan oma opas ei dokumentoi tätä parametria, kolmannen
+    # osapuolen lähteet kyllä. Jos se ei kelpaa, virhe tulee TÄSSÄ konttia
+    # luodessa eikä julkaisussa ⇒ mitään ei mene ulos vahingossa.
+    if item.get("collab"):
+        collab = item["collab"]
+        params["collaborators"] = json.dumps(collab if isinstance(collab, list) else [collab])
+    res = api_post(f"{ig_id}/media", params)
     creation_id = res["id"]
 
-    # 2) Odota että container on valmis (kuva = yleensä heti, mutta varmistetaan)
-    for _ in range(10):
+    # 2) Odota että container on valmis. Kuva on käytännössä heti, video
+    #    transkoodataan (mitattu 08-19: 73 s reel ~45 s).
+    kierrokset, odotus = POLLAUS[laji]
+    for _ in range(kierrokset):
         status = api_get(f"{creation_id}", {
-            "fields": "status_code",
+            "fields": "status_code,status",
             "access_token": token,
         })
         code = status.get("status_code")
         if code == "FINISHED":
             break
         if code == "ERROR":
-            raise RuntimeError(f"Container ERROR (creation_id={creation_id})")
-        time.sleep(3)
+            raise RuntimeError(
+                f"Container ERROR (creation_id={creation_id}): {status.get('status', '')}"
+            )
+        time.sleep(odotus)
     else:
         raise RuntimeError(f"Container ei valmistunut ajoissa (creation_id={creation_id})")
 
@@ -171,7 +239,7 @@ def julkaise_kuva(ig_id, token, image_url, caption):
 # Päälogiikka
 # --------------------------------------------------------------------------- #
 def main():
-    token, ig_id, raw_base = load_config()
+    token, tilit, raw_base, release_base = load_config()
 
     with open(JONO_PATH, encoding="utf-8") as f:
         jono = json.load(f)
@@ -198,9 +266,18 @@ def main():
         if aika > nyt:
             continue  # ei vielä erääntynyt
 
-        if not raw_base:
-            sys.exit("✗ RAW_BASE / GITHUB_REPOSITORY puuttuu — kuvan URL:ä ei voi rakentaa.")
-        image_url = f"{raw_base}/{urllib.parse.quote(item['kuva'])}"
+        # Tili ja median osoite ratkaistaan ennen kuin mitään lähetetään.
+        # Rikkinäinen rivi ei saa kaataa koko ajoa muiden rivien alta.
+        try:
+            tili, ig_id = valitse_tili(item, tilit)
+            laji, url = media_osoite(item, raw_base, release_base)
+        except RuntimeError as e:
+            item["tila"] = "virhe"
+            item["virhe"] = str(e)
+            item["ajoyrityksia"] = item.get("ajoyrityksia", 0) + 1
+            virheita += 1
+            print(f"  ✗ {item.get('id')}: {e}")
+            continue
 
         # Uusinnassa: meniköhän se sittenkin ulos? Tuplapostaus on pahempi
         # kuin julkaisematta jäänyt postaus.
@@ -216,9 +293,9 @@ def main():
                 continue
             print(f"→ {item['id']}: uusintayritys {item.get('ajoyrityksia', 1) + 1}/{MAX_AJOYRITYKSET}")
 
-        print(f"→ Julkaistaan {item['id']} ({item['kuva']}) …")
+        print(f"→ Julkaistaan {item['id']} → @{tili} ({laji}) …")
         try:
-            media_id = julkaise_kuva(ig_id, token, image_url, item["caption"])
+            media_id = julkaise_media(ig_id, token, laji, url, item)
             item["tila"] = "julkaistu"
             item["media_id"] = media_id
             item["julkaistu_aika"] = nyt.isoformat()
