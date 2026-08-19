@@ -1,6 +1,6 @@
 # CDB-julkaisuautomaatio (ilmainen DIY-ajastin)
 
-Ajastaa Instagram-postaukset @coaches.databaseen **ilman että kone on auki ja ilman kuukausimaksua.** GitHub Actions pyörii pilvessä, tarkistaa jonon ja julkaisee erääntyneet postaukset Metan rajapinnan kautta. ⏱ **Ajotahti on nimellistä harvempi — ks. §Rajat ja varautuminen.**
+Ajastaa Instagram-postaukset @coaches.databaseen **ilman että kone on auki ja ilman kuukausimaksua.** GitHub Actions pyörii pilvessä, tarkistaa jonon ja julkaisee erääntyneet postaukset Metan rajapinnan kautta.
 
 ```
 jono.json  ──>  GitHub Actions (cron)  ──>  julkaise.py  ──>  Instagram
@@ -9,9 +9,11 @@ jono.json  ──>  GitHub Actions (cron)  ──>  julkaise.py  ──>  Instag
 kuvat/  ──>  raw.githubusercontent.com  ──>  Instagram hakee kuvan tästä
 ```
 
+> 📖 **Tämä tiedosto vastaa vain siihen miten repoa käytetään.** Mitatut luvut, päätökset, tokenien tila ja lukitut linjaukset asuvat työtilassa: **`Projektit/Coaches Database/julkaisuautomaatio.md` (omistaja)** — ⛔ älä kopioi niitä tänne.
+
 ## Miten lisään postauksen jonoon
 
-Jonon tila: `Projektit/Coaches Database/Julkaisuautomaatio/jono.json` (omistaja). ⚠️ **Aktiivinen lähde on `origin/main`, ei paikallinen työkopio** — lue `git show origin/main:jono.json`. (Mitattu 07-20: paikallinen kopio oli 2 committia jäljessä ja siitä johdettu väite oli väärä.)
+⚠️ **Aktiivinen lähde on `origin/main`, ei paikallinen työkopio** — lue `git show origin/main:jono.json` ja lisää uudet sen päälle. (Mitattu 07-20: paikallinen kopio oli 2 committia jäljessä ja siitä johdettu väite oli väärä.)
 
 Lisää `jono.json`:iin objekti ja vaihda `tila` → `"odottaa"`:
 
@@ -28,33 +30,30 @@ Lisää `jono.json`:iin objekti ja vaihda `tila` → `"odottaa"`:
 
 - `kuva` — polku repossa. Lisää kuvatiedosto `kuvat/`-kansioon (ascii-nimi, ei välilyöntejä/ääkkösiä).
 - `caption` — koko teksti hashtageineen. Rivinvaihto = `\n`.
-- `aika` — ISO-aika **+03:00** (Suomen kesäaika EEST) / **+02:00** (talvi EET). Julkaistaan kun tämä hetki on mennyt.
-- `tila` — `"luonnos"` = ei julkaista vielä. `"odottaa"` = julkaistaan kun aika koittaa. Skripti vaihtaa sen → `"julkaistu"` tai `"virhe"`.
+- `aika` — ISO-aika **+03:00** (kesäaika EEST) / **+02:00** (talvi EET). Julkaistaan kun tämä hetki on mennyt.
+- `tila` — `"luonnos"` = ei julkaista vielä · `"odottaa"` = julkaistaan kun aika koittaa. Skripti vaihtaa sen → `"julkaistu"` tai `"virhe"`.
 
-Committaa muutos → Actions hoitaa loput. Tila päivittyy takaisin `jono.json`:iin automaattisesti.
+Committaa → aja `./push.sh` → Actions hoitaa loput. Tila päivittyy takaisin `jono.json`:iin automaattisesti. **Clauden koko työnkulku jonoon viemisestä siivoukseen: omistajatiedosto §Ajastus.**
 
 ## Kertaluontoinen käyttöönotto (GitHub)
-1. **Luo julkinen repo** GitHubissa (esim. `cdb-julkaisin`). Julkinen, koska Instagram hakee kuvat raw-URL:sta + Actions-minuutit ovat julkisilla repoilla ilmaisia.
-2. **Pushaa tämän kansion sisältö** repon juureen (ks. alempi git-komennot).
-3. **Lisää 2 Secretiä** (repo → Settings → Secrets and variables → Actions → New repository secret):
+1. **Luo julkinen repo** (esim. `cdb-julkaisin`). Julkinen, koska Instagram hakee kuvat raw-URL:sta + Actions-minuutit ovat julkisilla repoilla ilmaisia. Salaisuuksia ei ole repossa (`.env` on gitignoressa).
+2. **Pushaa tämän kansion sisältö** repon juureen.
+3. **Lisää 2 Secretiä** (repo → Settings → Secrets and variables → Actions):
    - `IG_TOKEN` = pitkäkestoinen access token (`Instagram API/.env` → `LONG_TOKEN`)
    - `IG_ID` = @coaches.database IG Business Account ID (`Instagram API/.env` → `IG_COACHES_DB`)
-4. **Testaa:** Actions-välilehti → "Julkaise Instagramiin" → Run workflow. Tai aseta yhden postauksen `aika` muutaman minuutin päähän ja `tila: "odottaa"`.
+4. **Testaa:** Actions → "Julkaise Instagramiin" → Run workflow.
 
-## Token — ei deadlinea (korjattu 2026-07-21)
-❌ **Tässä luki aiemmin "vanhenee — hoidettava ennen ~2026-07-31" ja "voimassa vain 60 pv". Molemmat olivat vääriä.** Metalta kysyttiin ensimmäistä kertaa 07-21 (`debug_token`): token **ei vanhene**. Ainoa kello on data-access-ikkuna, ja se asuu omistajallaan.
-**Tila, mitattu fakta ja tekeminen: `Projektit/Instagram API/CLAUDE.md` §AVOIMET 1. rivi (omistaja).** Muistutus on Apple Calendarissa. ⛔ **Älä kirjoita päivämäärää tähän tiedostoon** — juuri se kopioituminen tuotti kahden eri päivän tilanteen (root `CLAUDE.md` §Osoitinsääntö).
-⛔ **Älä ehdota system-user-tokenia.** Se luki tässä "kestävänä korjauksena", mutta **Meta esti sen 07-21** (appi ja IG-tilit ovat eri yritysportfolioissa). Mittaus ja purkuehto: sama omistajarivi.
+`push.sh` lukee `GH_TOKEN`:n **tämän kansion omasta `.env`:stä** (ei Instagram API:n).
 
-## Rajat ja varautuminen
-- **Cron-tarkkuus:** ❌ **Tässä luki aiemmin "5–15 min ruuhkassa". Se oli väärä.** Mitattu 07-23: workflow lupaa `*/15` (96 ajoa/vrk), toteuma **~8,8 ajoa/vrk, välit 1 h 43 min – 2 h 45 min**. Postaus julkaistuu mediaani **56 min** myöhässä, pahin mitattu **3 h 26 min**. Siksi julkaisuikkuna, ei tarkka minuutti. **Mitatut luvut ja purkuehto: `../julkaisuautomaatio.md` §⏱ TODELLINEN AJOTAHTI (omistaja).**
-- **Jos postaus on saatava ulos heti:** älä odota cronia — aja `julkaise.py` paikallisesti (ks. §Paikallinen testi) ja pushaa `jono.json` perään.
-- **Virhe → sähköposti:** jos julkaisu epäonnistuu, ajo merkitään punaiseksi ja GitHub lähettää repo-omistajalle sähköpostin. Postaus saa `tila: "virhe"` + virheviesti jonossa. **Uudelleenyritys on automaattinen** (07-23): ohimenevä Metan virhe yritetään 4× saman ajon sisällä, ja `virhe`-rivi poimitaan vielä 3 seuraavassa ajossa (`ajoyrityksia`). Ennen uusintaa tarkistetaan ettei sama caption ole jo tilillä.
-- **Inaktiivisuus:** GitHub poistaa cronin käytöstä jos repoon ei kosketa 60 pv. Postausten lisääminen pitää sen elossa.
-
-## Paikallinen testi (valinnainen)
-Ennen GitHubia voi ajaa koneelta. Tarvitsee julkisen kuva-URL:n (`RAW_BASE`) — toimii vasta kun repo on GitHubissa, tai anna jokin muu julkinen kuvaosoite:
+## Paikallinen ajo — kun postaus on saatava ulos heti
+Älä odota cronia. Tarvitsee vain julkisen kuva-URL:n perusosoitteen; token + IG-ID luetaan automaattisesti `../../Instagram API/.env`:stä.
 ```bash
 RAW_BASE="https://raw.githubusercontent.com/<owner>/<repo>/main" python3 julkaise.py
 ```
-Token + IG-ID luetaan automaattisesti `../../Instagram API/.env`:stä paikallisessa ajossa.
+Committaa ja pushaa `jono.json` heti perään.
+
+## Rajat
+- ⏱ **Cron ei aja luvattua 15 min tahtia** — postaus julkaistuu tyypillisesti tunteja myöhässä ajastetusta ajasta. **Mitatut luvut, syy ja purkuehto: omistajatiedosto §⏱ TODELLINEN AJOTAHTI.** ⛔ Älä lupaa "≤15 min".
+- 📧 **Virhe → sähköposti + `tila: "virhe"` jonossa.** Uudelleenyritys on automaattinen: ohimenevä Metan virhe 4× saman ajon sisällä, `virhe`-rivi vielä 3 seuraavassa ajossa (`ajoyrityksia`), ja ennen uusintaa tarkistetaan ettei sama caption ole jo tilillä. ⚠️ **Kaatumismeili ei useimmiten ole meidän vika** — diagnoosin järjestys: omistajatiedosto §📧 Kaatumismeili.
+- 🔑 **Kaksi tokenia voi rikkoa tämän.** Tila, päivät ja tekeminen: omistajatiedosto §⚠️ Kaksi vanhenevaa tokenia. ⛔ Älä kirjoita vanhenemispäiviä tähän tiedostoon.
+- 💤 **Inaktiivisuus:** GitHub poistaa cronin käytöstä jos repoon ei kosketa 60 pv. Postausten lisääminen pitää sen elossa.
