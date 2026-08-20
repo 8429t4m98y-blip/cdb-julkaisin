@@ -10,8 +10,12 @@ Miksi Release-liite eikä repo: 40–60 MB video jäisi julkiseen git-historiaan
 pysyvästi. Liite ei kasvata repoa, ja Meta seuraa GitHubin 302-uudelleenohjauksen
 allekirjoitettuun osoitteeseen [mitattu 2026-08-19].
 
-Liite on POISTETTAVISSA heti kun postaus on julkaistu: Instagram hakee median
-kerran ja tallentaa oman kopionsa (sama kuin kuvat/ — todennettu 08-08).
+SÄÄNTÖ — milloin liite saa poistua: vasta kun sen jonorivi on tilassa
+"julkaistu", ja samassa vaiheessa kuin rivi poistetaan jono.json:sta (vaihe 5).
+EI aiemmin: uusinta hakee videon samasta osoitteesta, ja poistettu liite antaa
+404:n → klippi jää julkaisematta hiljaa. Julkaisun jälkeen poisto on turvallinen,
+koska Instagram hakee median kerran ja tallentaa oman kopionsa (kuten kuvat/ —
+todennettu 08-08). --poista tarkistaa tämän itse jono.json:sta.
 
 GH_TOKEN luetaan tämän kansion .env:stä, ei tulostu.
 """
@@ -104,10 +108,32 @@ def vie(polku, tagi):
     print(f"\nLisää jonoriville:\n  \"video\": \"{tagi}/{nimi}\"")
 
 
+def jonovahti(viite):
+    """Kieltäydy poistamasta liitettä jota jono yhä tarvitsee."""
+    jono_path = os.path.join(HERE, "jono.json")
+    if not os.path.exists(jono_path):
+        return
+    try:
+        jono = json.load(open(jono_path, encoding="utf-8"))
+    except ValueError:
+        sys.exit("✗ jono.json ei ole luettavissa — en poista liitettä sokkona.")
+    for item in jono:
+        if item.get("video") == viite and item.get("tila") != "julkaistu":
+            sys.exit(
+                f"✗ jonossa on rivi {item.get('id')!r} tilassa "
+                f"{item.get('tila')!r} joka viittaa tähän liitteeseen.\n"
+                "  Uusinta hakee videon tästä osoitteesta — poisto tekisi siitä "
+                "404:n ja klippi jäisi julkaisematta.\n"
+                "  Poista vasta kun rivi on 'julkaistu' (vaihe 5), tai poista "
+                "rivi ensin käsin."
+            )
+
+
 def poista(viite):
     tagi, _, nimi = viite.partition("/")
     if not nimi:
         sys.exit("✗ anna muodossa <tagi>/<tiedosto.mp4>")
+    jonovahti(viite)
     rel = api("GET", f"{API}/repos/{REPO}/releases/tags/{urllib.parse.quote(tagi)}")
     for a in rel.get("assets", []):
         if a["name"] == nimi:

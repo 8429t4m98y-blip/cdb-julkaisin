@@ -38,6 +38,9 @@ JULKAISU_YRITYKSET = 4
 JULKAISU_ODOTUS = 15          # sekuntia yritysten välissä
 # Montako cron-ajoa saa yrittää samaa postausta ennen kuin se jää virheeseen.
 MAX_AJOYRITYKSET = 3
+# Yksittäisen HTTP-kutsun aikakatkaisu. Ilman tätä jumittunut yhteys roikkuu
+# GitHubin ajorajaan asti (6 h) eikä jonon tila päädy koskaan levylle.
+HTTP_TIMEOUT = 60
 
 # Kontin valmistumisen pollaus: kuva on heti valmis, video transkoodataan.
 POLLAUS = {"kuva": (10, 3), "video": (40, 15)}   # (kierrosta, sekuntia välissä)
@@ -129,16 +132,31 @@ def media_osoite(item, raw_base, release_base):
 # --------------------------------------------------------------------------- #
 # Graph API -apurit
 # --------------------------------------------------------------------------- #
+def tallenna(jono):
+    """Kirjoita jonon tila levylle HETI, joka rivin muutoksen jälkeen.
+
+    Ennen 2026-08-20 tila kirjoitettiin vasta koko silmukan jälkeen. Jos ajo
+    kuoli kesken (GitHubin infra tappoi kolme ajoa 08-06), levyllä luki yhä
+    "odottaa" rivistä joka oli jo Instagramissa → seuraava ajo julkaisi sen
+    uudelleen, eikä jo_julkaistu-tuplasuoja lauennut (se ajettiin vain
+    virhe-riveille). Videolla yksi rivi kestää jopa ~11 min, joten ikkuna oli
+    aito, ei teoreettinen.
+    """
+    with open(JONO_PATH, "w", encoding="utf-8") as f:
+        json.dump(jono, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+
 def api_post(path, params):
     data = urllib.parse.urlencode(params).encode()
     req = urllib.request.Request(f"{BASE}/{path}", data=data, method="POST")
-    with urllib.request.urlopen(req) as r:
+    with urllib.request.urlopen(req, timeout=HTTP_TIMEOUT) as r:
         return json.loads(r.read())
 
 
 def api_get(path, params):
     q = urllib.parse.urlencode(params)
-    with urllib.request.urlopen(f"{BASE}/{path}?{q}") as r:
+    with urllib.request.urlopen(f"{BASE}/{path}?{q}", timeout=HTTP_TIMEOUT) as r:
         return json.loads(r.read())
 
 
@@ -180,10 +198,8 @@ def jo_julkaistu(ig_id, token, caption):
     return None
 
 
-def julkaise_media(ig_id, token, laji, url, item):
-    """Kaksivaiheinen julkaisu: luo container → odota valmista → media_publish.
-    Palauttaa julkaistun median ID:n."""
-    # 1) Luo media-container. Video menee reelinä; Meta hakee tiedoston itse.
+def luo_kontti(ig_id, token, laji, url, item):
+    """Luo media-container. Video menee reelinä; Meta hakee tiedoston itse."""
     params = {"caption": item["caption"], "access_token": token}
     if laji == "video":
         params["media_type"] = "REELS"
@@ -197,29 +213,60 @@ def julkaise_media(ig_id, token, laji, url, item):
     if item.get("collab"):
         collab = item["collab"]
         params["collaborators"] = json.dumps(collab if isinstance(collab, list) else [collab])
-    res = api_post(f"{ig_id}/media", params)
-    creation_id = res["id"]
+    return api_post(f"{ig_id}/media", params)["id"]
 
-    # 2) Odota että container on valmis. Kuva on käytännössä heti, video
-    #    transkoodataan (mitattu 08-19: 73 s reel ~45 s).
+
+def odota_valmista(creation_id, token, laji):
+    """Odota että container on valmis. Kuva on käytännössä heti, video
+    transkoodataan (mitattu 08-19: 73 s reel ~45 s).
+
+    True  = valmis julkaistavaksi.
+    False = kontti on kuollut (ERROR tai kadonnut, esim. Metan 24 h vanhenemisen
+            jälkeen) → soittaja luo uuden. Aikakatkaisu sen sijaan nostaa
+            poikkeuksen: kontti voi yhä valmistua, joten se pollataan uusinnassa
+            loppuun eikä transkoodata alusta.
+    """
     kierrokset, odotus = POLLAUS[laji]
     for _ in range(kierrokset):
-        status = api_get(f"{creation_id}", {
-            "fields": "status_code,status",
-            "access_token": token,
-        })
+        try:
+            status = api_get(f"{creation_id}", {
+                "fields": "status_code,status",
+                "access_token": token,
+            })
+        except urllib.error.HTTPError:
+            return False
         code = status.get("status_code")
         if code == "FINISHED":
-            break
+            return True
         if code == "ERROR":
-            raise RuntimeError(
-                f"Container ERROR (creation_id={creation_id}): {status.get('status', '')}"
-            )
+            print(f"  … kontti {creation_id} on ERROR: {status.get('status', '')}")
+            return False
         time.sleep(odotus)
-    else:
-        raise RuntimeError(f"Container ei valmistunut ajoissa (creation_id={creation_id})")
+    raise RuntimeError(f"Container ei valmistunut ajoissa (creation_id={creation_id})")
 
-    # 3) Julkaise. Ohimenevä "ei vielä valmis" → odota ja yritä uudelleen.
+
+def julkaise_media(ig_id, token, laji, url, item, merkitse):
+    """Kaksivaiheinen julkaisu: luo container → odota valmista → media_publish.
+    Palauttaa julkaistun median ID:n.
+
+    `merkitse(creation_id)` tallentaa kontin riville levylle heti kun se on
+    olemassa. Sen ansiosta kesken kuollut ajo tunnistetaan seuraavalla kerralla,
+    ja uusinta jatkaa vanhaa konttia sen sijaan että transkoodaisi videon alusta.
+    """
+    creation_id = item.get("creation_id")
+    if creation_id:
+        print(f"  … jatketaan aiemmin luotua konttia {creation_id}")
+        if not odota_valmista(creation_id, token, laji):
+            print("  … vanha kontti ei kelpaa, luodaan uusi")
+            creation_id = None
+            merkitse(None)
+    if not creation_id:
+        creation_id = luo_kontti(ig_id, token, laji, url, item)
+        merkitse(creation_id)
+        if not odota_valmista(creation_id, token, laji):
+            raise RuntimeError(f"Container ERROR (creation_id={creation_id})")
+
+    # Julkaise. Ohimenevä "ei vielä valmis" → odota ja yritä uudelleen.
     for yritys in range(1, JULKAISU_YRITYKSET + 1):
         try:
             pub = api_post(f"{ig_id}/media_publish", {
@@ -250,6 +297,9 @@ def main():
 
     for item in jono:
         tila = item.get("tila")
+        # creation_id rivillä = edellinen ajo ehti luoda kontin muttei tallentaa
+        # lopputulosta. Rivi voi siis olla jo Instagramissa.
+        kesken = bool(item.get("creation_id"))
         uusinta = tila == "virhe" and item.get("ajoyrityksia", 1) < MAX_AJOYRITYKSET
         if tila != "odottaa" and not uusinta:
             continue
@@ -266,22 +316,28 @@ def main():
         if aika > nyt:
             continue  # ei vielä erääntynyt
 
-        # Tili ja median osoite ratkaistaan ennen kuin mitään lähetetään.
-        # Rikkinäinen rivi ei saa kaataa koko ajoa muiden rivien alta.
+        # Tili, kuvateksti ja median osoite ratkaistaan ennen kuin mitään
+        # lähetetään. Rikkinäinen rivi ei saa kaataa koko ajoa muiden alta —
+        # ja kuvateksti tarkistetaan tässä, koska jo_julkaistu vertaa sitä.
         try:
             tili, ig_id = valitse_tili(item, tilit)
             laji, url = media_osoite(item, raw_base, release_base)
+            if not (item.get("caption") or "").strip():
+                raise RuntimeError("rivillä ei ole kuvatekstiä (caption)")
         except RuntimeError as e:
             item["tila"] = "virhe"
             item["virhe"] = str(e)
             item["ajoyrityksia"] = item.get("ajoyrityksia", 0) + 1
             virheita += 1
+            tallenna(jono)
             print(f"  ✗ {item.get('id')}: {e}")
             continue
 
-        # Uusinnassa: meniköhän se sittenkin ulos? Tuplapostaus on pahempi
-        # kuin julkaisematta jäänyt postaus.
-        if uusinta:
+        # Meniköhän se sittenkin ulos? Tuplapostaus on pahempi kuin
+        # julkaisematta jäänyt postaus. Tarkistetaan aina kun rivi on jo kerran
+        # ollut käsittelyssä: uusinta (tila=virhe) TAI kesken jäänyt kontti
+        # (edellinen ajo kuoli ennen kuin ehti tallentaa tilan).
+        if uusinta or kesken:
             vanha = jo_julkaistu(ig_id, token, item["caption"])
             if vanha:
                 print(f"→ {item['id']} oli jo tilillä (media_id={vanha}) — merkitään julkaistuksi, ei julkaista uudelleen.")
@@ -290,17 +346,29 @@ def main():
                 item["julkaistu_aika"] = nyt.isoformat()
                 item.pop("virhe", None)
                 item.pop("ajoyrityksia", None)
+                item.pop("creation_id", None)
+                tallenna(jono)
                 continue
             print(f"→ {item['id']}: uusintayritys {item.get('ajoyrityksia', 1) + 1}/{MAX_AJOYRITYKSET}")
 
+        def merkitse(cid, _item=item):
+            """Kontti riville ja levylle heti — ks. tallenna()."""
+            if cid:
+                _item["creation_id"] = cid
+            else:
+                _item.pop("creation_id", None)
+            tallenna(jono)
+
         print(f"→ Julkaistaan {item['id']} → @{tili} ({laji}) …")
         try:
-            media_id = julkaise_media(ig_id, token, laji, url, item)
+            media_id = julkaise_media(ig_id, token, laji, url, item, merkitse)
             item["tila"] = "julkaistu"
             item["media_id"] = media_id
             item["julkaistu_aika"] = nyt.isoformat()
             item.pop("virhe", None)
             item.pop("ajoyrityksia", None)
+            item.pop("creation_id", None)
+            tallenna(jono)
             julkaistu += 1
             print(f"  ✓ julkaistu, media_id={media_id}")
         except (urllib.error.HTTPError, RuntimeError, KeyError) as e:
@@ -309,14 +377,12 @@ def main():
             item["virhe"] = msg
             item["ajoyrityksia"] = item.get("ajoyrityksia", 0) + 1
             virheita += 1
+            tallenna(jono)   # creation_id jää riville: uusinta jatkaa samaa konttia
             jaljella = MAX_AJOYRITYKSET - item["ajoyrityksia"]
             print(f"  ✗ VIRHE: {msg}")
             print(f"    ({'yritetään seuraavassa ajossa uudelleen, ' + str(jaljella) + ' yritystä jäljellä' if jaljella > 0 else 'yritykset käytetty — jää virheeseen, vaatii käsin korjauksen'})")
 
-    # Tallenna jonon tila takaisin (workflow committaa tämän)
-    with open(JONO_PATH, "w", encoding="utf-8") as f:
-        json.dump(jono, f, ensure_ascii=False, indent=2)
-        f.write("\n")
+    tallenna(jono)   # varmistus; tila on kirjoitettu jo joka rivin jälkeen
 
     print(f"\nValmis. Julkaistu: {julkaistu}, virheitä: {virheita}.")
     if virheita:
