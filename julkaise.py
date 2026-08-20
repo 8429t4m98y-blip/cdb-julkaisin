@@ -180,9 +180,11 @@ def on_ohimeneva(body):
 def jo_julkaistu(ig_id, token, caption):
     """Onko sama caption jo tilillä? Palauttaa media_id:n tai None.
 
-    Ajetaan vain ennen UUSINTAyritystä: jos edellinen ajo ehti julkaista mutta
-    kaatui ennen tilan tallennusta, uusinta tekisi tuplapostauksen. Jos kysely
-    epäonnistuu, palautetaan None — tarkistuksen puute ei saa estää julkaisua.
+    Ajetaan JOKAISELLE erääntyneelle riville ennen julkaisua. Syy: rivin tila voi
+    hävitä ilman että riville jää jälkeä siitä (ks. main). Kustannus on yksi GET
+    per erääntynyt rivi. Jos kysely epäonnistuu, palautetaan None — tarkistuksen
+    puute ei saa estää julkaisua, koska julkaisematta jäänyt postaus on tässä
+    suunnassa halvempi virhe kuin julkaisun estäminen.
     """
     try:
         res = api_get(f"{ig_id}/media", {
@@ -297,9 +299,6 @@ def main():
 
     for item in jono:
         tila = item.get("tila")
-        # creation_id rivillä = edellinen ajo ehti luoda kontin muttei tallentaa
-        # lopputulosta. Rivi voi siis olla jo Instagramissa.
-        kesken = bool(item.get("creation_id"))
         uusinta = tila == "virhe" and item.get("ajoyrityksia", 1) < MAX_AJOYRITYKSET
         if tila != "odottaa" and not uusinta:
             continue
@@ -333,22 +332,28 @@ def main():
             print(f"  ✗ {item.get('id')}: {e}")
             continue
 
-        # Meniköhän se sittenkin ulos? Tuplapostaus on pahempi kuin
-        # julkaisematta jäänyt postaus. Tarkistetaan aina kun rivi on jo kerran
-        # ollut käsittelyssä: uusinta (tila=virhe) TAI kesken jäänyt kontti
-        # (edellinen ajo kuoli ennen kuin ehti tallentaa tilan).
-        if uusinta or kesken:
-            vanha = jo_julkaistu(ig_id, token, item["caption"])
-            if vanha:
-                print(f"→ {item['id']} oli jo tilillä (media_id={vanha}) — merkitään julkaistuksi, ei julkaista uudelleen.")
-                item["tila"] = "julkaistu"
-                item["media_id"] = vanha
-                item["julkaistu_aika"] = nyt.isoformat()
-                item.pop("virhe", None)
-                item.pop("ajoyrityksia", None)
-                item.pop("creation_id", None)
-                tallenna(jono)
-                continue
+        # Meniköhän se sittenkin ulos? Tuplapostaus on pahempi kuin julkaisematta
+        # jäänyt postaus, ja rivin tila voi hävitä ilman että riville jää siitä
+        # mitään jälkeä: Actionsissa levy on väliaikainen, ja ainoa pysyvä
+        # kirjoitus on ajon lopun commit. Jos runner kuolee kesken (3/500 ajoa,
+        # kaikki 08-06) tai commitin push hylätään (main liikkui ajon aikana),
+        # levylle kirjoitettu "julkaistu" ei päädy mihinkään ja rivi palaa
+        # seuraavaan ajoon tilassa "odottaa" ILMAN creation_id:tä — eli ilman
+        # yhtäkään merkkiä siitä että se on jo Instagramissa.
+        # ⇒ Tarkistus ajetaan JOKAISELLE erääntyneelle riville, ei vain
+        # uusinnoille ja kesken jääneille. Hinta: yksi GET per erääntynyt rivi.
+        vanha = jo_julkaistu(ig_id, token, item["caption"])
+        if vanha:
+            print(f"→ {item['id']} oli jo tilillä (media_id={vanha}) — merkitään julkaistuksi, ei julkaista uudelleen.")
+            item["tila"] = "julkaistu"
+            item["media_id"] = vanha
+            item["julkaistu_aika"] = nyt.isoformat()
+            item.pop("virhe", None)
+            item.pop("ajoyrityksia", None)
+            item.pop("creation_id", None)
+            tallenna(jono)
+            continue
+        if uusinta:
             print(f"→ {item['id']}: uusintayritys {item.get('ajoyrityksia', 1) + 1}/{MAX_AJOYRITYKSET}")
 
         def merkitse(cid, _item=item):
