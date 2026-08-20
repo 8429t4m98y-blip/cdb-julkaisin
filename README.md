@@ -58,8 +58,10 @@ Skripti luo tarvittaessa releasen, vie liitteen, **tarkistaa että julkinen osoi
 
 - `video` — `"<release-tagi>/<tiedosto.mp4>"`. Vaihtoehtoisesti `video_url` = valmis julkinen osoite sellaisenaan (mikä tahansa isäntä).
 - Video julkaistaan **reelinä** (`media_type=REELS`); Meta hakee tiedoston itse. Tämä on eri latauspolku kuin `Instagram API/ig_publish_reel.py`:n `rupload`, joka kaatuu yli ~60 s klipeillä.
-- `collab` — valinnainen, `"miikameier"` tai lista. ⚠️ **Ei vielä mitattu:** Metan oma opas ei dokumentoi parametria. Jos se ei kelpaa, virhe tulee konttia luodessa eikä mitään mene ulos.
-- **Liite saa poistua heti julkaisun jälkeen** (`python3 laheta_video.py --poista media/tiedosto.mp4`) — Instagram tallentaa oman kopionsa. Sama läpivirtaussääntö kuin `kuvat/`.
+- `collab` — valinnainen, `"miikameier"` tai lista. Mittaamaton — ks. omistajatiedosto.
+- **Liite poistetaan vasta kun rivi on `julkaistu`**, samalla kertaa kuin rivi poistetaan jonosta (`--poista media/tiedosto.mp4`). Aiemmin poistettu liite antaa uusinnalle 404:n → klippi jää julkaisematta hiljaa; skripti kieltäytyy siksi itse.
+
+⛔ **Jos muutat `julkaise.py`:tä, aja `python3 testaa_julkaise.py` ensin** (26 tarkistusta, ei koske verkkoon). Workflow ei aja niitä puolestasi.
 
 Committaa → aja `./push.sh` → Actions hoitaa loput. Tila päivittyy takaisin `jono.json`:iin automaattisesti. **Clauden koko työnkulku jonoon viemisestä siivoukseen: omistajatiedosto §Ajastus.**
 
