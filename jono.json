@@ -59,5 +59,14 @@
     "tila": "julkaistu",
     "media_id": "18578154619065587",
     "julkaistu_aika": "2026-08-25T16:00:00.981942+00:00"
+  },
+  {
+    "id": "j20-k8",
+    "otsikko": "Monologi j20 klippi 8 — uus ihmissuhde & oma aika",
+    "tili": "monologi",
+    "video": "media/jakso20_klippi8_KE_v2.mp4",
+    "caption": "Uuden ihmissuhteen myötä oon huomannu, et vaatii työstöä ja mindsetin muuttamista, kun haluaa jakaa omia aikaresursseja toiselle.",
+    "aika": "2026-08-26T18:00:00+03:00",
+    "tila": "odottaa"
   }
 ]
