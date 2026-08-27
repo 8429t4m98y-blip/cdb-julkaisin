@@ -39,3 +39,30 @@
 ➡️ Jäljellä: kirjaa `media_id` jakson `…_julkaisumateriaalit.md`:hen.
 - ✓ liite: ✓ poistettu liite jakso20_klippi8_KE_v2.mp4 tagista media
 - ✓ push: ✓ Työnnetty GitHubiin. Cron julkaisee erääntyneet postaukset (mitattu tahti ~2-3 h, ei 15 min).
+
+## 2026-08-27 19:07 · j20-k4
+✅ **PUHDAS** · `media_id` **18050994725580528** · liite `media/jakso20_klippi4_TO.mp4` poistettu · jonorivi poistettu
+```
+2026-08-27  18050994725580528  https://www.instagram.com/reel/DcjLNFpCZ-Y/
+  kesto   33.5 s
+  16–24 kHz ero paikalliseen: -3.9 dB (vanha tunniste: rikki ≈ +7…+13, puhdas ≈ -3…-11)
+  lähteessä 1 hiljaisuutta — ne eivät ole vika
+  ⇒ ✅ PUHDAS
+```
+➡️ Jäljellä: kirjaa `media_id` jakson `…_julkaisumateriaalit.md`:hen.
+- ✓ liite: ✓ poistettu liite jakso20_klippi4_TO.mp4 tagista media
+- ✓ push: ✓ Työnnetty GitHubiin. Cron julkaisee erääntyneet postaukset (mitattu tahti ~2-3 h, ei 15 min).
+
+## 2026-08-27 21:15 · era-k7
+✅ **PUHDAS** · `media_id` **18064182869761841** · liite `media/clip7_viisi_kisasuoritusta_v2.mp4` poistettu · jonorivi poistettu
+```
+2026-08-27  18064182869761841  https://www.instagram.com/reel/DcjLFTBkcyv/
+  kesto   76.9 s
+  hiljaisuus  74.60 s →  76.85 s  ( 2250 ms)    (loppu, endcard)
+  16–24 kHz ero paikalliseen: +1.8 dB (vanha tunniste: rikki ≈ +7…+13, puhdas ≈ -3…-11)
+  lähteessä 1 hiljaisuutta — ne eivät ole vika
+  ⇒ ✅ PUHDAS
+```
+➡️ Jäljellä: kirjaa `media_id` jakson `…_julkaisumateriaalit.md`:hen.
+- ✓ liite: ✓ poistettu liite clip7_viisi_kisasuoritusta_v2.mp4 tagista media
+- ✓ push: ✓ Työnnetty GitHubiin. Cron julkaisee erääntyneet postaukset (mitattu tahti ~2-3 h, ei 15 min).
