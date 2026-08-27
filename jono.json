@@ -73,5 +73,14 @@
     "caption": "Mun kouvolalaisist frendeist muutamien kaa pidän yhteyttä, mut useampi on hiipunu sen jälkee ku muutin sielt pois.\n\nTää koko kela heräs ku kuuntelin Mel Robbinsin Let Them -kirjaa ja siin puhuttii et se on inhimillistä, kun välimatkaa tulee lisää. Silti mä struglaan sen kaa, et ois kiva jos ne samat tyypit olis edellee elämässä mukana.",
     "aika": "2026-08-29T18:00:00+03:00",
     "tila": "odottaa"
+  },
+  {
+    "id": "ajastin-testi",
+    "otsikko": "AJASTIMEN LAPIMENOTESTI - ei julkaista, media puuttuu tarkoituksella",
+    "tili": "cdb",
+    "kuva": "kuvat/EI_OLEMASSA_ajastintesti.png",
+    "caption": "ajastimen lapimenotesti 2026-08-27 - tama rivi ei julkaistu koskaan",
+    "aika": "2026-08-27T21:12:42+03:00",
+    "tila": "odottaa"
   }
 ]
