@@ -16,7 +16,12 @@ yksi hyväksyntä, joka voidaan antaa etukäteen.
 ⛔ EI POISTA MITÄÄN JOS ÄÄNI ON RIKKI. Silloin liite ja rivi jäävät paikalleen,
    koska uusinta tarvitsee molemmat.
 
-Poistumiskoodit: 0 = valmis · 2 = ei julkaistu määräajassa · 3 = ääni rikki.
+Poistumiskoodit: 0 = valmis · 2 = ei julkaistu määräajassa · 3 = ääni rikki ·
+4 = ääni puhdas mutta siivous jäi kesken (liite, pull tai push epäonnistui).
+
+⛔ EI KIRJAA ONNISTUMISTA JOTA EI TAPAHTUNUT. Jokaisen alikomennon paluuarvo
+   tarkistetaan; 08-23 j19-k7:n liitteen poisto epäonnistui ja loki sanoi silti
+   ✅ PUHDAS · liite poistettu. Liite löytyi Releasesta 4 vrk myöhemmin.
 """
 import argparse
 import json
@@ -35,9 +40,17 @@ def aja(cmd, **kw):
     return subprocess.run(cmd, capture_output=True, text=True, **kw)
 
 
+def viimeinen_rivi(r):
+    rivit = (r.stdout + r.stderr).strip().splitlines()
+    return rivit[-1] if rivit else "—"
+
+
 def etarivi(rivi_id):
     """Lue jonorivi GitHubin mainista — paikallinen kopio on aina jäljessä."""
-    aja(["git", "-C", HERE, "fetch", "origin", "--quiet"])
+    f = aja(["git", "-C", HERE, "fetch", "origin", "--quiet"])
+    if f.returncode != 0:
+        sys.exit(f"✗ git fetch epäonnistui — en lue vanhaa origin/mainia sokkona: "
+                 f"{f.stderr.strip()[:200]}")
     r = aja(["git", "-C", HERE, "show", "origin/main:jono.json"])
     if r.returncode != 0:
         sys.exit(f"✗ jono.json ei luettavissa originista: {r.stderr.strip()[:200]}")
@@ -105,12 +118,16 @@ def main():
         return 3
 
     # 3) poista liite ja rivi — vasta kun tuomio on puhdas
-    poistot = []
+    poistot, epaonnistui = [], []
     if liite:
         p = aja([sys.executable, os.path.join(HERE, "laheta_video.py"), "--poista", liite])
-        poistot.append((p.stdout + p.stderr).strip().splitlines()[-1] if (p.stdout or p.stderr) else "—")
+        poistot.append(f"{'✓' if p.returncode == 0 else '✗'} liite: {viimeinen_rivi(p)}")
+        if p.returncode != 0:
+            epaonnistui.append(f"Release-liite `{liite}` EI poistunut")
 
-    aja(["git", "-C", HERE, "pull", "--ff-only", "origin", "main"])
+    pull = aja(["git", "-C", HERE, "pull", "--ff-only", "origin", "main"])
+    if pull.returncode != 0:
+        epaonnistui.append(f"git pull epäonnistui: {viimeinen_rivi(pull)}")
     jono_path = os.path.join(HERE, "jono.json")
     jono = json.load(open(jono_path, encoding="utf-8"))
     jaljelle = [r for r in jono if r.get("id") != a.id]
@@ -121,7 +138,16 @@ def main():
         aja(["git", "-C", HERE, "commit", "-q", "-m",
              f"jono: {a.id} julkaistu (media_id {media_id}), rivi pois vaihe 5:n mukaan"])
         pu = aja(["sh", os.path.join(HERE, "push.sh")])
-        poistot.append((pu.stdout + pu.stderr).strip().splitlines()[-1] if (pu.stdout or pu.stderr) else "—")
+        poistot.append(f"{'✓' if pu.returncode == 0 else '✗'} push: {viimeinen_rivi(pu)}")
+        if pu.returncode != 0:
+            epaonnistui.append("jonorivin poisto jäi PAIKALLISEKSI — remotessa rivi on yhä")
+
+    if epaonnistui:
+        kirjaa(f"\n## {datetime.now():%Y-%m-%d %H:%M} · {a.id}\n"
+               f"⚠️ **ÄÄNI PUHDAS, MUTTA SIIVOUS JÄI KESKEN** · `media_id` **{media_id}**\n"
+               + "\n".join(f"- 🔴 {x}" for x in epaonnistui) + "\n"
+               + "\n".join(f"- {x}" for x in poistot))
+        return 4
 
     kirjaa(f"\n## {datetime.now():%Y-%m-%d %H:%M} · {a.id}\n"
            f"✅ **PUHDAS** · `media_id` **{media_id}** · liite `{liite}` poistettu · jonorivi poistettu\n"
