@@ -62,16 +62,5 @@
     "caption": "Mun kouvolalaisist frendeist muutamien kaa pidän yhteyttä, mut useampi on hiipunu sen jälkee ku muutin sielt pois.\n\nTää koko kela heräs ku kuuntelin Mel Robbinsin Let Them -kirjaa ja siin puhuttii et se on inhimillistä, kun välimatkaa tulee lisää. Silti mä struglaan sen kaa, et ois kiva jos ne samat tyypit olis edellee elämässä mukana.",
     "aika": "2026-08-29T18:00:00+03:00",
     "tila": "odottaa"
-  },
-  {
-    "id": "ajastin-testi",
-    "otsikko": "AJASTIMEN LAPIMENOTESTI - ei julkaista, media puuttuu tarkoituksella",
-    "tili": "cdb",
-    "kuva": "kuvat/EI_OLEMASSA_ajastintesti.png",
-    "caption": "ajastimen lapimenotesti 2026-08-27 - tama rivi ei julkaistu koskaan",
-    "aika": "2026-08-27T21:12:42+03:00",
-    "tila": "virhe",
-    "virhe": "{\"error\":{\"message\":\"Only photo or video can be accepted as media type.\",\"type\":\"OAuthException\",\"code\":9004,\"error_subcode\":2207052,\"is_transient\":false,\"error_user_title\":\"Mediasis\\u00e4ll\\u00f6n lataaminen ep\\u00e4onnistui. Mediasis\\u00e4ll\\u00f6n URI ei t\\u00e4yt\\u00e4 vaatimuksiamme.\",\"error_user_msg\":\"Mediasis\\u00e4lt\\u00f6\\u00e4 ei voitu hakea t\\u00e4st\\u00e4 URI:st\\u00e4: https:\\/\\/raw.githubusercontent.com\\/8429t4m98y-blip\\/cdb-julkaisin\\/main\\/kuvat\\/EI_OLEMASSA_ajastintesti.png.Katso lis\\u00e4tietoja kehitt\\u00e4j\\u00e4dokumentaation rajoitusosiosta: https:\\/\\/developers.facebook.com\\/docs\\/instagram-platform\\/instagram-graph-api\\/reference\\/ig-user\\/media#creating.\",\"fbtrace_id\":\"AGUyZVLxWSOvPTWkdXdEJAL\"}}",
-    "ajoyrityksia": 1
   }
 ]
