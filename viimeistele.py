@@ -25,10 +25,14 @@ yksi hyväksyntä, joka voidaan antaa etukäteen.
 ⛔ EI POISTA MITÄÄN JOS ÄÄNI ON RIKKI TAI JOS SITÄ EI VOITU MITATA. Silloin liite
    ja rivi jäävät paikalleen, koska uusinta tarvitsee molemmat.
 
+⛔ EI POISTA JONORIVIÄ JOS LIITE EI POISTUNUT. Molemmat jäävät paikalleen ja sama
+   komento voidaan ajaa uudestaan; rivin poisto yksin tekisi tilasta
+   peruuttamattoman, koska uusinta ei enää löytäisi riviä eikä siis liitettä.
+
 Poistumiskoodit: 0 = valmis · 2 = ei edennyt (ei julkaistu määräajassa, ei
 `media_id`:tä, tai lähdetiedostoa ei voitu johtaa) · 3 = ääni rikki TAI ei
-tarkistettavissa · 4 = ääni puhdas mutta siivous jäi kesken (liite, pull tai
-push epäonnistui). **Monella id:llä palautetaan suurin yksittäinen koodi**, ja
+tarkistettavissa · 4 = ääni puhdas mutta siivous jäi kesken (pull, liite tai
+push epäonnistui) — **koodi 4 on aina korjattavissa samalla komennolla**. **Monella id:llä palautetaan suurin yksittäinen koodi**, ja
 ajon lopussa tulostetaan yhteenveto id kerrallaan.
 
 ⛔ EI KIRJAA ONNISTUMISTA JOTA EI TAPAHTUNUT. Jokaisen alikomennon paluuarvo
@@ -183,17 +187,39 @@ def kasittele(rivi_id, alkuperainen_kasin, odota):
                f"liite ja rivi JÄTETTIIN paikalleen.\n```\n{tuloste[-1200:]}\n```")
         return 3
 
-    # 3) poista liite ja rivi — vasta kun tuomio on puhdas
+    # 3) siivous — vasta kun tuomio on puhdas. JÄRJESTYS ON OSA SÄÄNTÖÄ:
+    #    ① pull ensin, jotta jonorivi poistetaan tuoreesta kopiosta eikä stale
+    #    lokaali pushaudu originin päälle · ② liite sitten · ③ jonoriviin
+    #    kosketaan VASTA kun liite on poissa.
+    #    ⛔ Jos ① tai ② epäonnistuu, kumpaakaan ei viedä eteenpäin: rivin poisto
+    #    tekisi tilasta peruuttamattoman (rivi poissa ⇒ uusinta osuu
+    #    `etarivi() → None` -haaraan eikä koske liitteeseen enää koskaan) ja
+    #    liite jäisi orvoksi. [mitattu 08-30: vahti esti poiston 2 kertaa 10
+    #    ajossa ja MOLEMMILLA kerroilla syntyi orpo liite.]
     poistot, epaonnistui = [], []
+
+    pull = aja(["git", "-C", HERE, "pull", "--ff-only", "origin", "main"])
+    if pull.returncode != 0:
+        kirjaa(otsikko() + f"⚠️ **ÄÄNI PUHDAS, MUTTA SIIVOUS EI ALKANUT** · "
+               f"`media_id` **{media_id}**\n"
+               f"- 🔴 `git pull --ff-only` epäonnistui: {viimeinen_rivi(pull)}\n"
+               f"- Liite `{liite}` ja jonorivi JÄTETTIIN paikalleen. Korjaa klooni ja "
+               f"aja sama komento uudestaan:\n"
+               f"  `python3 viimeistele.py --id {rivi_id}`")
+        return 4
+
     if liite:
         p = aja([sys.executable, os.path.join(HERE, "laheta_video.py"), "--poista", liite])
         poistot.append(f"{'✓' if p.returncode == 0 else '✗'} liite: {viimeinen_rivi(p)}")
         if p.returncode != 0:
-            epaonnistui.append(f"Release-liite `{liite}` EI poistunut")
+            kirjaa(otsikko() + f"⚠️ **ÄÄNI PUHDAS, MUTTA LIITE EI POISTUNUT** · "
+                   f"`media_id` **{media_id}**\n"
+                   f"- 🔴 Release-liite `{liite}` EI poistunut — **jonoriviin ei koskettu**, "
+                   f"joten sama komento ajaa siivouksen loppuun:\n"
+                   f"  `python3 viimeistele.py --id {rivi_id}`\n"
+                   + "\n".join(f"- {x}" for x in poistot))
+            return 4
 
-    pull = aja(["git", "-C", HERE, "pull", "--ff-only", "origin", "main"])
-    if pull.returncode != 0:
-        epaonnistui.append(f"git pull epäonnistui: {viimeinen_rivi(pull)}")
     jono_path = os.path.join(HERE, "jono.json")
     jono = json.load(open(jono_path, encoding="utf-8"))
     jaljelle = [r for r in jono if r.get("id") != rivi_id]

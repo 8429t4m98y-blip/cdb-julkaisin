@@ -15,12 +15,16 @@ SÄÄNTÖ — milloin liite saa poistua: vasta kun sen jonorivi on tilassa
 EI aiemmin: uusinta hakee videon samasta osoitteesta, ja poistettu liite antaa
 404:n → klippi jää julkaisematta hiljaa. Julkaisun jälkeen poisto on turvallinen,
 koska Instagram hakee median kerran ja tallentaa oman kopionsa (kuten kuvat/ —
-todennettu 08-08). --poista tarkistaa tämän itse jono.json:sta.
+todennettu 08-08). --poista tarkistaa tämän itse **origin/mainin** jono.json:sta
+(ei paikallisesta — tämä klooni on normaalisti jäljessä, ks. §jonovahti).
+Jo poistettu liite ei ole virhe: --poista on idempotentti, jotta vaihe 5:n
+kesken jäänyt siivous voidaan ajaa loppuun samalla komennolla.
 
 GH_TOKEN luetaan tämän kansion .env:stä, ei tulostu.
 """
 import json
 import os
+import subprocess
 import sys
 import urllib.error
 import urllib.parse
@@ -108,16 +112,55 @@ def vie(polku, tagi):
     print(f"\nLisää jonoriville:\n  \"video\": \"{tagi}/{nimi}\"")
 
 
-def jonovahti(viite):
-    """Kieltäydy poistamasta liitettä jota jono yhä tarvitsee."""
+def _tulkitse_jono(teksti, mista):
+    try:
+        data = json.loads(teksti)
+    except ValueError:
+        sys.exit(f"✗ jono.json ({mista}) ei ole luettavissa — en poista liitettä sokkona.")
+    return data if isinstance(data, list) else []
+
+
+def _origin_jono():
+    """jono.json GitHubin mainista — SAMA LÄHDE kuin viimeistele.py §etarivi().
+
+    ⛔ Älä lue jonon tilaa paikallisesta tiedostosta. Tämä klooni on normaalisti
+    jäljessä, koska paikallinen-ajastin ja cdb-julkaisin-botti committaavat
+    originiin sen ulkopuolelta: vahti näki rivin `odottaa` vaikka origin sanoi
+    `julkaistu`, esti poiston 2 kertaa 10 ajossa ja MOLEMMILLA kerroilla jäi
+    orpo liite [mitattu 08-30].
+    """
+    f = subprocess.run(["git", "-C", HERE, "fetch", "origin", "--quiet"],
+                       capture_output=True, text=True)
+    if f.returncode != 0:
+        sys.exit("✗ git fetch epäonnistui — en lue vanhaa origin/mainia sokkona: "
+                 f"{f.stderr.strip()[:200]}")
+    r = subprocess.run(["git", "-C", HERE, "show", "origin/main:jono.json"],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        sys.exit(f"✗ jono.json ei luettavissa originista: {r.stderr.strip()[:200]}")
+    return _tulkitse_jono(r.stdout, "origin/main")
+
+
+def _paikallinen_jono():
     jono_path = os.path.join(HERE, "jono.json")
     if not os.path.exists(jono_path):
-        return
-    try:
-        jono = json.load(open(jono_path, encoding="utf-8"))
-    except ValueError:
-        sys.exit("✗ jono.json ei ole luettavissa — en poista liitettä sokkona.")
-    for item in jono:
+        return []
+    return _tulkitse_jono(open(jono_path, encoding="utf-8").read(), "paikallinen")
+
+
+def jonovahti(viite):
+    """Kieltäydy poistamasta liitettä jota jono yhä tarvitsee.
+
+    Rivin tila luetaan **originista**. Paikallisesta katsotaan vain ne rivit
+    joiden id:tä originissa EI vielä ole (= juuri lisätty, ei vielä pushattu),
+    jotta tuore odottava rivi ei jää suojaamatta. Stale paikallinen kopio
+    rivistä ei siis enää estä poistoa — origin ratkaisee.
+    """
+    origin = _origin_jono()
+    origin_idt = {r.get("id") for r in origin if r.get("id")}
+    tarkistettavat = list(origin) + [r for r in _paikallinen_jono()
+                                     if r.get("id") not in origin_idt]
+    for item in tarkistettavat:
         if item.get("video") == viite and item.get("tila") != "julkaistu":
             sys.exit(
                 f"✗ jonossa on rivi {item.get('id')!r} tilassa "
@@ -134,13 +177,17 @@ def poista(viite):
     if not nimi:
         sys.exit("✗ anna muodossa <tagi>/<tiedosto.mp4>")
     jonovahti(viite)
-    rel = api("GET", f"{API}/repos/{REPO}/releases/tags/{urllib.parse.quote(tagi)}")
-    for a in rel.get("assets", []):
+    rel = api("GET", f"{API}/repos/{REPO}/releases/tags/{urllib.parse.quote(tagi)}",
+              salli=(404,))
+    for a in (rel or {}).get("assets", []):
         if a["name"] == nimi:
             api("DELETE", f"{API}/repos/{REPO}/releases/assets/{a['id']}")
             print(f"✓ poistettu liite {nimi} tagista {tagi}")
             return
-    sys.exit(f"✗ liitettä {nimi!r} ei ole tagissa {tagi!r}")
+    # Poissa = ei tehtävää, EI virhe. Vaihe 5 uusii saman komennon kun siivous
+    # jäi kesken (koodi 4); jo poistettu liite pysäyttäisi uusinnan ennen kuin
+    # jonorivi ehditään poistaa, ja jättäisi rivin ikuisesti jonoon.
+    print(f"✓ liitettä {nimi} ei ole tagissa {tagi} — jo poistettu, ei tehtävää")
 
 
 if __name__ == "__main__":
