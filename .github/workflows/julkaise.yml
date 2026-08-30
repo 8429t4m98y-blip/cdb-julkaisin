@@ -8,6 +8,12 @@ name: Julkaise Instagramiin
 on:
   schedule:
     - cron: "*/15 * * * *"
+  # Ulkoinen herätys: Hostingerin cron POSTaa /dispatches 10 min välein.
+  # Syy: GitHubin oma cron romahti 27.8.2026 (30 ajoa/vrk -> 1-3) eikä kattanut
+  # slotteja; julkaisu jäi sen varaan avaako Miika koneen. Peruste:
+  # "Coaches Database/julkaisuautomaatio.md" #CRON ON ROMAHTANUT.
+  repository_dispatch:
+    types: [julkaise]
   workflow_dispatch:
 
 # Estä päällekkäiset ajot (ei kahta julkaisua samaan aikaan)
