@@ -3,3 +3,7 @@
 *.env
 .DS_Store
 __pycache__/
+
+# Varmuuskopiot .env:sta sisaltavat tokenin — alä koskaan committaa
+.env.bak-*
+*.bak-*
