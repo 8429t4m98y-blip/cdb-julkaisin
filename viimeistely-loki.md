@@ -107,3 +107,16 @@ _(mittaus ajettu uudelleen 30.8. klo 05:3x, kuten j20-k5. Kesto 46,8 s vastaa do
 ✅ **Orpo Release-liite `media/shortform_kitka_pois.mp4` poistettu käsin** — julkinen osoite todennettu **404**, `media`-tagiin jäi vain `jakso20_klippi7_SU.mp4` ja `jakso20_klippi8_MA.mp4` (molempiin viittaa yhä `odottaa`-rivi, EI koskettu).
 🔍 **Miksi 05:21 ajo ei poistanut sitä — ohjelmavika, ei ympäristö.** `laheta_video.py --poista` lukee `jonovahti()`:ssa **paikallisen** `jono.json`:n, kun taas `viimeistele.py` lukee tilan **origin/mainista** (`etarivi()`). Poiston hetkellä paikallinen HEAD oli `94f54ad` (27.8. klo 21:24) eli **2 vrk jäljessä**, ja siinä rivi oli `tila: "odottaa"` — origin/mainissa se oli jo `julkaistu` (`1165223`). Vahti siis esti poiston tilatiedolla jonka skripti itse tiesi vanhentuneeksi. `git pull` ajetaan vasta **poistoyrityksen jälkeen** (`viimeistele.py` r. 194 vs. r. 189). Todiste: reflog `1165223 → pull --ff-only … 05:21:14`, heti sen jälkeen `d9b4373`.
 🔴 **Toinen, vakavampi puoli: jonorivi poistettiin silti.** Liitteen poiston epäonnistuminen vain kirjataan `epaonnistui`-listaan; suoritus jatkaa pull → rivin poisto → commit → push. Lopputila on **peruuttamaton samalla komennolla**: rivi on poissa, joten uusinta osuu `etarivi() → None` -haaraan (*"Riviä ei ole jonossa… Ei tehty mitään"*, **exit 0**) eikä liitteeseen kosketa koskaan. Siivous oli pakko tehdä käsin. Kirjattu → `Projektit/Coaches Database/julkaisuautomaatio.md`.
+
+## 2026-08-31 07:51 · j20-k7
+✅ **PUHDAS** · `media_id` **18112917346807473** · liite `media/jakso20_klippi7_SU.mp4` poistettu · jonorivi poistettu
+```
+2026-08-30  18112917346807473  https://www.instagram.com/reel/DcqyQNKE6nY/
+  kesto   51.6 s
+  16–24 kHz ero paikalliseen: -3.9 dB (vanha tunniste: rikki ≈ +7…+13, puhdas ≈ -3…-11)
+  lähteessä 1 hiljaisuutta — ne eivät ole vika
+  ⇒ ✅ PUHDAS
+```
+➡️ Jäljellä: kirjaa `media_id` jakson `…_julkaisumateriaalit.md`:hen.
+- ✓ liite: ✓ poistettu liite jakso20_klippi7_SU.mp4 tagista media
+- ✓ push: ✓ Työnnetty GitHubiin. Cron julkaisee erääntyneet postaukset (mitattu tahti ~2-3 h, ei 15 min).
