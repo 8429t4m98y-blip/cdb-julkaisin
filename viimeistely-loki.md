@@ -120,3 +120,16 @@ _(mittaus ajettu uudelleen 30.8. klo 05:3x, kuten j20-k5. Kesto 46,8 s vastaa do
 ➡️ Jäljellä: kirjaa `media_id` jakson `…_julkaisumateriaalit.md`:hen.
 - ✓ liite: ✓ poistettu liite jakso20_klippi7_SU.mp4 tagista media
 - ✓ push: ✓ Työnnetty GitHubiin. Cron julkaisee erääntyneet postaukset (mitattu tahti ~2-3 h, ei 15 min).
+
+## 2026-08-31 18:11 · j20-ma31
+✅ **PUHDAS** · `media_id` **18143489302573686** · liite `media/jakso20_klippi8_MA.mp4` poistettu · jonorivi poistettu
+```
+2026-08-31  18143489302573686  https://www.instagram.com/reel/DctXCUgjvOr/
+  kesto   18.3 s
+  16–24 kHz ero paikalliseen: -4.1 dB (vanha tunniste: rikki ≈ +7…+13, puhdas ≈ -3…-11)
+  lähteessä 1 hiljaisuutta — ne eivät ole vika
+  ⇒ ✅ PUHDAS
+```
+➡️ Jäljellä: kirjaa `media_id` jakson `…_julkaisumateriaalit.md`:hen.
+- ✓ liite: ✓ poistettu liite jakso20_klippi8_MA.mp4 tagista media
+- ✓ push: ✓ Työnnetty GitHubiin. Erääntyneet postaukset lähtevät seuraavassa ajossa; pääherättäjä on Hostingerin cron 10 min välein (mitattu 31.8.). ⛔ Älä lupaa kellonaikaa - katso jonon tila: bash ~/Library/Application\ Support/julkaisin-ajastin/tila.sh
