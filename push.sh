@@ -27,7 +27,7 @@ echo "→ Haetaan origin ja työnnetään main …"
 git -C "$DIR" fetch origin --quiet
 # Työnnä token-URL:lla; kaiutetaan vain onnistuminen, ei tokenia.
 if git -C "$DIR" push "https://x-access-token:${TOKEN}@${REPO}" HEAD:main 2>/tmp/cdb_push_err; then
-  echo "✓ Työnnetty GitHubiin. Cron julkaisee erääntyneet postaukset (mitattu tahti ~2-3 h, ei 15 min)."
+  echo "✓ Työnnetty GitHubiin. Erääntyneet postaukset lähtevät seuraavassa ajossa; pääherättäjä on Hostingerin cron 10 min välein (mitattu 31.8.). ⛔ Älä lupaa kellonaikaa - katso jonon tila: bash ~/Library/Application\ Support/julkaisin-ajastin/tila.sh"
 else
   # Siivotaan mahdollinen token pois virheviestistä ennen näyttöä.
   sed "s#x-access-token:[^@]*@#x-access-token:***@#g" /tmp/cdb_push_err >&2
