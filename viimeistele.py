@@ -35,6 +35,13 @@ tarkistettavissa · 4 = ääni puhdas mutta siivous jäi kesken (pull, liite tai
 push epäonnistui) — **koodi 4 on aina korjattavissa samalla komennolla**. **Monella id:llä palautetaan suurin yksittäinen koodi**, ja
 ajon lopussa tulostetaan yhteenveto id kerrallaan.
 
+⛔ RAPORTTI VIEDÄÄN REMOTEEN OMANA COMMITTINAAN jokaisen id:n jälkeen
+   (`viimeistely-loki.md`). Se EI muuta poistumiskoodia: koodi 4 lupaa
+   *"korjattavissa samalla komennolla"*, eikä se päde raporttiin, koska
+   jonorivi on siinä vaiheessa jo poissa. Epäonnistuminen tulostuu punaisena
+   ja antaa tarkan korjauskomennon. [08-31: ennen tätä ajon ainoa todiste jäi
+   pelkästään levylle — `j20-k7`:n rivi löytyi commitoimattomana ajon jälkeen.]
+
 ⛔ EI KIRJAA ONNISTUMISTA JOTA EI TAPAHTUNUT. Jokaisen alikomennon paluuarvo
    tarkistetaan; 08-23 j19-k7:n liitteen poisto epäonnistui ja loki sanoi silti
    ✅ PUHDAS · liite poistettu. Liite löytyi Releasesta 4 vrk myöhemmin.
@@ -118,6 +125,46 @@ def kirjaa(teksti):
     with open(RAPORTTI, "a", encoding="utf-8") as f:
         f.write(teksti + "\n")
     print(teksti)
+
+
+def pusha_raportti(rivi_id):
+    """Vie `viimeistely-loki.md` remoteen omana committinaan.
+
+    ⛔ EI muuta poistumiskoodia. Koodi 4 lupaa *"korjattavissa samalla
+    komennolla"*, eikä se pidä paikkaansa raportista: kun jonorivi on jo
+    poistettu, uusinta osuu `etarivi() → None` -haaraan eikä kirjoita
+    raporttiin mitään. Epäonnistuminen huudetaan siis näkyviin ja annetaan
+    tarkka korjauskomento — sitä ei piiloteta koodiin jota ei voi korjata.
+
+    Miksi oma commit eikä sama kuin `jono.json`:n: raportti kirjoitetaan
+    vasta kun tuomio on tiedossa, eli `kirjaa()` ajaa jonorivin poiston
+    JÄLKEEN. Yhteinen commit vaatisi tuomion siirtämistä ennen siivousta,
+    ja siivouksen järjestys on osa sääntöä (ks. kohta 3).
+
+    [rakennettu 08-31: ajon ainoa todiste jäi tähän asti vain levylle —
+    `j20-k7`:n rivi löytyi commitoimattomana ajon jälkeen.]
+    """
+    tila = aja(["git", "-C", HERE, "status", "--porcelain", "--", RAPORTTI])
+    if tila.returncode != 0 or not tila.stdout.strip():
+        return  # ei muutosta vietäväksi — tai git ei vastaa, ja se näkyy jo muualla
+    aja(["git", "-C", HERE, "add", "--", RAPORTTI])
+    c = aja(["git", "-C", HERE, "commit", "-q", "-m",
+             f"viimeistely-loki: {rivi_id} vaihe 5 ajettu"])
+    pu = aja(["sh", os.path.join(HERE, "push.sh")]) if c.returncode == 0 else c
+    if c.returncode == 0 and pu.returncode == 0:
+        print(f"- ✓ raportti: `viimeistely-loki.md` commitoitu ja työnnetty")
+        return
+    # Korjauskomento riippuu siitä KUMPI kaatui: jo commitoitua ei voi commitoida
+    # uudelleen, ja `&&`-ketju pysähtyisi siihen ("nothing to commit").
+    if c.returncode == 0:
+        korjaus = f'sh "{os.path.join(HERE, "push.sh")}"'
+    else:
+        korjaus = (f'git -C "{HERE}" add -- viimeistely-loki.md && '
+                   f'git -C "{HERE}" commit -m "viimeistely-loki: {rivi_id}" && '
+                   f'sh "{os.path.join(HERE, "push.sh")}"')
+    print(f"- 🔴 RAPORTTI JÄI PAIKALLISEKSI ({viimeinen_rivi(pu)}) — siivous on tehty, "
+          f"mutta ajon todiste ei ole remotessa. ⛔ Sama komento EI korjaa tätä "
+          f"(jonorivi on jo poissa). Korjaa käsin:\n  {korjaus}")
 
 
 def kasittele(rivi_id, alkuperainen_kasin, odota):
@@ -268,7 +315,11 @@ def main():
     if a.alkuperainen and not os.path.isfile(a.alkuperainen):
         ap.error(f"alkuperäistä ei ole: {a.alkuperainen}")
 
-    tulokset = [(rivi_id, kasittele(rivi_id, a.alkuperainen, a.odota)) for rivi_id in a.id]
+    tulokset = []
+    for rivi_id in a.id:
+        koodi = kasittele(rivi_id, a.alkuperainen, a.odota)
+        pusha_raportti(rivi_id)   # ⛔ ei vaikuta koodiin — ks. funktion docstring
+        tulokset.append((rivi_id, koodi))
 
     if len(tulokset) > 1:
         print("\n— yhteenveto —")
