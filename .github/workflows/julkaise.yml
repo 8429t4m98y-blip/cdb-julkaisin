@@ -46,4 +46,7 @@ jobs:
           git config user.email "bot@coaches.database"
           git add jono.json
           git diff --staged --quiet || git commit -m "jono: päivitä julkaisutila"
+          # Rebase ennen pushia: paikallinen push voi osua ajon päälle (mitattu 2.9.2026,
+          # ajo 1578 kaatui kun d912020 landasi 3 s ennen tämän ajon checkouttia).
+          git pull --rebase origin main
           git push
