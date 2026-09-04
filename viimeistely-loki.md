@@ -133,3 +133,17 @@ _(mittaus ajettu uudelleen 30.8. klo 05:3x, kuten j20-k5. Kesto 46,8 s vastaa do
 ➡️ Jäljellä: kirjaa `media_id` jakson `…_julkaisumateriaalit.md`:hen.
 - ✓ liite: ✓ poistettu liite jakso20_klippi8_MA.mp4 tagista media
 - ✓ push: ✓ Työnnetty GitHubiin. Erääntyneet postaukset lähtevät seuraavassa ajossa; pääherättäjä on Hostingerin cron 10 min välein (mitattu 31.8.). ⛔ Älä lupaa kellonaikaa - katso jonon tila: bash ~/Library/Application\ Support/julkaisin-ajastin/tila.sh
+
+## 2026-09-04 06:36 · era-k8
+✅ **PUHDAS** · `media_id` **18271301014306296** · liite `media/clip8_rauhassa_v3.mp4` poistettu · jonorivi poistettu
+```
+2026-09-03  18271301014306296  https://www.instagram.com/reel/Dc1FX1tjHxF/
+  kesto   46.5 s
+  hiljaisuus  44.25 s →  46.50 s  ( 2250 ms)    (loppu, endcard)
+  16–24 kHz ero paikalliseen: +2.4 dB (vanha tunniste: rikki ≈ +7…+13, puhdas ≈ -3…-11)
+  lähteessä 1 hiljaisuutta — ne eivät ole vika
+  ⇒ ✅ PUHDAS
+```
+➡️ Jäljellä: kirjaa `media_id` jakson `…_julkaisumateriaalit.md`:hen.
+- ✓ liite: ✓ poistettu liite clip8_rauhassa_v3.mp4 tagista media
+- ✓ push: ✓ Työnnetty GitHubiin. Erääntyneet postaukset lähtevät seuraavassa ajossa; pääherättäjä on Hostingerin cron 10 min välein (mitattu 31.8.). ⛔ Älä lupaa kellonaikaa - katso jonon tila: bash ~/Library/Application\ Support/julkaisin-ajastin/tila.sh
