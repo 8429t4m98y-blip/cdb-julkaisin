@@ -1,27 +1,5 @@
 [
   {
-    "id": "or-03",
-    "otsikko": "VUOROVAIKUTUS (ON)",
-    "tili": "cdb",
-    "kuva": "kuvat/03-vuorovaikutus.png",
-    "caption": "Mistä valmentajan osaaminen rakentuu? 🤔\n\nVuorovaikutus on taitoa kohdata urheilija ja sanoa asiat ymmärrettävästi.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #mistäosaaminenrakentuu #vuorovaikutus #kohtaaminen #pysyvyys",
-    "aika": "2026-08-30T18:00:00+03:00",
-    "tila": "julkaistu",
-    "media_id": "17876016555547397",
-    "julkaistu_aika": "2026-08-30T15:00:11.084326+00:00"
-  },
-  {
-    "id": "or-04",
-    "otsikko": "YRITTÄJYYS (ON)",
-    "tili": "cdb",
-    "kuva": "kuvat/04-yrittajyys.png",
-    "caption": "Mistä valmentajan osaaminen rakentuu? 🤔\n\nValmentaminen vaatii talouden, markkinoinnin, myynnin, asiakkuuksien ja liiketoimintasuunnitelman hallintaa.\n\nKokoan listaa valmentajista jotka haluavat kuulla ensimmäisenä,\nkun kerromme seminaarista lisää. Kommentoi LISTA tai laita viestiä. 📩\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #mistäosaaminenrakentuu #liiketoiminta #ammattitaito #valmennusyrittäjä",
-    "aika": "2026-09-02T18:00:00+03:00",
-    "tila": "julkaistu",
-    "media_id": "18415520107155073",
-    "julkaistu_aika": "2026-09-02T15:00:12.778477+00:00"
-  },
-  {
     "id": "j21-k4",
     "otsikko": "Monologi j21 klippi 4 (AI-arvostus)",
     "tili": "monologi",
@@ -31,5 +9,23 @@
     "tila": "julkaistu",
     "media_id": "18053213999568339",
     "julkaistu_aika": "2026-09-04T15:00:12.674542+00:00"
+  },
+  {
+    "id": "or-05",
+    "otsikko": "ITSEARVIOINTI (ON)",
+    "tili": "cdb",
+    "kuva": "kuvat/05-itsearviointi.png",
+    "caption": "Mistä valmentajan osaaminen rakentuu? 🤔\n\nJokaisella valmentajalla on näkemys siitä mitä hän osaa ja missä pitäisi kehittyä.\n\nKokoan listaa valmentajista jotka haluavat kuulla ensimmäisenä,\nkun kerromme seminaarista lisää. Kommentoi LISTA tai laita viestiä. 📩\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #mistäosaaminenrakentuu #itsearviointi #itsetuntemus #kehittyminen",
+    "aika": "2026-09-06T18:00:00+03:00",
+    "tila": "odottaa"
+  },
+  {
+    "id": "or-06",
+    "otsikko": "OMA HYVINVOINTI (ON)",
+    "tili": "cdb",
+    "kuva": "kuvat/06-oma-hyvinvointi.png",
+    "caption": "Mistä valmentajan osaaminen rakentuu? 🤔\n\nKuormittuminen voi heijastua myös valmennukseen ja urheilijoihin.\n\nKokoan listaa valmentajista jotka haluavat kuulla ensimmäisenä,\nkun kerromme seminaarista lisää. Kommentoi LISTA tai laita viestiä. 📩\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #mistäosaaminenrakentuu #hyvinvointi #jaksaminen #valmentajantyö",
+    "aika": "2026-09-09T18:00:00+03:00",
+    "tila": "odottaa"
   }
 ]
