@@ -18,10 +18,9 @@
     "video": "media/jakso22_klippi3_TO.mp4",
     "caption": "Defenssi puskee liian usein viime aikoina, et en osaa mitään. Mut mun ei oikeesti tarvis omalla ajatusmaailmalla alentaa itteeni.\n\nMä voisin pysyä realistisena sen tason kanssa missä oikeesti oon.",
     "aika": "2026-09-10T18:00:00+03:00",
-    "tila": "virhe",
-    "creation_id": "18105712607167305",
-    "virhe": "Container ERROR (creation_id=18105712607167305)",
-    "ajoyrityksia": 1
+    "tila": "julkaistu",
+    "media_id": "18094499429109471",
+    "julkaistu_aika": "2026-09-10T15:10:20.720803+00:00"
   },
   {
     "id": "or-07",
