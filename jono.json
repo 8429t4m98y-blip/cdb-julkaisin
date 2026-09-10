@@ -1,42 +1,5 @@
 [
   {
-    "id": "or-05",
-    "otsikko": "ITSEARVIOINTI (ON)",
-    "tili": "cdb",
-    "kuva": "kuvat/05-itsearviointi.png",
-    "caption": "Mistä valmentajan osaaminen rakentuu? 🤔\n\nJokaisella valmentajalla on näkemys siitä mitä hän osaa ja missä pitäisi kehittyä.\n\nKokoan listaa valmentajista jotka haluavat kuulla ensimmäisenä,\nkun kerromme seminaarista lisää. Kommentoi LISTA tai laita viestiä. 📩\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #mistäosaaminenrakentuu #itsearviointi #itsetuntemus #kehittyminen",
-    "aika": "2026-09-06T18:00:00+03:00",
-    "tila": "julkaistu",
-    "media_id": "18124167115884637",
-    "julkaistu_aika": "2026-09-06T15:00:11.431241+00:00"
-  },
-  {
-    "id": "or-06",
-    "otsikko": "OMA HYVINVOINTI (ON)",
-    "tili": "cdb",
-    "kuva": "kuvat/06-oma-hyvinvointi.png",
-    "caption": "Mistä valmentajan osaaminen rakentuu? 🤔\n\nKuormittuminen voi heijastua myös valmennukseen ja urheilijoihin.\n\nKokoan listaa valmentajista jotka haluavat kuulla ensimmäisenä,\nkun kerromme seminaarista lisää. Kommentoi LISTA tai laita viestiä. 📩\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #mistäosaaminenrakentuu #hyvinvointi #jaksaminen #valmentajantyö",
-    "aika": "2026-09-09T18:00:00+03:00",
-    "tila": "julkaistu",
-    "media_id": "18075367664407400",
-    "julkaistu_aika": "2026-09-09T15:00:12.810155+00:00"
-  },
-  {
-    "id": "era-sf-kisojen-vali",
-    "otsikko": "ERA shortform: NFEn ja MM-kisojen väli",
-    "tili": "teamera",
-    "video": "media/shortform_kisojen_vali.mp4",
-    "collab": [
-      "miikameier",
-      "mikkefriman"
-    ],
-    "caption": "MITÄ TEHDÄ NFEN JA MM-KISOJEN VÄLISSÄ? 🤔\n\nTän syksyn kisajärjestelyt meni uusiksi, koska NFE oli normaalia aikaisemmin, eli kisojen välillä on pari kuukautta. Moni on ollut jo pitkään dieetillä, niin tossu, sekä nälkä todennäköisesti jo painaa.\n\nMutta mennään posin kautta!\n\nEsiintymistä tai poseeraamista ehtii hyvin petrata, tarvittaessa kuntoa kiristää tai voi ottaa dieettitaukoa, jolloin kaasun ei tarvii olla pohjassa koko aikaa. 🤝",
-    "aika": "2026-09-06T10:00:00+03:00",
-    "tila": "julkaistu",
-    "media_id": "17964294777009116",
-    "julkaistu_aika": "2026-09-06T07:00:11.447594+00:00"
-  },
-  {
     "id": "era-k9",
     "otsikko": "ERA klippi 9 — valmennushakemukset kulkee kahta reittiä",
     "tili": "teamera",
@@ -53,6 +16,24 @@
     "video": "media/jakso22_klippi3_TO.mp4",
     "caption": "Defenssi puskee liian usein viime aikoina, et en osaa mitään. Mut mun ei oikeesti tarvis omalla ajatusmaailmalla alentaa itteeni.\n\nMä voisin pysyä realistisena sen tason kanssa missä oikeesti oon.",
     "aika": "2026-09-10T18:00:00+03:00",
+    "tila": "odottaa"
+  },
+  {
+    "id": "or-07",
+    "otsikko": "PUITTEET (ON)",
+    "tili": "cdb",
+    "kuva": "kuvat/07-puitteet.png",
+    "caption": "Mistä valmentajan osaaminen rakentuu? 🤔\n\nHyvät välineet ja tilat helpottavat valmennusta, mutta niiden hyödyntäminen vaatii osaamista.\n\nKokoan listaa valmentajista jotka haluavat kuulla ensimmäisenä,\nkun kerromme seminaarista lisää. Kommentoi LISTA tai laita viestiä. 📩\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #mistäosaaminenrakentuu #puitteet #kuntosali #valmennustaito",
+    "aika": "2026-09-13T18:00:00+03:00",
+    "tila": "odottaa"
+  },
+  {
+    "id": "or-08",
+    "otsikko": "TYÖKALUT (ON)",
+    "tili": "cdb",
+    "kuva": "kuvat/08-tyokalut.png",
+    "caption": "Mistä valmentajan osaaminen rakentuu? 🤔\n\nJokainen valmentaja törmää uransa aikana uusiin työskentelytapoihin.\n\nKokoan listaa valmentajista jotka haluavat kuulla ensimmäisenä,\nkun kerromme seminaarista lisää. Kommentoi LISTA tai laita viestiä. 📩\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #mistäosaaminenrakentuu #työkalut #valmennusmenetelmät #kehittyminen",
+    "aika": "2026-09-16T18:00:00+03:00",
     "tila": "odottaa"
   }
 ]
