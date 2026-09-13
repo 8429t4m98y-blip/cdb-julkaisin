@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Vaihe 5 yhtenä komentona: odota että jonorivi on julkaistu → tarkista ääni →
-poista Release-liite ja jonorivi → kirjaa tulos raporttitiedostoon.
+poista Release-liite ja jonorivi → todenna siivous elävistä lähteistä → kirjaa
+tulos raporttitiedostoon.
 
     python3 viimeistele.py --id j20-k4 --id j20-k5 --id j20-k6
 
@@ -29,11 +30,16 @@ yksi hyväksyntä, joka voidaan antaa etukäteen.
    komento voidaan ajaa uudestaan; rivin poisto yksin tekisi tilasta
    peruuttamattoman, koska uusinta ei enää löytäisi riviä eikä siis liitettä.
 
-Poistumiskoodit: 0 = valmis · 2 = ei edennyt (ei julkaistu määräajassa, ei
-`media_id`:tä, tai lähdetiedostoa ei voitu johtaa) · 3 = ääni rikki TAI ei
-tarkistettavissa · 4 = ääni puhdas mutta siivous jäi kesken (pull, liite tai
-push epäonnistui) — **koodi 4 on aina korjattavissa samalla komennolla**. **Monella id:llä palautetaan suurin yksittäinen koodi**, ja
-ajon lopussa tulostetaan yhteenveto id kerrallaan.
+Poistumiskoodit: 0 = valmis JA todennettu · 2 = ei edennyt (ei julkaistu
+määräajassa, ei `media_id`:tä, tai lähdetiedostoa ei voitu johtaa) · 3 = ääni
+rikki TAI ei tarkistettavissa · 4 = ääni puhdas mutta siivous jäi kesken (pull,
+liite tai push epäonnistui) — **koodi 4 on aina korjattavissa samalla
+komennolla** · 5 = siivous raportoitiin tehdyksi mutta `todenna_siivous.py` ei
+vahvistanut sitä. ⛔ **Koodi 5 EI lupaa korjattavuutta samalla komennolla:** jos
+jonorivi on jo poissa, uusinta osuu `etarivi() → None` -haaraan eikä koske
+liitteeseen enää. Lue todennuksen tuloste ja korjaa se pää joka jäi.
+**Monella id:llä palautetaan suurin yksittäinen koodi**, ja ajon lopussa
+tulostetaan yhteenveto id kerrallaan.
 
 ⛔ RAPORTTI VIEDÄÄN REMOTEEN OMANA COMMITTINAAN jokaisen id:n jälkeen
    (`viimeistely-loki.md`). Se EI muuta poistumiskoodia: koodi 4 lupaa
@@ -45,6 +51,14 @@ ajon lopussa tulostetaan yhteenveto id kerrallaan.
 ⛔ EI KIRJAA ONNISTUMISTA JOTA EI TAPAHTUNUT. Jokaisen alikomennon paluuarvo
    tarkistetaan; 08-23 j19-k7:n liitteen poisto epäonnistui ja loki sanoi silti
    ✅ PUHDAS · liite poistettu. Liite löytyi Releasesta 4 vrk myöhemmin.
+
+⛔ SIIVOUS TODENNETAAN ELÄVISTÄ LÄHTEISTÄ ENNEN KUIN AJO SANOO 0. Puhtaan
+   tuomion jälkeen ajetaan `todenna_siivous.py --id <id>` automaattisesti: se
+   lukee jonorivin `origin/main`:sta ja liitteen GitHubin assets-listasta, ei
+   tämän skriptin omasta tulosteesta. Jos se ei vahvista MOLEMPIA päitä, koodi
+   on **5**, ei 0. [Yhdistetty 09-13. Siihen asti todennus oli erillinen
+   komento, jonka sai unohtaa juuri silloin kun tämä skripti valehteli — eli
+   täsmälleen siinä tapauksessa jota varten se rakennettiin.]
 """
 import argparse
 import json
@@ -57,6 +71,7 @@ from datetime import datetime
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROJEKTIT = os.path.abspath(os.path.join(HERE, "..", ".."))
 TARKISTA = os.path.join(PROJEKTIT, "Instagram API", "tarkista_julkaisu.py")
+TODENNA = os.path.join(HERE, "todenna_siivous.py")
 RAPORTTI = os.path.join(HERE, "viimeistely-loki.md")
 
 # Mistä lähdetiedosto etsitään jonorivin `video`-kentän tiedostonimellä.
@@ -66,10 +81,11 @@ HAKUJUURET = [
 ]
 
 SELITE = {
-    0: "valmis",
+    0: "valmis ja todennettu",
     2: "ei edennyt — mitään ei poistettu",
     3: "ääni rikki tai ei tarkistettavissa — mitään ei poistettu",
     4: "ääni puhdas, siivous jäi kesken",
+    5: "siivous tehty mutta todennus ei vahvistanut sitä",
 }
 
 
@@ -165,6 +181,20 @@ def pusha_raportti(rivi_id):
     print(f"- 🔴 RAPORTTI JÄI PAIKALLISEKSI ({viimeinen_rivi(pu)}) — siivous on tehty, "
           f"mutta ajon todiste ei ole remotessa. ⛔ Sama komento EI korjaa tätä "
           f"(jonorivi on jo poissa). Korjaa käsin:\n  {korjaus}")
+
+
+def todenna(rivi_id):
+    """Aja `todenna_siivous.py` ja palauta (koodi, tuloste).
+
+    ⛔ Tämän skriptin oma tuloste ei kelpaa todisteeksi: 08-23 j19-k7 raportoi
+    "✅ liite poistettu" liitteelle joka löytyi Releasesta 4 vrk myöhemmin.
+    Todennus lukee molemmat päät elävistä lähteistä (`origin/main:jono.json` +
+    GitHubin assets-lista), joten se on ajon ainoa puhdas tuomio.
+    """
+    if not os.path.isfile(TODENNA):
+        return 1, f"todenna_siivous.py puuttuu: {TODENNA}"
+    r = aja([sys.executable, TODENNA, "--id", rivi_id])
+    return r.returncode, (r.stdout + r.stderr).strip()
 
 
 def kasittele(rivi_id, alkuperainen_kasin, odota):
@@ -318,6 +348,16 @@ def main():
     tulokset = []
     for rivi_id in a.id:
         koodi = kasittele(rivi_id, a.alkuperainen, a.odota)
+        if koodi == 0:
+            t_koodi, t_tuloste = todenna(rivi_id)
+            print(f"\n— todennus: {rivi_id} —\n{t_tuloste}")
+            if t_koodi != 0:
+                kirjaa(f"\n🔴 **TODENNUS EI VAHVISTANUT SIIVOUSTA** · `{rivi_id}` · "
+                       f"`todenna_siivous.py` koodi {t_koodi}\n"
+                       f"```\n{t_tuloste[-1200:]}\n```\n"
+                       f"⛔ Sama komento ei välttämättä korjaa tätä — lue tuloste ja "
+                       f"korjaa se pää joka jäi.")
+                koodi = 5
         pusha_raportti(rivi_id)   # ⛔ ei vaikuta koodiin — ks. funktion docstring
         tulokset.append((rivi_id, koodi))
 
