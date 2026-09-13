@@ -225,3 +225,15 @@ _(mittaus ajettu uudelleen 30.8. klo 05:3x, kuten j20-k5. Kesto 46,8 s vastaa do
 ➡️ Jäljellä: kirjaa `media_id` jakson `…_julkaisumateriaalit.md`:hen.
 - ✓ liite: ✓ poistettu liite jakso22_klippi4_PE.mp4 tagista media
 - ✓ push: ✓ Työnnetty GitHubiin. Erääntyneet postaukset lähtevät seuraavassa ajossa; pääherättäjä on Hostingerin cron 10 min välein (mitattu 31.8.). ⛔ Älä lupaa kellonaikaa - katso jonon tila: bash ~/Library/Application\ Support/julkaisin-ajastin/tila.sh
+
+## 2026-09-13 07:37 · j22-k5
+✅ **PUHDAS** · `media_id` **18100477064527381** · liite `media/jakso22_klippi5_LA.mp4` poistettu · jonorivi poistettu
+```
+2026-09-12  18100477064527381  https://www.instagram.com/reel/DdMQhL9DFsj/
+  kesto   54.8 s
+  16–24 kHz ero paikalliseen: -3.9 dB (vanha tunniste: rikki ≈ +7…+13, puhdas ≈ -3…-11)
+  ⇒ ✅ PUHDAS
+```
+➡️ Jäljellä: kirjaa `media_id` jakson `…_julkaisumateriaalit.md`:hen.
+- ✓ liite: ✓ poistettu liite jakso22_klippi5_LA.mp4 tagista media
+- ✓ push: ✓ Työnnetty GitHubiin. Erääntyneet postaukset lähtevät seuraavassa ajossa; pääherättäjä on Hostingerin cron 10 min välein (mitattu 31.8.). ⛔ Älä lupaa kellonaikaa - katso jonon tila: bash ~/Library/Application\ Support/julkaisin-ajastin/tila.sh
