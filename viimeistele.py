@@ -31,7 +31,8 @@ yksi hyväksyntä, joka voidaan antaa etukäteen.
    peruuttamattoman, koska uusinta ei enää löytäisi riviä eikä siis liitettä.
 
 Poistumiskoodit: 0 = valmis JA todennettu · 2 = ei edennyt (ei julkaistu
-määräajassa, ei `media_id`:tä, tai lähdetiedostoa ei voitu johtaa) · 3 = ääni
+määräajassa, ei `media_id`:tä, lähdetiedostoa ei voitu johtaa, tai verkko ei
+vastannut `FETCH_YRITYKSET` kertaa peräkkäin) · 3 = ääni
 rikki TAI ei tarkistettavissa · 4 = ääni puhdas mutta siivous jäi kesken (pull,
 liite tai push epäonnistui) — **koodi 4 on aina korjattavissa samalla
 komennolla** · 5 = siivous raportoitiin tehdyksi mutta `todenna_siivous.py` ei
@@ -88,6 +89,18 @@ SELITE = {
     5: "siivous tehty mutta todennus ei vahvistanut sitä",
 }
 
+# Uudelleenyritys verkkokutsulle saman ajon sisällä. Sama muoto kuin
+# `julkaise.py`:n JULKAISU_YRITYKSET/JULKAISU_ODOTUS — kaksi eri
+# takaisinvetokäyrää samassa putkessa pakottaisi lukemaan molemmat.
+FETCH_YRITYKSET = 4
+FETCH_ODOTUS = 15             # sekuntia yritysten välissä
+
+
+class VerkkoVirhe(Exception):
+    """Jonoriviä ei saatu luettua originista. ⛔ Ei koskaan poiston jälkeen:
+    `etarivi()` kutsutaan vain ennen siivousta, joten tämä pysäyttää id:n
+    tilaan jossa liite ja rivi ovat molemmat tallessa."""
+
 
 def aja(cmd, **kw):
     return subprocess.run(cmd, capture_output=True, text=True, **kw)
@@ -99,14 +112,33 @@ def viimeinen_rivi(r):
 
 
 def etarivi(rivi_id):
-    """Lue jonorivi GitHubin mainista — paikallinen kopio on aina jäljessä."""
-    f = aja(["git", "-C", HERE, "fetch", "origin", "--quiet"])
-    if f.returncode != 0:
-        sys.exit(f"✗ git fetch epäonnistui — en lue vanhaa origin/mainia sokkona: "
-                 f"{f.stderr.strip()[:200]}")
+    """Lue jonorivi GitHubin mainista — paikallinen kopio on aina jäljessä.
+
+    ⛔ Verkkovirhe ei enää tapa ajoa hiljaa. Ennen 13.9. fetchin kaatuminen
+    kutsui `sys.exit()`: poistumiskoodiksi tuli dokumentoimaton 1 eikä
+    `viimeistely-loki.md`:hen jäänyt riviä. 13.9. klo 08:41 j22-k7:n ajo kuoli
+    virheeseen "Could not resolve host: github.com" ja loki hyppäsi
+    `07:37 · j22-k5` → `10:30 · j22-k6` ilman jälkeä koko ajosta.
+    Altistus ei ole yksi kutsu vaan ~80: odotussilmukka hakee 180 s välein,
+    joten `--odota 240` fetchaa nelisenkymmentä kertaa tunnissa.
+    """
+    viimeisin = "—"
+    for yritys in range(1, FETCH_YRITYKSET + 1):
+        f = aja(["git", "-C", HERE, "fetch", "origin", "--quiet"])
+        if f.returncode == 0:
+            break
+        viimeisin = f.stderr.strip()[:200] or "(ei virheilmoitusta)"
+        if yritys < FETCH_YRITYKSET:
+            print(f"  … git fetch ei onnistunut (yritys {yritys}/{FETCH_YRITYKSET}), "
+                  f"odotetaan {FETCH_ODOTUS} s: {viimeisin}")
+            time.sleep(FETCH_ODOTUS)
+    else:
+        raise VerkkoVirhe(f"`git fetch` epäonnistui {FETCH_YRITYKSET} kertaa peräkkäin "
+                          f"({FETCH_ODOTUS} s välein): {viimeisin}")
     r = aja(["git", "-C", HERE, "show", "origin/main:jono.json"])
     if r.returncode != 0:
-        sys.exit(f"✗ jono.json ei luettavissa originista: {r.stderr.strip()[:200]}")
+        raise VerkkoVirhe(f"`jono.json` ei luettavissa originista: "
+                          f"{r.stderr.strip()[:200]}")
     for item in json.loads(r.stdout):
         if item.get("id") == rivi_id:
             return item
@@ -201,7 +233,21 @@ def kasittele(rivi_id, alkuperainen_kasin, odota):
     def otsikko():
         return f"\n## {datetime.now():%Y-%m-%d %H:%M} · {rivi_id}\n"
 
-    rivi = etarivi(rivi_id)
+    def hae_rivi(vaihe):
+        """(rivi, koodi) — verkkovirhe kirjataan lokiin ja pysäyttää id:n koodiin 2."""
+        try:
+            return etarivi(rivi_id), None
+        except VerkkoVirhe as e:
+            kirjaa(otsikko() + f"🌐 **VERKKO EI VASTANNUT {vaihe}** — {e}\n"
+                               f"Jonoriviä ei voitu lukea, joten mitään ei tarkistettu "
+                               f"eikä poistettu: liite ja rivi ovat molemmat tallessa. "
+                               f"Aja sama komento uudestaan:\n"
+                               f"  `python3 viimeistele.py --id {rivi_id}`")
+            return None, 2
+
+    rivi, verkkokoodi = hae_rivi("heti alussa")
+    if verkkokoodi:
+        return verkkokoodi
     if rivi is None:
         kirjaa(otsikko() + "⚠️ Riviä ei ole jonossa. Joku on jo ajanut vaihe 5:n, "
                            "tai id on väärä. Ei tehty mitään.")
@@ -240,7 +286,9 @@ def kasittele(rivi_id, alkuperainen_kasin, odota):
                                f"Aja tämä uudestaan myöhemmin.")
             return 2
         time.sleep(180)
-        rivi = etarivi(rivi_id)
+        rivi, verkkokoodi = hae_rivi("kesken odotuksen")
+        if verkkokoodi:
+            return verkkokoodi
 
     media_id = str(rivi.get("media_id") or "").strip()
     liite = rivi.get("video", "")
