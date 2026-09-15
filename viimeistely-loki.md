@@ -279,3 +279,7 @@ _(mittaus ajettu uudelleen 30.8. klo 05:3x, kuten j20-k5. Kesto 46,8 s vastaa do
 
 ## 2026-09-13 19:34 · j22-k7
 ⚠️ Riviä ei ole jonossa. Joku on jo ajanut vaihe 5:n, tai id on väärä. Ei tehty mitään.
+
+## 2026-09-15 15:02 · or-07
+🛑 Lähdetiedostoa ei voitu johtaa: jonorivin `video`-kenttä ei ole mp4-tiedosto: ''
+Mitään ei tarkistettu eikä poistettu.
