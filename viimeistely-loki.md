@@ -283,3 +283,11 @@ _(mittaus ajettu uudelleen 30.8. klo 05:3x, kuten j20-k5. Kesto 46,8 s vastaa do
 ## 2026-09-15 15:02 · or-07
 🛑 Lähdetiedostoa ei voitu johtaa: jonorivin `video`-kenttä ei ole mp4-tiedosto: ''
 Mitään ei tarkistettu eikä poistettu.
+
+**Jatko 15.9. klo 15.05 — vaihe 5 tehtiin or-07:lle käsin.** Skripti on
+videokohtainen (lähde johdetaan `video`-kentästä, ääni tarkistetaan mp4:stä,
+`todenna_siivous.py` katsoo Release-liitettä), eikä kuvapostauksella ole
+kumpaakaan. Käsin: todennettu `origin/main:jono.json`:sta että tila oli
+`julkaistu` ja `media_id 18103274237212339` tallessa → rivi ja
+`kuvat/07-puitteet.png` poistettu → todennettu originista että molemmat ovat
+poissa ja kuvan raw-URL antaa 404. Sama tapa kuin or-03…or-06:lla.
