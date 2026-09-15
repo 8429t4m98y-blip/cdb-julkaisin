@@ -23,8 +23,36 @@ if [ -z "${TOKEN:-}" ]; then
   echo "✗ GH_TOKEN puuttuu .env:stä. Lisää rivi: GH_TOKEN=github_pat_..." >&2; exit 1
 fi
 
+# ── PORTTI: committoimaton työ ei mene ulos, eikä ajo saa raportoida onnistumista
+# sen yli. `git push HEAD:main` työntää viimeisimmän COMMITIN — levyllä oleva
+# muokkaus ei ole sellainen, joten push onnistuu tyhjänä ja vanha tuloste sanoi
+# silti "✓ Työnnetty GitHubiin". Mitattu 2026-09-15 kahdesti samana päivänä
+# (j23 klipit 2 ja 4): jonorivi jäi paikalliseksi, mitään ei mennyt ulos, ja
+# vika löytyi vain lukemalla origin/main takaisin. Skripti EI committaa
+# puolestasi — se kieltäytyy, koska polkujen valinta on sinun (periaatteet.md §GIT).
+LIKAINEN="$(git -C "$DIR" status --porcelain)"
+if [ -n "$LIKAINEN" ]; then
+  {
+    echo "✗ Committoimatonta työtä — EI TYÖNNETTY MITÄÄN."
+    echo "$LIKAINEN" | sed 's/^/    /'
+    echo "  Committoi ensin ne polut jotka itse muutit:"
+    echo "    git -C \"$DIR\" commit -m \"jono: …\" -- jono.json"
+    echo "  Uusi tiedosto vaatii lisäyksen ensin: git -C \"$DIR\" add -- <polku>"
+  } >&2
+  exit 1
+fi
+
 echo "→ Haetaan origin ja työnnetään main …"
 git -C "$DIR" fetch origin --quiet
+
+# Toinen puoli samaa vikaa: no-op push ei ole julkaisu. Jos HEAD on jo
+# originissa, sano se — älä kaiuta onnistumisriviä jonka lukija tulkitsee
+# "jono lähti ulos".
+if [ "$(git -C "$DIR" rev-parse HEAD)" = "$(git -C "$DIR" rev-parse origin/main)" ]; then
+  echo "ℹ️  HEAD on jo sama kuin origin/main — ei mitään työnnettävää. Jono ei muuttunut."
+  exit 0
+fi
+
 # Työnnä token-URL:lla; kaiutetaan vain onnistuminen, ei tokenia.
 if git -C "$DIR" push "https://x-access-token:${TOKEN}@${REPO}" HEAD:main 2>/tmp/cdb_push_err; then
   echo "✓ Työnnetty GitHubiin. Erääntyneet postaukset lähtevät seuraavassa ajossa; pääherättäjä on Hostingerin cron 10 min välein (mitattu 31.8.). ⛔ Älä lupaa kellonaikaa - katso jonon tila: bash ~/Library/Application\ Support/julkaisin-ajastin/tila.sh"
