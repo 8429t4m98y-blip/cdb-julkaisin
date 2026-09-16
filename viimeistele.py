@@ -72,6 +72,14 @@ from datetime import datetime
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROJEKTIT = os.path.abspath(os.path.join(HERE, "..", ".."))
 TARKISTA = os.path.join(PROJEKTIT, "Instagram API", "tarkista_julkaisu.py")
+# Tilit joilla `tarkista_julkaisu.py` ajetaan `--vain-todiste`-tilassa: se
+# tarkistaa että julkaisu on olemassa mutta EI mittaa ääntä.
+# 📏 Miikan päätös 2026-09-16: Monologin klipeistä 0/17 tuomittiin RIKKI
+# (`viimeistely-loki.md` 23.8.–16.9.). Ne neljä aitoa äänivikaa ovat ERA:n
+# vieraista mastereista ja ne korjattiin lähteessä (08-14), joten vertailu jää
+# niille riveille joissa vika on joskus ollut.
+# 🔓 Purkuehto: yksikin RIKKI-tuomio Monologin klipistä ⇒ poista tili tästä.
+VAIN_TODISTE_TILIT = {"monologi"}
 TODENNA = os.path.join(HERE, "todenna_siivous.py")
 RAPORTTI = os.path.join(HERE, "viimeistely-loki.md")
 
@@ -253,19 +261,24 @@ def kasittele(rivi_id, alkuperainen_kasin, odota):
                            "tai id on väärä. Ei tehty mitään.")
         return 0
 
-    # 0) lähdetiedosto ensin — ilman sitä ei kannata odottaa tuntia
+    # 0) lähdetiedosto ensin — ilman sitä ei kannata odottaa tuntia.
+    #    ⛔ VAIN_TODISTE-riveillä sitä ei haeta lainkaan: lähdettä tarvitaan
+    #    pelkkään spektrivertailuun, eikä sitä enää tehdä näille tileille
+    #    (ks. VAIN_TODISTE_TILIT). Turha haku pysäyttäisi id:n syystä jolla ei
+    #    ole tekemistä julkaisun kanssa — juuri niin kävi or-07:lle 15.9.
+    vain_todiste = (rivi.get("tili") or "cdb").strip().lower() in VAIN_TODISTE_TILIT
     alkuperainen = alkuperainen_kasin
-    if not alkuperainen:
+    if not alkuperainen and not vain_todiste:
         alkuperainen, syy = johda_alkuperainen(rivi.get("video", ""))
         if not alkuperainen:
             kirjaa(otsikko() + f"🛑 Lähdetiedostoa ei voitu johtaa: {syy}\n"
                                f"Mitään ei tarkistettu eikä poistettu.")
             return 2
-    if not os.path.isfile(alkuperainen):
+    if alkuperainen and not os.path.isfile(alkuperainen):
         kirjaa(otsikko() + f"🛑 Alkuperäistä ei ole: {alkuperainen}\n"
                            f"Mitään ei tarkistettu eikä poistettu.")
         return 2
-    print(f"\n▶ {rivi_id} — lähde: {alkuperainen}")
+    print(f"\n▶ {rivi_id} — lähde: {alkuperainen or 'ei tarvita (vain julkaisutodiste)'}")
 
     # 1) odota että cron on julkaissut
     loppu = time.time() + odota * 60
@@ -297,18 +310,28 @@ def kasittele(rivi_id, alkuperainen_kasin, odota):
                            "en tarkista enkä poista sokkona.")
         return 2
 
-    # 2) tarkista ääni Metan omasta transkoodauksesta
-    t = aja([sys.executable, TARKISTA, "--media-id", media_id,
-             "--alkuperainen", alkuperainen])
+    # 2) tarkista julkaisu Metan omasta transkoodauksesta.
+    #    Kaksi tilaa, ja ero on tilikohtainen (ks. VAIN_TODISTE_TILIT):
+    #      täysi        = lataa julkaisun ja mittaa ääniraidan lähdettä vasten
+    #      vain todiste = tarkistaa että `media_url` vastaa (julkaisu on olemassa)
+    #    ⚠️ MOLEMMISSA koodi != 0 tarkoittaa ettei mitään poisteta.
+    cmd = [sys.executable, TARKISTA, "--media-id", media_id]
+    cmd += ["--vain-todiste"] if vain_todiste else ["--alkuperainen", alkuperainen]
+    t = aja(cmd)
     tuloste = (t.stdout + t.stderr).strip()
     if t.returncode == 2:
         kirjaa(otsikko() + f"🛑 **EI TARKISTETTAVISSA** (`media_id {media_id}`) — Meta ei "
-               f"palauttanut `media_url`ia, joten ääntä ei mitattu kertaakaan. Tätä "
-               f"kohdellaan kuin RIKKI: liite ja rivi JÄTETTIIN paikalleen.\n"
+               f"palauttanut `media_url`ia, joten "
+               + ("julkaisua ei todennettu kertaakaan" if vain_todiste
+                  else "ääntä ei mitattu kertaakaan") +
+               f". Tätä kohdellaan kuin RIKKI: liite ja rivi JÄTETTIIN paikalleen.\n"
                f"```\n{tuloste[-1200:]}\n```")
         return 3
     if t.returncode != 0:
-        kirjaa(otsikko() + f"🔴 **ÄÄNI RIKKI tai tarkistus kaatui** (`media_id {media_id}`) — "
+        kirjaa(otsikko() + ("🔴 **JULKAISUA EI TODENNETTU tai tarkistus kaatui**"
+                            if vain_todiste else
+                            "🔴 **ÄÄNI RIKKI tai tarkistus kaatui**")
+               + f" (`media_id {media_id}`) — "
                f"liite ja rivi JÄTETTIIN paikalleen.\n```\n{tuloste[-1200:]}\n```")
         return 3
 
@@ -375,11 +398,136 @@ def kasittele(rivi_id, alkuperainen_kasin, odota):
     return 0
 
 
+def tila():
+    """`--tila` — lue kaikki neljä tilan lähdettä ja kerro mitä on tekemättä.
+
+    📏 **Miksi (Miikan päätös 2026-09-16):** vaihe 5:n 27 ajossa 23.8.–16.9. oli
+    6 poikkeamaa, eikä yksikään ollut se vika jota tarkistukset etsivät. Neljä
+    kuudesta oli tilan epäsynkkaa — sama klippi elää neljässä paikassa eikä
+    mikään komento kertonut mikä niistä on jäljessä:
+      ① `origin/main:jono.json`  ② paikallinen `jono.json`  ③ Release-liitteet
+      ④ Metan `media_id`.
+    Kaksi ajoa oli turhaa uusintaa (*«riviä ei ole jonossa»*), yksi osui
+    kuvapostaukseen jolla ei ole lähdettä (or-07), ja yhdessä jonorivissä oli
+    vanha `media_id` joka näytti äänivialta mutta oli kirjanpitovika (j23-k2).
+    ⛔ Tämä komento ei muuta mitään — se lukee ja tulostaa.
+
+    Poistumiskoodit: 0 = ei tekemistä · 1 = jotain tekemättä · 4 = ei luettavissa.
+    """
+    import todenna_siivous as ts
+
+    try:
+        for yritys in range(1, FETCH_YRITYKSET + 1):
+            f = aja(["git", "-C", HERE, "fetch", "origin", "--quiet"])
+            if f.returncode == 0:
+                break
+            if yritys < FETCH_YRITYKSET:
+                time.sleep(FETCH_ODOTUS)
+        else:
+            print(f"🛑 `git fetch` epäonnistui {FETCH_YRITYKSET} kertaa — tilaa ei voi lukea.")
+            return 4
+    except OSError as e:
+        print(f"🛑 git ei vastannut: {e}")
+        return 4
+
+    etaa, virhe = ts.jono_originista()
+    if etaa is None:
+        print(f"🛑 origin/main:jono.json ei luettavissa: {virhe}")
+        return 4
+    try:
+        paikallinen = json.load(open(os.path.join(HERE, "jono.json"), encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as e:
+        print(f"🛑 paikallinen jono.json ei luettavissa: {e}")
+        return 4
+
+    eta_idt = {r.get("id") for r in etaa}
+    tekematta = []
+
+    # Release-liitteet tageittain — yksi API-kutsu per tagi, ei per rivi.
+    tagit = {}
+    for r in etaa + paikallinen:
+        video = (r.get("video") or "").strip()
+        if "/" in video:
+            tagit.setdefault(video.split("/", 1)[0], set()).add(video.split("/", 1)[1])
+    saatavilla = {}
+    for tagi in sorted(tagit):
+        nimet, virhe = ts.liitteet(tagi)
+        saatavilla[tagi] = None if nimet is None else set(nimet)
+        if nimet is None:
+            print(f"⚠️ Release-liitteitä ei saatu tagille `{tagi}`: {virhe}")
+
+    print("\n— JONO (origin/main) —")
+    if not etaa:
+        print("  (tyhjä)")
+    for r in etaa:
+        rid, tila_ = r.get("id", "?"), r.get("tila", "?")
+        aika = (r.get("aika") or "")[:16].replace("T", " ")
+        video = (r.get("video") or "").strip()
+        liite_tila = "—"
+        if "/" in video:
+            tagi, nimi = video.split("/", 1)
+            joukko = saatavilla.get(tagi)
+            if joukko is None:
+                liite_tila = "liite ?"
+            elif nimi in joukko:
+                liite_tila = "liite ✓"
+            else:
+                liite_tila = "🔴 LIITE PUUTTUU"
+        teko = "—"
+        if tila_ == "julkaistu":
+            teko = f"→ AJA: python3 viimeistele.py --id {rid}"
+            tekematta.append(f"{rid}: julkaistu, vaihe 5 tekemättä")
+        elif tila_ == "virhe":
+            teko = "🔴 tila `virhe` — julkaise.py uusii, tarkista syy"
+            tekematta.append(f"{rid}: tilassa virhe")
+        elif tila_ == "odottaa" and liite_tila.startswith("🔴"):
+            teko = "🔴 julkaisu antaa 404 — vie liite uudelleen ennen slottia"
+            tekematta.append(f"{rid}: odottaa, mutta liite puuttuu")
+        print(f"  {rid:<16} {tila_:<10} {aika:<16} {liite_tila:<17} {teko}")
+
+    print("\n— VAIN PAIKALLISESTI (ei pushattu) —")
+    vain_levylla = [r for r in paikallinen if r.get("id") not in eta_idt]
+    if not vain_levylla:
+        print("  (ei mitään — levy ja origin täsmäävät)")
+    for r in vain_levylla:
+        rid = r.get("id", "?")
+        print(f"  🔴 {rid} — rivi on levyllä mutta EI originissa: commit + ./push.sh tekemättä")
+        tekematta.append(f"{rid}: rivi ei ole originissa")
+    if vain_levylla:
+        print("     📏 Juuri tämä jätti j23-k2:n julkaisematta 15.9. — rivi oli "
+              "kirjattu, klippiblokkiin merkitty «työnnetty», eikä committia ollut.")
+
+    print("\n— ORVOT RELEASE-LIITTEET —")
+    viitatut = {f"{t}/{n}" for t, nimet in tagit.items() for n in nimet}
+    orpoja = False
+    for tagi, joukko in saatavilla.items():
+        for nimi in sorted(joukko or []):
+            if f"{tagi}/{nimi}" not in viitatut:
+                # Tagissa voi olla myös käytössä oleva liite — silloin orpo on
+                # lähes aina vanha versio jonka `_v2` korvasi.
+                vihje = ("  (tagissa on myös käytössä oleva liite ⇒ luultavasti "
+                         "vanha versio)" if tagit.get(tagi) else "")
+                print(f"  🔴 {tagi}/{nimi} — ei yhtään jonoriviä joka viittaisi "
+                      f"siihen{vihje}")
+                tekematta.append(f"{tagi}/{nimi}: orpo liite")
+                orpoja = True
+    if not orpoja:
+        print("  (ei orpoja)")
+
+    print(f"\n— YHTEENSÄ: {len(tekematta)} tekemättä —")
+    for rivi in tekematta:
+        print(f"  • {rivi}")
+    return 1 if tekematta else 0
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--id", required=True, action="append", metavar="ID",
+    ap.add_argument("--id", action="append", metavar="ID",
                     help="jonorivin id, esim. j20-k4. Voi antaa monta kertaa.")
+    ap.add_argument("--tila", action="store_true",
+                    help="älä siivoa mitään — lue kaikki neljä tilan lähdettä ja "
+                         "kerro mitä on tekemättä. Aja tämä ENNEN vaihe 5:tä.")
     ap.add_argument("--alkuperainen",
                     help="paikallinen mp4 johon julkaisua verrataan. Ilman tätä lähde "
                          "johdetaan jonorivin `video`-kentästä. Käy vain yhden --id:n kanssa.")
@@ -387,6 +535,12 @@ def main():
                     help="minuuttia jonka verran KUTAKIN id:tä odotetaan julkaistuksi (oletus 60)")
     a = ap.parse_args()
 
+    if a.tila:
+        if a.id:
+            ap.error("--tila lukee koko jonon eikä ota --id:tä.")
+        return tila()
+    if not a.id:
+        ap.error("anna --id tai --tila")
     if a.alkuperainen and len(a.id) > 1:
         ap.error("--alkuperainen käy vain yhden --id:n kanssa — monella id:llä lähde "
                  "johdetaan jonorivin `video`-kentästä.")
