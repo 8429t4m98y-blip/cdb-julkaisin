@@ -64,6 +64,7 @@ tulostetaan yhteenveto id kerrallaan.
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -80,6 +81,13 @@ TARKISTA = os.path.join(PROJEKTIT, "Instagram API", "tarkista_julkaisu.py")
 # niille riveille joissa vika on joskus ollut.
 # 🔓 Purkuehto: yksikin RIKKI-tuomio Monologin klipistä ⇒ poista tili tästä.
 VAIN_TODISTE_TILIT = {"monologi"}
+# ERA:n julkaistut reelit vs. `viimeistely-loki.md` — ks. era_ilman_tuomiota().
+ERA_TILI = "teamera.coaching"
+ERA_REELEJA = 10              # montako uusinta reeliä katsotaan (--reeleja yliajaa)
+# ⛔ Tätä vanhempia ei lippuiteta: `viimeistely-loki.md` alkaa 23.8. ja sen
+# ensimmäinen ERA-tuomio on 27.8. (`era-k7`), joten vanhemmat julkaisut
+# puuttuisivat lokista ikuisesti [mitattu 16.9.: 12 uusimmasta reelistä 6].
+ERA_ALKAA = "2026-08-27"
 TODENNA = os.path.join(HERE, "todenna_siivous.py")
 RAPORTTI = os.path.join(HERE, "viimeistely-loki.md")
 
@@ -398,8 +406,68 @@ def kasittele(rivi_id, alkuperainen_kasin, odota):
     return 0
 
 
-def tila():
-    """`--tila` — lue kaikki neljä tilan lähdettä ja kerro mitä on tekemättä.
+def era_ilman_tuomiota(jono_media_idt, reeleja):
+    """Listaa @teamera.coachingin julkaistut reelit joilta puuttuu äänituomio.
+
+    📏 **Miksi (Miikan päätös 2026-09-16):** `--tila`:n muut osiot lukevat jonoa,
+    ja jonorivi voi kadota ilman että vaihe 5 on ajettu. `era-sf-kisojen-vali`
+    julkaistiin 6.9. klo 10:00:11, ja sen jonorivi lakaistiin 10.9. commitissa
+    `65b3dd5` CDB:n `or-05`/`or-06`-siivouksen mukana — ääni mitattiin vasta
+    16.9. (PUHDAS −2,8 dB). Tuomio olisi voinut olla RIKKI kymmenen vuorokautta
+    ilman että mikään huomauttaa: orvon liitteen `--tila` löysi, poistetun rivin
+    ei. **Tämä osio ei lue jonoa lainkaan** vaan Metan julkaisulistaa ja
+    `viimeistely-loki.md`:tä, joten lakaistu rivi ei piilota mitään.
+
+    ⛔ **Vain ERA.** Monologi ajaa 16.9. alkaen `--vain-todiste` (0/17 RIKKI),
+    joten sillä ei ole äänituomiota jota kaivata; CDB julkaisee kuvia.
+    ⛔ Äänituomio ei tarvitse Release-liitettä eikä jonoriviä — `tarkista_julkaisu.py`
+    lataa Metan oman kopion `media_url`ista [todennettu 16.9.].
+    ⚠️ Lippu ei ole todiste viasta: se sanoo että **tuomiota ei ole**, ei että
+    ääni olisi rikki. Käsin puhelimesta julkaistu reeli lippuittuu samalla tavalla.
+    """
+    print("\n— ERA: JULKAISTU MUTTA ILMAN ÄÄNITUOMIOTA —")
+    t = aja([sys.executable, TARKISTA, "--tili", ERA_TILI,
+             "--n", str(reeleja), "--vain-todiste"])
+    tuloste = (t.stdout + t.stderr).strip()
+    # Koodi 2 = osalta puuttui `media_url`; rivit on silti tulostettu, joten
+    # lista kelpaa. Muu nollasta poikkeava = lista jäi saamatta.
+    rivit = re.findall(r"^(\d{4}-\d{2}-\d{2})\s+(\d{5,})\s*(\S*)",
+                       tuloste, re.MULTILINE)
+    if t.returncode not in (0, 2) or not rivit:
+        print(f"  🛑 Julkaisulistaa ei saatu tilille `{ERA_TILI}` "
+              f"(koodi {t.returncode}) — tarkistus EI ajanut.")
+        print("  " + (viimeinen_rivi(t) or "(ei tulostetta)"))
+        # ⛔ Ei hiljaista läpimenoa: lukematon lähde on tekemätöntä työtä, ei 0.
+        return [f"{ERA_TILI}: äänituomioiden tarkistus ei ajanut (koodi {t.returncode})"]
+
+    try:
+        loki = open(RAPORTTI, encoding="utf-8").read()
+    except OSError as e:
+        print(f"  🛑 `viimeistely-loki.md` ei luettavissa: {e}")
+        return ["viimeistely-loki.md: ei luettavissa, äänituomioita ei voi verrata"]
+
+    tekematta = []
+    for pvm, media_id, linkki in rivit:
+        if pvm < ERA_ALKAA:
+            print(f"  {pvm}  {media_id}  — lokia vanhempi (ennen {ERA_ALKAA}), ohitetaan")
+            continue
+        if media_id in loki:
+            print(f"  {pvm}  {media_id}  ✓ tuomio lokissa")
+            continue
+        if media_id in jono_media_idt:
+            print(f"  {pvm}  {media_id}  → rivi on yhä jonossa, ks. vaihe 5 yllä")
+            continue
+        print(f"  {pvm}  {media_id}  🔴 EI TUOMIOTA LOKISSA  {linkki}")
+        print(f"      → AJA: python3 \"../../Instagram API/tarkista_julkaisu.py\" "
+              f"--media-id {media_id} --alkuperainen ../../ERA/klipit/<lähde>.mp4")
+        print(f"      → sitten kirjaa tuomio `viimeistely-loki.md`:hen käsin "
+              f"(jonoriviä ei ole, joten `--id` ei auta)")
+        tekematta.append(f"{media_id} ({pvm}): julkaistu, äänituomio puuttuu")
+    return tekematta
+
+
+def tila(reeleja=ERA_REELEJA):
+    """`--tila` — lue tilan lähteet ja kerro mitä on tekemättä.
 
     📏 **Miksi (Miikan päätös 2026-09-16):** vaihe 5:n 27 ajossa 23.8.–16.9. oli
     6 poikkeamaa, eikä yksikään ollut se vika jota tarkistukset etsivät. Neljä
@@ -407,6 +475,9 @@ def tila():
     mikään komento kertonut mikä niistä on jäljessä:
       ① `origin/main:jono.json`  ② paikallinen `jono.json`  ③ Release-liitteet
       ④ Metan `media_id`.
+    ⑤ **ERA:n julkaisulista vs. `viimeistely-loki.md`** (lisätty 16.9.) — neljä
+    ensimmäistä lähtevät jonorivistä, eikä yksikään näe riviä joka on jo
+    lakaistu jonosta. Ks. `era_ilman_tuomiota()`.
     Kaksi ajoa oli turhaa uusintaa (*«riviä ei ole jonossa»*), yksi osui
     kuvapostaukseen jolla ei ole lähdettä (or-07), ja yhdessä jonorivissä oli
     vanha `media_id` joka näytti äänivialta mutta oli kirjanpitovika (j23-k2).
@@ -514,6 +585,9 @@ def tila():
     if not orpoja:
         print("  (ei orpoja)")
 
+    tekematta += era_ilman_tuomiota(
+        {str(r.get("media_id") or "").strip() for r in etaa}, reeleja)
+
     print(f"\n— YHTEENSÄ: {len(tekematta)} tekemättä —")
     for rivi in tekematta:
         print(f"  • {rivi}")
@@ -526,8 +600,12 @@ def main():
     ap.add_argument("--id", action="append", metavar="ID",
                     help="jonorivin id, esim. j20-k4. Voi antaa monta kertaa.")
     ap.add_argument("--tila", action="store_true",
-                    help="älä siivoa mitään — lue kaikki neljä tilan lähdettä ja "
-                         "kerro mitä on tekemättä. Aja tämä ENNEN vaihe 5:tä.")
+                    help="älä siivoa mitään — lue tilan lähteet (jono, liitteet, "
+                         "ERA:n julkaisut vs. äänituomiot) ja kerro mitä on "
+                         "tekemättä. Aja tämä ENNEN vaihe 5:tä.")
+    ap.add_argument("--reeleja", type=int, default=ERA_REELEJA, metavar="N",
+                    help=f"vain --tila: montako ERA:n uusinta reeliä verrataan "
+                         f"`viimeistely-loki.md`:hen (oletus {ERA_REELEJA})")
     ap.add_argument("--alkuperainen",
                     help="paikallinen mp4 johon julkaisua verrataan. Ilman tätä lähde "
                          "johdetaan jonorivin `video`-kentästä. Käy vain yhden --id:n kanssa.")
@@ -538,7 +616,7 @@ def main():
     if a.tila:
         if a.id:
             ap.error("--tila lukee koko jonon eikä ota --id:tä.")
-        return tila()
+        return tila(a.reeleja)
     if not a.id:
         ap.error("anna --id tai --tila")
     if a.alkuperainen and len(a.id) > 1:
