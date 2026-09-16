@@ -310,3 +310,15 @@ poissa ja kuvan raw-URL antaa 404. Sama tapa kuin or-03…or-06:lla.
     raise HTTPError(req.full_url, code, msg, hdrs, fp)
 urllib.error.HTTPError: HTTP Error 400: Bad Request
 ```
+
+## 2026-09-16 13:10 · j23-k2
+✅ **PUHDAS** · `media_id` **18369344701212160** · liite `j23-k2/jakso23_klippi2_TI.mp4` poistettu · jonorivi poistettu
+```
+2026-09-15  18369344701212160  https://www.instagram.com/reel/DdUInikD07A/
+  kesto   34.2 s
+  16–24 kHz ero paikalliseen: -5.0 dB (vanha tunniste: rikki ≈ +7…+13, puhdas ≈ -3…-11)
+  ⇒ ✅ PUHDAS
+```
+➡️ Jäljellä: kirjaa `media_id` jakson `…_julkaisumateriaalit.md`:hen.
+- ✓ liite: ✓ poistettu liite jakso23_klippi2_TI.mp4 tagista j23-k2
+- ✓ push: ✓ Työnnetty GitHubiin. Erääntyneet postaukset lähtevät seuraavassa ajossa; pääherättäjä on Hostingerin cron 10 min välein (mitattu 31.8.). ⛔ Älä lupaa kellonaikaa - katso jonon tila: bash ~/Library/Application\ Support/julkaisin-ajastin/tila.sh
