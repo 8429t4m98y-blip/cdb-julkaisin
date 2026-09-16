@@ -84,10 +84,18 @@ VAIN_TODISTE_TILIT = {"monologi"}
 # ERA:n julkaistut reelit vs. `viimeistely-loki.md` — ks. era_ilman_tuomiota().
 ERA_TILI = "teamera.coaching"
 ERA_REELEJA = 10              # montako uusinta reeliä katsotaan (--reeleja yliajaa)
-# ⛔ Tätä vanhempia ei lippuiteta: `viimeistely-loki.md` alkaa 23.8. ja sen
-# ensimmäinen ERA-tuomio on 27.8. (`era-k7`), joten vanhemmat julkaisut
-# puuttuisivat lokista ikuisesti [mitattu 16.9.: 12 uusimmasta reelistä 6].
-ERA_ALKAA = "2026-08-27"
+# ⛔ Tätä vanhempia ei lippuiteta. Kaksi syytä, molemmat mitattu 16.9.:
+#   ① `viimeistely-loki.md` alkaa 23.8. ja sen ensimmäinen ERA-tuomio on 27.8.
+#      (`era-k7`) — vanhemmat julkaisut puuttuisivat lokista ikuisesti
+#      [12 uusimmasta reelistä 6 on lokia vanhempia].
+#   ② 6.9. julkaistu `era-sf-kisojen-vali` (`media_id 17964294777009116`) ON
+#      tuomittu — PUHDAS −2,8 dB, mutta 16.9. käsin ja `ERA/CLAUDE.md`:hen, ei
+#      lokiin. Miika ei halunnut jälkikäteiskirjausta lokiin (päätös 16.9.),
+#      joten ilman tätä rajaa se lippuittuisi joka ajolla loputtomiin — ja
+#      turha lippu turruttaa juuri siihen hälytykseen jota varten osio on.
+# ⛔ Raja piilottaa TÄSMÄLLEEN sen yhden rivin: jokaisella muulla 27.8.–13.9.
+# julkaistulla reelillä on tuomio lokissa [mitattu 16.9.: 6/6].
+ERA_ALKAA = "2026-09-07"
 TODENNA = os.path.join(HERE, "todenna_siivous.py")
 RAPORTTI = os.path.join(HERE, "viimeistely-loki.md")
 
@@ -449,7 +457,7 @@ def era_ilman_tuomiota(jono_media_idt, reeleja):
     tekematta = []
     for pvm, media_id, linkki in rivit:
         if pvm < ERA_ALKAA:
-            print(f"  {pvm}  {media_id}  — lokia vanhempi (ennen {ERA_ALKAA}), ohitetaan")
+            print(f"  {pvm}  {media_id}  — ennen tarkistusrajaa {ERA_ALKAA}, ohitetaan")
             continue
         if media_id in loki:
             print(f"  {pvm}  {media_id}  ✓ tuomio lokissa")
