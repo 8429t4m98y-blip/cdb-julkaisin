@@ -291,3 +291,22 @@ kumpaakaan. Käsin: todennettu `origin/main:jono.json`:sta että tila oli
 `julkaistu` ja `media_id 18103274237212339` tallessa → rivi ja
 `kuvat/07-puitteet.png` poistettu → todennettu originista että molemmat ovat
 poissa ja kuvan raw-URL antaa 404. Sama tapa kuin or-03…or-06:lla.
+
+## 2026-09-16 12:58 · j23-k2
+🔴 **ÄÄNI RIKKI tai tarkistus kaatui** (`media_id 18084587387690251`) — liite ja rivi JÄTETTIIN paikalleen.
+```
+(url) as r:
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 523, in open
+    response = meth(req, response)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 632, in http_response
+    response = self.parent.error(
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 561, in error
+    return self._call_chain(*args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 641, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 400: Bad Request
+```
