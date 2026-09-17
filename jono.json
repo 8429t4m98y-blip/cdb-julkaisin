@@ -37,7 +37,9 @@
     "video": "j23-k4/jakso23_klippi4_TO_v2.mp4",
     "caption": "Koulussa tarkoitus on oppia, oli se sitten matikkaa, liikkaa tai ihan vaan perus käytöstapoja. Ja se ympäristö pitäis rakentaa niin, että sitä oppimista voi tapahtua.\n\nMut musta ihan ryhmänhallinnan perusperiaatteet, oppimisrauha ja opettajan auktoriteetti pitäs olla silloin keskiössä.",
     "aika": "2026-09-17T18:00:00+03:00",
-    "tila": "odottaa"
+    "tila": "julkaistu",
+    "media_id": "18106506089610957",
+    "julkaistu_aika": "2026-09-17T15:00:11.483050+00:00"
   },
   {
     "id": "j23-k6",
@@ -104,10 +106,12 @@
     "video": "media/clip10_vegas_v2.mp4",
     "caption": "Mikke sai synttärilahjaksi liput Mr. Olympiaan, eli syyskuun lopulla suunta on taas Vegas.\n\nJos bodaus kiinnostaa yhtään, Mr. Olympia kannattaa nähdä ainakin kerran 💪🏻",
     "aika": "2026-09-17T18:00:00+03:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier",
       "mikkefriman"
-    ]
+    ],
+    "media_id": "17995784891823539",
+    "julkaistu_aika": "2026-09-17T15:00:11.483050+00:00"
   }
 ]
