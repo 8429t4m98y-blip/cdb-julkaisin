@@ -160,11 +160,13 @@
     "video": "media/clip11_nakyvyys_v2.mp4",
     "caption": "KUKAAN EI MUISTA TIIMIÄ JOSTA EI KUULU MITÄÄN 📲\n\nERAA on rakennettu rauhassa eikä kumpikaan meistä ole ottanut siitä liikaa stressiä, ja käytännössä kaikki meidän some tulee yhdestä kuvauspäivästä muutaman kuukauden välein.\n\nSieltä tulevaa materiaalia julkaistaan tasaiseen tahtiin, jotta jengi tietää että ERA on hengissä.\n\nSeuraava kuvauspäivä on jo sovittu 🎬",
     "aika": "2026-09-24T18:00:00+03:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier",
       "mikkefriman"
-    ]
+    ],
+    "media_id": "18014846465748853",
+    "julkaistu_aika": "2026-09-24T15:00:13.599828+00:00"
   },
   {
     "id": "j24-k2",
@@ -195,7 +197,9 @@
     "video": "j24-k4/jakso24_klippi4_TO.mp4",
     "caption": "Bensa on nyt niin kallista, et etin tekoälyn kanssa halpoja bensapaikkoja ja poikkesin työmatkalla vähän kauemmas.\n\nSiitähän lopputulos oli tietenkin se, et netissä oli väärät hinnat ja tankkasin kallista bensaa. Ei mee aina ihan jiiriin tarjoushaukkailukaa meikällä 🤷🏻‍♂️",
     "aika": "2026-09-24T18:00:00+03:00",
-    "tila": "odottaa"
+    "tila": "julkaistu",
+    "media_id": "18115837312805197",
+    "julkaistu_aika": "2026-09-24T15:00:13.599828+00:00"
   },
   {
     "id": "j24-k5",
