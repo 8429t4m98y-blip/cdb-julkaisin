@@ -42,6 +42,42 @@ if [ -n "$LIKAINEN" ]; then
   exit 1
 fi
 
+# ── PORTTI: jonorivin pakolliset kentät (lisätty 2026-09-29). julkaise.py ja
+# paikallinen ajastin ohittavat HILJAA rivin jonka tila ei ole "odottaa" —
+# myös rivin jolta tila puuttuu kokonaan. Mitattu 28.9. (j25-k1): käsin
+# kirjoitetusta rivistä puuttui tila, push onnistui ja klippi myöhästyi 1 h 7 min
+# ilman yhtään virheilmoitusta. Tarkistetaan committoitu HEAD, koska se lähtee.
+if ! git -C "$DIR" show HEAD:jono.json | python3 -c '
+import json, sys
+from datetime import datetime
+try:
+    jono = json.load(sys.stdin)
+except Exception as e:
+    print(f"  jono.json ei ole kelvollista JSONia: {e}"); sys.exit(1)
+viat, idt = [], set()
+for i, r in enumerate(jono):
+    tunnus = r.get("id") or f"rivi {i+1}"
+    if not r.get("id"): viat.append(f"{tunnus}: id puuttuu")
+    elif r["id"] in idt: viat.append(f"{tunnus}: sama id kahdesti")
+    idt.add(r.get("id"))
+    tila, aika = r.get("tila"), r.get("aika")
+    if tila not in ("odottaa", "julkaistu", "virhe"):
+        viat.append(f"{tunnus}: tila = {tila!r} (pitää olla odottaa, julkaistu tai virhe)")
+    if not r.get("tili"): viat.append(f"{tunnus}: tili puuttuu")
+    try:
+        if datetime.fromisoformat(r["aika"]).tzinfo is None:
+            viat.append(f"{tunnus}: aika ilman aikavyöhykettä (+03:00)")
+    except Exception:
+        viat.append(f"{tunnus}: aika puuttuu tai ei aukea: {aika!r}")
+    if not (r.get("video") or r.get("video_url") or r.get("kuva")):
+        viat.append(f"{tunnus}: ei videota, video_urlia eikä kuvaa")
+for v in viat: print("  " + v)
+sys.exit(1 if viat else 0)
+' >&2; then
+  echo "✗ Jonossa on rivi jota ajastin ei julkaisisi — EI TYÖNNETTY MITÄÄN. Korjaa, committoi ja aja uudelleen." >&2
+  exit 1
+fi
+
 echo "→ Haetaan origin ja työnnetään main …"
 git -C "$DIR" fetch origin --quiet
 
