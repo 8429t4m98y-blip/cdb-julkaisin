@@ -302,11 +302,13 @@
     "video": "media/clip12_toistot_v1.mp4",
     "caption": "KAMERAN EDESSÄ KEHITTYY SAMALLA TAVALLA KUIN SALILLA 🎥\n\nMe molemmat tykätään longformeista, koska siinä ehtii tuoda oman ajatuksen kunnolla esiin. Shortform vaatii ihan oman mindsetin, kun saman ajatuksen pitää mahtua lyhyeen klippiin. Siinä kehittyy vain tekemällä ja toistoilla.\n\nSalilla ja kameran edessä toistot ratkaisee 💪🏻",
     "aika": "2026-10-01T18:00:00+03:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier",
       "mikkefriman"
-    ]
+    ],
+    "media_id": "18005118890793483",
+    "julkaistu_aika": "2026-10-01T15:00:15.913617+00:00"
   },
   {
     "id": "j25-k1",
@@ -405,6 +407,8 @@
     "video": "j25-k10/jakso25_klippi10_TO.mp4",
     "caption": "Kokeillaa ekaa kertaa kuulijakysymyksiä, vaikka todennäkösesti kukaa ei vastaa. Mitkä arjen asiat vie sulta eniten aikaa ja kiristää hermoja? Niitä ois kiva sparrata ja miettiä, et miten tekoäly vois niissä jeesata.",
     "aika": "2026-10-01T18:00:00+03:00",
-    "tila": "odottaa"
+    "tila": "julkaistu",
+    "media_id": "18117052816995381",
+    "julkaistu_aika": "2026-10-01T15:00:15.913617+00:00"
   }
 ]
