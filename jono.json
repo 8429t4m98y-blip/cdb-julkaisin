@@ -410,5 +410,14 @@
     "tila": "julkaistu",
     "media_id": "18117052816995381",
     "julkaistu_aika": "2026-10-01T15:00:15.913617+00:00"
+  },
+  {
+    "id": "or-12",
+    "otsikko": "TULOKSET (ON)",
+    "tili": "cdb",
+    "kuva": "kuvat/12-tulokset.png",
+    "caption": "Mistä valmentajan osaaminen rakentuu? 🤔\n\nValmentajan osaaminen ei riipu valmennettavan saavutuksista.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmennuskoulutus #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #mistäosaaminenrakentuu #tavoitteet #kehitys #pitkäjänteisyys",
+    "aika": "2026-10-04T18:00:00+03:00",
+    "tila": "odottaa"
   }
 ]
