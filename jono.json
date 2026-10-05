@@ -435,5 +435,17 @@
     "tila": "julkaistu",
     "media_id": "17996032992032945",
     "julkaistu_aika": "2026-10-04T15:00:13.319997+00:00"
+  },
+  {
+    "id": "j26-k1",
+    "otsikko": "Monologi j26 klippi 1 — elämän merkityksellisyys (julkaisuklippi)",
+    "tili": "monologi",
+    "video": "media/jakso26_klippi1_MA_v3.mp4",
+    "caption": "Elämän merkityksellisyys ja tekoälykoulutuksista puuttuu käytäntö\n\nMistä se elämän merkityksellisyys syntyy? Mä koen tosi vahvasti, et se syntyy ihmisten auttamisesta. Ja aina ku mä oon näyttäny omaa työtä, jengille aukee ihan uus maailma, koska tekoälykoulutuksista puuttuu käytännönläheisyys.\n\nJakso 26 aiheita:\n◾️ Kotiloma oli hyvä konsepti\n◾️ Mulla oli 20 asiaa to-do-listalla loman jälkeen\n◾️ Ota vastuu omasta elämästä ja katkaise ego miekalla\n◾️ Oon aina tykännyt käydä rajuja keloja läpi\n◾️ Mielipide = mieli pitää jostain kiinni\n◾️ En malta nukkuu, ku koko maailma on auki\n◾️ Taloudellinen riippumattomuus ja merkityksellisyys on mun isoimmat päämäärät\n◾️ Jos tekoäly vie työt, mistä tulee merkityksellisyys?\n\nUusi kuulijakysymys:\nMikä on se viikoittain tehtävä homma, minkä sä lykkäät aina viimeiseen asti?\nVastaukset kommentteihin.",
+    "collab": [
+      "miikameier"
+    ],
+    "aika": "2026-10-05T19:50:00+03:00",
+    "tila": "odottaa"
   }
 ]
