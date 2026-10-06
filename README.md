@@ -33,6 +33,7 @@ Lisää `jono.json`:iin objekti ja vaihda `tila` → `"odottaa"`:
 - `caption` — koko teksti hashtageineen. Rivinvaihto = `\n`.
 - `aika` — ISO-aika **+03:00** (kesäaika EEST) / **+02:00** (talvi EET). Julkaistaan kun tämä hetki on mennyt.
 - `tila` — `"luonnos"` = ei julkaista vielä · `"odottaa"` = julkaistaan kun aika koittaa. Skripti vaihtaa sen → `"julkaistu"` tai `"virhe"`.
+- `kansi_url` — **valinnainen, vain reelit.** Kansikuvan täysi URL (esim. `kuvat/`-tiedoston raw-osoite). Jos Meta hylkää kannen, reel julkaistaan ilman sitä (6.10.).
 - `tili` — **valinnainen, oletus `cdb`.** Sallitut: `cdb` · `monologi` · `miikameier` · `teamera`. Tuntematon arvo pysäyttää sen rivin ennen yhtäkään verkkokutsua; muut rivit julkaistaan normaalisti.
 
 ## Miten lisään VIDEON (reel) jonoon
