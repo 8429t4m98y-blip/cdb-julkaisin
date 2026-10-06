@@ -1,6 +1,6 @@
 """Testit julkaise.py:lle — verkkokutsut korvattu, mitään ei mene ulos Instagramiin.
 
-    python3 testaa_julkaise.py        # 26 tarkistusta, exit 1 jos yksikin hylätty
+    python3 testaa_julkaise.py        # 29 tarkistusta, exit 1 jos yksikin hylätty
 
 ⛔ AJA TÄMÄ ENNEN KUIN MUUTAT julkaise.py:tä. Neljästä tähänastisesta muutoksesta
 kaksi oli korjaus juuri siihen uusinta- ja tuplasuojalogiikkaan jota nämä testit
@@ -33,6 +33,8 @@ def lataa(jono, kutsut, kaada_rivilla=None):
     def api_post(path, params):
         kutsut.append(("POST", path, params))
         if path.endswith("/media"):
+            if kaada_rivilla == "kansi" and "cover_url" in params:
+                raise urllib.error.HTTPError("u", 400, "b", {}, io.BytesIO(b'{"error":{"code":100}}'))
             return {"id": "CID_UUSI"}
         tilat["julkaistut"] += 1
         if kaada_rivilla == "publish":
@@ -123,6 +125,14 @@ tarkista("… ja ajoyrityksia kasvaa", t[0].get("ajoyrityksia") == 1)
 print("\n— collab —")
 t, k, _ = aja([rivi(collab="joku")])
 tarkista("collab menee listana konttikutsuun", any(p.get("collaborators") == '["joku"]' for _, _, p in k if "collaborators" in p))
+
+print("\n— kansikuva —")
+t, k, _ = aja([rivi(kuva=None, video="media/v.mp4", kansi_url="https://raw/x/kuvat/k.png")])
+tarkista("kansi_url menee cover_urlina reelin konttiin", any(p.get("cover_url") == "https://raw/x/kuvat/k.png" for _, _, p in k))
+t, k, _ = aja([rivi(kansi_url="https://raw/x/kuvat/k.png")])
+tarkista("kuvarivi ei laheta cover_urlia", not any("cover_url" in p for _, _, p in k))
+t, k, _ = aja([rivi(kuva=None, video="media/v.mp4", kansi_url="https://raw/x/kuvat/k.png")], kaada_rivilla="kansi")
+tarkista("hylatty kansi -> uusi kontti ilman kantta, reel julkaistaan", t[0]["tila"] == "julkaistu" and sum(1 for me, pa, _ in k if me == "POST" and pa.endswith("/media")) == 2)
 
 print(f"\n{ok} lapi, {fail} hylatty")
 sys.exit(1 if fail else 0)

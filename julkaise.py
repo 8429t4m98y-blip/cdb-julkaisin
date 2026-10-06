@@ -215,6 +215,14 @@ def luo_kontti(ig_id, token, laji, url, item):
     if item.get("collab"):
         collab = item["collab"]
         params["collaborators"] = json.dumps(collab if isinstance(collab, list) else [collab])
+    # Reelin kansikuva, valinnainen: täysi URL kenttään "kansi_url".
+    # Jos Meta hylkää kannen, kontti luodaan uudelleen ilman sitä ⇒ reel lähtee
+    # silti ajallaan, kansi on silloin Metan oletusruutu.
+    if laji == "video" and item.get("kansi_url"):
+        try:
+            return api_post(f"{ig_id}/media", {**params, "cover_url": item["kansi_url"]})["id"]
+        except urllib.error.HTTPError as e:
+            print(f"  … kansikuva hylättiin ({e.code}), luodaan kontti ilman kantta")
     return api_post(f"{ig_id}/media", params)["id"]
 
 
