@@ -62,7 +62,28 @@ Skripti luo tarvittaessa releasen, vie liitteen, **tarkistaa että julkinen osoi
 - `collab` — valinnainen, `"miikameier"` tai lista. Mittaamaton — ks. omistajatiedosto.
 - **Liite poistetaan vasta kun rivi on `julkaistu`**, samalla kertaa kuin rivi poistetaan jonosta (`--poista media/tiedosto.mp4`). Aiemmin poistettu liite antaa uusinnalle 404:n → klippi jää julkaisematta hiljaa; skripti kieltäytyy siksi itse.
 
-⛔ **Jos muutat `julkaise.py`:tä, aja `python3 testaa_julkaise.py` ensin** (26 tarkistusta, ei koske verkkoon). Workflow ei aja niitä puolestasi.
+## Miten lisään KARUSELLIN jonoon
+
+Karuselli = 2–10 kuvaa (tai videota) yhtenä postauksena. Kuvat menevät repoon `kuvat/`-kansioon kuten yksittäinen kuva; videokohde viedään Release-liitteeksi kuten reel (`python3 laheta_video.py …`).
+
+```json
+{
+  "id": "mm-k1",
+  "tili": "miikameier",
+  "kuvat": ["kuvat/jkp-1.jpg", "kuvat/jkp-2.jpg", "kuvat/jkp-3.jpg", "kuvat/jkp-4.jpg", "kuvat/jkp-5.jpg"],
+  "caption": "…",
+  "aika": "2026-10-10T18:00:00+03:00",
+  "tila": "odottaa"
+}
+```
+
+- `kuvat` — lista, **2–10 kohdetta**, järjestys = selausjärjestys. Kohde on kuva (repon polku, ascii-nimi) tai video: pääte `.mp4` → muoto `"<release-tagi>/<tiedosto.mp4>"`, esim. `"media/klippi.mp4"` (sama kuin `video`-kentässä).
+- ⛔ **Älä laita samalle riville `kuva`, `video` tai `video_url`** — rivi menee tilaan `virhe` ennen yhtäkään verkkokutsua (muut rivit julkaistaan normaalisti). Sama jos kohteita on alle 2 tai yli 10.
+- `caption`, `aika`, `tila`, `tili`, `collab` kuten yllä. `collab` menee emokonttiin. `kansi_url` ei koske karusellia.
+- Julkaisu kulkee: lapsikontti per kohde → odotus (FINISHED) → emokontti (`CAROUSEL`) → odotus → julkaisu. Rivi saa julkaisun aikana kentät `lapsi_idt` ja `creation_id`; ne ovat uusintaa varten (valmiita lapsia ei luoda uudestaan) ja katoavat kun rivi on `julkaistu`.
+- ⚠️ **Livenä ajamatta** — testit (`testaa_julkaise.py`) todentavat kutsujen muodon, eivät sitä että Meta hyväksyy karusellin.
+
+⛔ **Jos muutat `julkaise.py`:tä, aja `python3 testaa_julkaise.py` ensin** (ei koske verkkoon; tarkistusten määrä tulostuu loppuun). Workflow ei aja niitä puolestasi.
 
 Committaa → aja `./push.sh` → Actions hoitaa loput. Tila päivittyy takaisin `jono.json`:iin automaattisesti. **Clauden koko työnkulku jonoon viemisestä siivoukseen: omistajatiedosto §Ajastus.**
 

@@ -11,6 +11,11 @@ kentällä "kuva" (repon polku -> raw.githubusercontent) tai "video"
 ("<release-tagi>/<tiedosto.mp4>" -> Release-liite). Video menee ulos
 reelinä: media_type=REELS + video_url.
 
+Kenttä "kuvat" (lista, 2–10 kohdetta) tekee karusellin: jokainen kohde on joko
+kuva (repon polku) tai video (".mp4", muoto "<release-tagi>/<tiedosto.mp4>").
+Kohteista luodaan lapsikontit, ja ne kootaan emokontiksi media_type=CAROUSEL.
+Kenttä "kuvat" ei saa olla samalla rivillä kuin "kuva", "video" tai "video_url".
+
 Token luetaan ympäristömuuttujasta IG_TOKEN (GitHub Secret); paikallisessa
 ajossa fallback ../../Instagram API/.env (LONG_TOKEN). Tili-ID:t ovat
 allowlistissa alla — ne eivät ole salaisuuksia, vain token on.
@@ -44,6 +49,9 @@ HTTP_TIMEOUT = 60
 
 # Kontin valmistumisen pollaus: kuva on heti valmis, video transkoodataan.
 POLLAUS = {"kuva": (10, 3), "video": (40, 15)}   # (kierrosta, sekuntia välissä)
+
+# Karusellin kohteiden määrä (Metan raja: 2–10).
+KARUSELLI_MIN, KARUSELLI_MAX = 2, 10
 
 # Tili-allowlist. IG Business Account -ID:t EIVÄT ole salaisuuksia (sama lista
 # on Instagram API/ig_publish_reel.py:n turvaportissa) — vain token on. Lista
@@ -109,8 +117,46 @@ def valitse_tili(item, tilit):
     return avain, tilit[avain]
 
 
+def karuselli_kohteet(item, raw_base, release_base):
+    """Rivin "kuvat"-lista -> [(laji, julkinen URL), ...]. Validoi ennen verkkoa.
+
+    Kohde jonka pääte on .mp4 on video ("<tagi>/<tiedosto.mp4>", sama muoto ja
+    sama Release-osoite kuin "video"-kentässä), kaikki muu on kuva (repon polku).
+    """
+    for kentta in ("kuva", "video", "video_url"):
+        if item.get(kentta):
+            raise RuntimeError(
+                f"rivillä on sekä 'kuvat' että '{kentta}' — karuselli käyttää vain 'kuvat'-kenttää"
+            )
+    kuvat = item["kuvat"]
+    if not isinstance(kuvat, list):
+        raise RuntimeError("'kuvat' on oltava lista repopolkuja")
+    if not KARUSELLI_MIN <= len(kuvat) <= KARUSELLI_MAX:
+        raise RuntimeError(
+            f"karusellissa on oltava {KARUSELLI_MIN}–{KARUSELLI_MAX} kohdetta, rivillä on {len(kuvat)}"
+        )
+    kohteet = []
+    for nro, polku in enumerate(kuvat, start=1):
+        if not isinstance(polku, str) or not polku.strip():
+            raise RuntimeError(f"'kuvat'-kohde {nro} ei ole polku (tyhjä tai ei merkkijono)")
+        polku = polku.strip()
+        try:
+            if polku.lower().endswith(".mp4"):
+                kohteet.append(media_osoite({"video": polku}, raw_base, release_base))
+            else:
+                kohteet.append(media_osoite({"kuva": polku}, raw_base, release_base))
+        except RuntimeError as e:
+            raise RuntimeError(f"'kuvat'-kohde {nro} ({polku}): {e}")
+    return kohteet
+
+
 def media_osoite(item, raw_base, release_base):
-    """Jonorivi -> (laji, julkinen URL). laji on "kuva" tai "video"."""
+    """Jonorivi -> (laji, julkinen URL). laji on "kuva" tai "video".
+
+    Karusellirivillä ("kuvat") palautuu ("karuselli", [(laji, URL), ...]).
+    """
+    if item.get("kuvat") is not None:
+        return "karuselli", karuselli_kohteet(item, raw_base, release_base)
     if item.get("video_url"):                       # valmis osoite sellaisenaan
         return "video", item["video_url"]
     if item.get("video"):                           # "<tagi>/<tiedosto.mp4>"
@@ -200,6 +246,14 @@ def jo_julkaistu(ig_id, token, caption):
     return None
 
 
+def collab_param(item):
+    """Valinnainen collab-kutsu parametreiksi. ⚠️ EI MITATTU — ks. luo_kontti."""
+    if not item.get("collab"):
+        return {}
+    collab = item["collab"]
+    return {"collaborators": json.dumps(collab if isinstance(collab, list) else [collab])}
+
+
 def luo_kontti(ig_id, token, laji, url, item):
     """Luo media-container. Video menee reelinä; Meta hakee tiedoston itse."""
     params = {"caption": item["caption"], "access_token": token}
@@ -212,9 +266,7 @@ def luo_kontti(ig_id, token, laji, url, item):
     # ⚠️ EI MITATTU — Metan oma opas ei dokumentoi tätä parametria, kolmannen
     # osapuolen lähteet kyllä. Jos se ei kelpaa, virhe tulee TÄSSÄ konttia
     # luodessa eikä julkaisussa ⇒ mitään ei mene ulos vahingossa.
-    if item.get("collab"):
-        collab = item["collab"]
-        params["collaborators"] = json.dumps(collab if isinstance(collab, list) else [collab])
+    params.update(collab_param(item))
     # Reelin kansikuva, valinnainen: täysi URL kenttään "kansi_url".
     # Jos Meta hylkää kannen, kontti luodaan uudelleen ilman sitä ⇒ reel lähtee
     # silti ajallaan, kansi on silloin Metan oletusruutu.
@@ -276,7 +328,12 @@ def julkaise_media(ig_id, token, laji, url, item, merkitse):
         if not odota_valmista(creation_id, token, laji):
             raise RuntimeError(f"Container ERROR (creation_id={creation_id})")
 
-    # Julkaise. Ohimenevä "ei vielä valmis" → odota ja yritä uudelleen.
+    return julkaise_kontti(ig_id, token, creation_id)
+
+
+def julkaise_kontti(ig_id, token, creation_id):
+    """media_publish valmiille kontille. Ohimenevä "ei vielä valmis" → odota ja
+    yritä uudelleen. Palauttaa julkaistun median ID:n."""
     for yritys in range(1, JULKAISU_YRITYKSET + 1):
         try:
             pub = api_post(f"{ig_id}/media_publish", {
@@ -290,6 +347,70 @@ def julkaise_media(ig_id, token, laji, url, item, merkitse):
                 raise RuntimeError(body)
             print(f"  … ei vielä julkaisukelpoinen (yritys {yritys}/{JULKAISU_YRITYKSET}), odotetaan {JULKAISU_ODOTUS} s")
             time.sleep(JULKAISU_ODOTUS)
+
+
+def luo_lapsi(ig_id, token, laji, url):
+    """Karusellin lapsikontti: ei omaa kuvatekstiä, vain is_carousel_item."""
+    params = {"is_carousel_item": "true", "access_token": token}
+    if laji == "video":
+        params["media_type"] = "VIDEO"
+        params["video_url"] = url
+    else:
+        params["image_url"] = url
+    return api_post(f"{ig_id}/media", params)["id"]
+
+
+def julkaise_karuselli(ig_id, token, kohteet, item, merkitse, merkitse_lapset):
+    """Karuselli: lapsikontit → odota FINISHED → emokontti CAROUSEL → odota →
+    media_publish. Palauttaa julkaistun median ID:n.
+
+    `merkitse(creation_id)` tallentaa emokontin ja `merkitse_lapset(idt)`
+    lapsikontit riville heti kun ne ovat olemassa (ks. tallenna()). Uusinta
+    jatkaa niistä: valmiita lapsia ei luoda uudestaan, ja videolapset
+    transkoodataan vain kerran. Vain kuollut (ERROR / kadonnut) lapsi luodaan
+    uudelleen. Emokontin ERROR hylkää myös lapset.
+    """
+    # Karusellin odotus mitoitetaan hitaimman kohteen mukaan.
+    emon_laji = "video" if any(laji == "video" for laji, _ in kohteet) else "kuva"
+
+    creation_id = item.get("creation_id")
+    lapset = [c for c in (item.get("lapsi_idt") or []) if c][:len(kohteet)]
+    if creation_id:
+        print(f"  … jatketaan aiemmin luotua karusellikonttia {creation_id}")
+        if not odota_valmista(creation_id, token, emon_laji):
+            print("  … vanha karusellikontti ei kelpaa, luodaan uusi")
+            creation_id = None
+            lapset = []
+            merkitse(None)
+            merkitse_lapset(lapset)
+
+    if not creation_id:
+        # Lapsikontit: luo puuttuvat, tarkista olemassa olevat.
+        for nro, (laji, url) in enumerate(kohteet):
+            if nro < len(lapset) and odota_valmista(lapset[nro], token, laji):
+                continue
+            if nro < len(lapset):
+                print(f"  … lapsikontti {nro + 1}/{len(kohteet)} ei kelpaa, luodaan uusi")
+                lapset[nro] = luo_lapsi(ig_id, token, laji, url)
+            else:
+                lapset.append(luo_lapsi(ig_id, token, laji, url))
+            merkitse_lapset(lapset)
+            if not odota_valmista(lapset[nro], token, laji):
+                raise RuntimeError(f"Lapsikontti {nro + 1} ERROR (creation_id={lapset[nro]})")
+
+        params = {
+            "media_type": "CAROUSEL",
+            "children": ",".join(lapset),
+            "caption": item["caption"],
+            "access_token": token,
+        }
+        params.update(collab_param(item))
+        creation_id = api_post(f"{ig_id}/media", params)["id"]
+        merkitse(creation_id)
+        if not odota_valmista(creation_id, token, emon_laji):
+            raise RuntimeError(f"Karusellikontti ERROR (creation_id={creation_id})")
+
+    return julkaise_kontti(ig_id, token, creation_id)
 
 
 # --------------------------------------------------------------------------- #
@@ -359,6 +480,7 @@ def main():
             item.pop("virhe", None)
             item.pop("ajoyrityksia", None)
             item.pop("creation_id", None)
+            item.pop("lapsi_idt", None)
             tallenna(jono)
             continue
         if uusinta:
@@ -372,15 +494,27 @@ def main():
                 _item.pop("creation_id", None)
             tallenna(jono)
 
+        def merkitse_lapset(idt, _item=item):
+            """Karusellin lapsikontit riville ja levylle heti."""
+            if idt:
+                _item["lapsi_idt"] = list(idt)
+            else:
+                _item.pop("lapsi_idt", None)
+            tallenna(jono)
+
         print(f"→ Julkaistaan {item['id']} → @{tili} ({laji}) …")
         try:
-            media_id = julkaise_media(ig_id, token, laji, url, item, merkitse)
+            if laji == "karuselli":
+                media_id = julkaise_karuselli(ig_id, token, url, item, merkitse, merkitse_lapset)
+            else:
+                media_id = julkaise_media(ig_id, token, laji, url, item, merkitse)
             item["tila"] = "julkaistu"
             item["media_id"] = media_id
             item["julkaistu_aika"] = nyt.isoformat()
             item.pop("virhe", None)
             item.pop("ajoyrityksia", None)
             item.pop("creation_id", None)
+            item.pop("lapsi_idt", None)
             tallenna(jono)
             julkaistu += 1
             print(f"  ✓ julkaistu, media_id={media_id}")
