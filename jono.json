@@ -548,5 +548,18 @@
     "caption": "Kaikki tekoälykoulutukset, mitä mä oon käyny, on ollu tosi teoriapainotteisia. Mut aina ku mä oon näyttäny omaa työtä, jengille aukee ihan uus maailma 🤯",
     "aika": "2026-10-10T18:00:00+03:00",
     "tila": "odottaa"
+  },
+  {
+    "id": "era-sf-dieetin-aikataulu",
+    "otsikko": "ERA shortform — kisadieetti kaatuu useimmiten aikatauluun (Mikke, 2.4)",
+    "tili": "teamera",
+    "aika": "2026-10-11T10:00:00+03:00",
+    "video": "media/shortform_dieetin_aikataulu.mp4",
+    "caption": "KISADIEETTI KAATUU USEIMMITEN AIKATAULUUN 🗓️\n\nKevään kisadieetit on saattanu jo alkaa, joten nyt on hyvä hetki katsoa aikataulu kuntoon. Liian usein alussa ei paineta kaasua tarpeeks kovaa, ja loppudieetille jää aivan liikaa poltettavaa rasvaa. Dieetin alussa kropalla on vielä energiaa, joten se kestää kovempaakin tahtia.\n\nSiks kisadieetille kannattaa tehdä rakenne heti alussa: paljonko rasvaa poltetaan ekalla puoliskolla, mitä sen jälkeen tapahtuu ja mitä jää loppuvaiheeseen.\n\nKisakunto kannattaa saavuttaa mielellään jo pari viikkoa ennen kisoja, eikä vasta kolme päivää ennen. Silloin ehditään nostaa ruokaa ja laskea stressiä, jotta lavalle saadaan mahdollisimman hyvä kunto 🤝",
+    "collab": [
+      "miikameier",
+      "mikkefriman"
+    ],
+    "tila": "odottaa"
   }
 ]
