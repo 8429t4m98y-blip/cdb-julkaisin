@@ -562,7 +562,9 @@
       "miikameier",
       "mikkefriman"
     ],
-    "tila": "odottaa"
+    "tila": "julkaistu",
+    "media_id": "18020026706936368",
+    "julkaistu_aika": "2026-10-11T07:00:11.806561+00:00"
   },
   {
     "id": "j26-k9",
@@ -580,6 +582,8 @@
     "video": "media/jakso26_klippi10_SU_B.mp4",
     "caption": "Mä en tiedä voiks näitä käsitellä podcastissa, mut kyllä mä koin, et tää oli semmonen aihe, mikä resonoi itellä tosi paljon. Tommy kerto itse tän tarinan siinä podcastissa, joten ajattelen, et tän voi jakaa myös mun omassa podcastissa.\n\nNe pohti siinä, miten tommosesta voi päästä yli. Tommy otti kaks asiaa: ottaa vastuun omasta elämästä ja katkasee miekalla oman egonsa. Ja mä oon silleen, et nää ei sano mulle yhtään mitään.\n\nKuuntele koko tarina jaksosta ja mun ajatuksia aiheesta.",
     "aika": "2026-10-11T10:00:00+03:00",
-    "tila": "odottaa"
+    "tila": "julkaistu",
+    "media_id": "18110616080179649",
+    "julkaistu_aika": "2026-10-11T07:00:11.806561+00:00"
   }
 ]
