@@ -695,5 +695,15 @@
     "tila": "julkaistu",
     "media_id": "18113933677844518",
     "julkaistu_aika": "2026-10-16T07:00:14.567079+00:00"
+  },
+  {
+    "id": "mk-01",
+    "otsikko": "CDB mk-01 — seminaarin tiiseri v10 (avaus, kuvateksti v10b)",
+    "tili": "cdb",
+    "video": "media/mk01-tiiseri-v10.mp4",
+    "kansi_url": "https://raw.githubusercontent.com/8429t4m98y-blip/cdb-julkaisin/main/kuvat/mk01-tiiseri-v10-kansi.jpg",
+    "caption": "CDB:n valmennusseminaari tulee Helsinkiin lauantaina 6.2.2027, ja puhujia on kolme. Liput ovat nyt myynnissä osoitteessa coachesdatabase.fi.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #lihaskasvu #rasvanpoltto #hypertrofia",
+    "aika": "2026-10-16T19:00:00+03:00",
+    "tila": "odottaa"
   }
 ]
