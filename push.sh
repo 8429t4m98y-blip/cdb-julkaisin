@@ -69,8 +69,8 @@ for i, r in enumerate(jono):
             viat.append(f"{tunnus}: aika ilman aikavyöhykettä (+03:00)")
     except Exception:
         viat.append(f"{tunnus}: aika puuttuu tai ei aukea: {aika!r}")
-    if not (r.get("video") or r.get("video_url") or r.get("kuva")):
-        viat.append(f"{tunnus}: ei videota, video_urlia eikä kuvaa")
+    if not (r.get("video") or r.get("video_url") or r.get("kuva") or r.get("kuvat")):
+        viat.append(f"{tunnus}: ei videota, video_urlia, kuvaa eikä kuvat-listaa (karuselli)")
 for v in viat: print("  " + v)
 sys.exit(1 if viat else 0)
 ' >&2; then
