@@ -727,5 +727,19 @@
     "caption": "Mä oon nähny tyyppejä, jotka on syntyny kultalusikka suussa ja saanu perintöä paljon. Silti niistä on kasvanu tosi kohteliaita ja hyväkäytöksisiä, eikä se raha oo noussu hattuun.\n\nNe on opettanu, että raha ei kasva puussa ja saanu niille hyvät käytöstavat. Ja silti ne on semmosia ahkeria ihmisiä täs meidän yhteiskunnassa 🤝",
     "aika": "2026-10-17T10:00:00+03:00",
     "tila": "odottaa"
+  },
+  {
+    "id": "mk-02",
+    "otsikko": "CDB mk-02 — myyntikaruselli (4 diaa: kansi, ohjelma, lippu, järjestäjät)",
+    "tili": "cdb",
+    "kuvat": [
+      "kuvat/mk02-1-kansi.jpg",
+      "kuvat/mk02-2-ohjelma.jpg",
+      "kuvat/mk02-3-lippu.jpg",
+      "kuvat/mk02-4-jarjestajat.jpg"
+    ],
+    "caption": "CDB:n valmennusseminaari on lauantaina 6.2.2027 Helsingissä. Päivässä on kolme luentoa ja loppupaneeli:\n\nTuomas Rytkönen: harjoitusten ohjelmointi\nJuho Suomi: urheiluravitsemus\nUtti Hietala: fysiikan rakentaminen kilpatasolle\n\nEnnakkolippu maksaa 59 € su 29.11. asti tai kunnes ennakkoliput on myyty, ja tallenne kuuluu lippuun. Liput ja ohjelma ovat osoitteessa coachesdatabase.fi.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #lihaskasvu #rasvanpoltto #hypertrofia",
+    "aika": "2026-10-18T18:00:00+03:00",
+    "tila": "odottaa"
   }
 ]
