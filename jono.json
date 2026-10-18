@@ -685,7 +685,9 @@
       "mikkefriman"
     ],
     "aika": "2026-10-18T10:00:00+03:00",
-    "tila": "odottaa"
+    "tila": "julkaistu",
+    "media_id": "17953713480293334",
+    "julkaistu_aika": "2026-10-18T07:00:11.599578+00:00"
   },
   {
     "id": "j27-k9",
@@ -762,6 +764,8 @@
     "video": "media/jakso27_klippi8_SU.mp4",
     "caption": "Oon aatellu aina parisuhteesta, et me toimitaan yhdessä. Vaik molemmil on oma elämä, niin sit on tosi paljon yhteistä aikaa ja tekemistä, ja mä haluun toteuttaa asioita sen toisen kanssa.\n\nMut nyt on hyvä jos mun kalenteriin mahtuu ees se oma aika. Pitäiskö mun muuttaa sitä parisuhdekäsitystä, vai meniskö tää kuitenki omalla painollaan, jos se toinen tulis tähä elämään? 🤔",
     "aika": "2026-10-18T10:00:00+03:00",
-    "tila": "odottaa"
+    "tila": "julkaistu",
+    "media_id": "18368519671215634",
+    "julkaistu_aika": "2026-10-18T07:00:11.599578+00:00"
   }
 ]
