@@ -771,5 +771,25 @@
     "tila": "julkaistu",
     "media_id": "18368519671215634",
     "julkaistu_aika": "2026-10-18T07:00:11.599578+00:00"
+  },
+  {
+    "id": "mm-syys26",
+    "otsikko": "@miikameier ④ syyskuun kuvadumppi (10 kuvaa)",
+    "tili": "miikameier",
+    "kuvat": [
+      "kuvat/mm-syys26-01.jpg",
+      "kuvat/mm-syys26-02.jpg",
+      "kuvat/mm-syys26-03.jpg",
+      "kuvat/mm-syys26-04.jpg",
+      "kuvat/mm-syys26-05.jpg",
+      "kuvat/mm-syys26-06.jpg",
+      "kuvat/mm-syys26-07.jpg",
+      "kuvat/mm-syys26-08.jpg",
+      "kuvat/mm-syys26-09.jpg",
+      "kuvat/mm-syys26-10.jpg"
+    ],
+    "caption": "Syyskuu ilman suodatinta 🍂 Dumppi pikkusen myöhässä, mut parempi nyt ku ei milloinkaa!\n\nTäst tuli tosi kiva fiilis, ku itel jo vähä sellane erakkofiilis, ku tuntuu, et oon ollu pelkästää nenä kiinni tietokoneenruudussa. Mut onhan tässä kaikkee kivaa silti päässy tapahtumaa! Kivoja tyyppejä, hienoja hetkiä. Näitä rutkasti lisää viel loppu vuodelle 😇",
+    "aika": "2026-10-20T19:00:00+03:00",
+    "tila": "odottaa"
   }
 ]
