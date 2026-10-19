@@ -35,6 +35,8 @@ def lataa(jono, kutsut, kaada_rivilla=None):
         if path.endswith("/media"):
             if kaada_rivilla == "kansi" and "cover_url" in params:
                 raise urllib.error.HTTPError("u", 400, "b", {}, io.BytesIO(b'{"error":{"code":100}}'))
+            if kaada_rivilla == "collab" and "collaborators" in params:
+                raise urllib.error.HTTPError("u", 400, "b", {}, io.BytesIO(b'{"error":{"code":100}}'))
             if params.get("is_carousel_item") == "true":     # karusellin lapsikontti
                 tilat["lapsia"] += 1
                 return {"id": f"LAPSI_{tilat['lapsia']}"}
@@ -128,6 +130,21 @@ tarkista("… ja ajoyrityksia kasvaa", t[0].get("ajoyrityksia") == 1)
 print("\n— collab —")
 t, k, _ = aja([rivi(collab="joku")])
 tarkista("collab menee listana konttikutsuun", any(p.get("collaborators") == '["joku"]' for _, _, p in k if "collaborators" in p))
+
+t, k, _ = aja([rivi(collab="joku")])
+tarkista("onnistunut collab -> ei collab_pudotettu-merkintaa", "collab_pudotettu" not in t[0])
+t, k, _ = aja([rivi(collab="joku")], kaada_rivilla="collab")
+konttipostit = [p for me, pa, p in k if me == "POST" and pa.endswith("/media")]
+tarkista("hylatty collab -> uusi kontti ilman collabia, kuva julkaistaan",
+         t[0]["tila"] == "julkaistu" and len(konttipostit) == 2 and "collaborators" in konttipostit[0] and "collaborators" not in konttipostit[1])
+tarkista("… ja riville jaa collab_pudotettu", t[0].get("collab_pudotettu") is True)
+t, k, _ = aja([rivi(kuva=None, kuvat=["kuvat/k1.jpg", "kuvat/k2.jpg"], collab="kim")], kaada_rivilla="collab")
+emot = [p for me, pa, p in k if me == "POST" and pa.endswith("/media") and p.get("media_type") == "CAROUSEL"]
+tarkista("karuselli: hylatty collab -> emo ilman collabia, lapsia ei luoda uudelleen",
+         t[0]["tila"] == "julkaistu" and len(emot) == 2 and "collaborators" not in emot[1] and emot[1]["children"] == "LAPSI_1,LAPSI_2" and t[0].get("collab_pudotettu") is True)
+t, k, _ = aja([rivi(kuva=None, video="media/v.mp4", kansi_url="https://raw/x/kuvat/k.png", collab="joku")], kaada_rivilla="collab")
+viimeinen = [p for me, pa, p in k if me == "POST" and pa.endswith("/media")][-1]
+tarkista("reel: hylatty collab -> kansi sailyy, collab pois", t[0]["tila"] == "julkaistu" and viimeinen.get("cover_url") and "collaborators" not in viimeinen)
 
 print("\n— kansikuva —")
 t, k, _ = aja([rivi(kuva=None, video="media/v.mp4", kansi_url="https://raw/x/kuvat/k.png")])

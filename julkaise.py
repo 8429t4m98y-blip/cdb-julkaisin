@@ -247,11 +247,33 @@ def jo_julkaistu(ig_id, token, caption):
 
 
 def collab_param(item):
-    """Valinnainen collab-kutsu parametreiksi. ⚠️ EI MITATTU — ks. luo_kontti."""
+    """Valinnainen collab-kutsu parametreiksi — ks. luo_collab_kontti."""
     if not item.get("collab"):
         return {}
     collab = item["collab"]
     return {"collaborators": json.dumps(collab if isinstance(collab, list) else [collab])}
+
+
+def luo_collab_kontti(ig_id, params, item):
+    """POST {ig_id}/media, collab-kutsun kanssa jos rivillä on "collab".
+
+    Vastaanottaja hyväksyy tai hylkää kutsun IG:ssä. Toimi yritys- ja
+    sisällöntuottajatileille (miikameier, mikkefriman); henkilökohtaiselle
+    tilille mittaamaton (Utti, 19.10.). Jos Meta hylkää kontin collabin kanssa,
+    kontti luodaan uudelleen ilman sitä ⇒ postaus lähtee silti ajallaan, ja
+    riville jää "collab_pudotettu": true. Kontin luonti ei julkaise mitään,
+    joten uusi yritys on turvallinen.
+    """
+    collab = collab_param(item)
+    if collab:
+        try:
+            return api_post(f"{ig_id}/media", {**params, **collab})["id"]
+        except urllib.error.HTTPError as e:
+            print(f"  … collab-kutsu hylättiin ({e.code}: {e.read().decode(errors='replace')[:300]}), luodaan kontti ilman collabia")
+    cid = api_post(f"{ig_id}/media", params)["id"]
+    if collab:
+        item["collab_pudotettu"] = True
+    return cid
 
 
 def luo_kontti(ig_id, token, laji, url, item):
@@ -262,20 +284,15 @@ def luo_kontti(ig_id, token, laji, url, item):
         params["video_url"] = url
     else:
         params["image_url"] = url
-    # Collab-kutsu, valinnainen: vastaanottaja hyväksyy tai hylkää IG:ssä.
-    # ⚠️ EI MITATTU — Metan oma opas ei dokumentoi tätä parametria, kolmannen
-    # osapuolen lähteet kyllä. Jos se ei kelpaa, virhe tulee TÄSSÄ konttia
-    # luodessa eikä julkaisussa ⇒ mitään ei mene ulos vahingossa.
-    params.update(collab_param(item))
     # Reelin kansikuva, valinnainen: täysi URL kenttään "kansi_url".
     # Jos Meta hylkää kannen, kontti luodaan uudelleen ilman sitä ⇒ reel lähtee
-    # silti ajallaan, kansi on silloin Metan oletusruutu.
+    # silti ajallaan, kansi on silloin Metan oletusruutu. Collab: luo_collab_kontti.
     if laji == "video" and item.get("kansi_url"):
         try:
-            return api_post(f"{ig_id}/media", {**params, "cover_url": item["kansi_url"]})["id"]
+            return luo_collab_kontti(ig_id, {**params, "cover_url": item["kansi_url"]}, item)
         except urllib.error.HTTPError as e:
             print(f"  … kansikuva hylättiin ({e.code}), luodaan kontti ilman kantta")
-    return api_post(f"{ig_id}/media", params)["id"]
+    return luo_collab_kontti(ig_id, params, item)
 
 
 def odota_valmista(creation_id, token, laji):
@@ -404,8 +421,7 @@ def julkaise_karuselli(ig_id, token, kohteet, item, merkitse, merkitse_lapset):
             "caption": item["caption"],
             "access_token": token,
         }
-        params.update(collab_param(item))
-        creation_id = api_post(f"{ig_id}/media", params)["id"]
+        creation_id = luo_collab_kontti(ig_id, params, item)
         merkitse(creation_id)
         if not odota_valmista(creation_id, token, emon_laji):
             raise RuntimeError(f"Karusellikontti ERROR (creation_id={creation_id})")
