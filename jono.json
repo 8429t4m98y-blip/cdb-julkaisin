@@ -835,7 +835,8 @@
     "video": "media/jakso28_klippi4_KE.mp4",
     "caption": "Musta tuntuu, et tekoälyllä kaikki toimii. Mut toimiiko ne sitten oikeasti, vai oonko mä jossain vaan ihan valtavassa kuplassa sen kanssa?\n\nToisaalta tuntuu, että asiat huomioidaan, ne käsitellään, niille merkataan päivä. Nään, et asiat etenee, et se ei oo vaan pyöritystä järjestelmän sisällä.",
     "aika": "2026-10-21T10:00:00+03:00",
-    "tila": "odottaa"
+    "tila": "odottaa",
+    "story": true
   },
   {
     "id": "j28-k5",
@@ -844,7 +845,8 @@
     "video": "media/jakso28_klippi5_KE.mp4",
     "caption": "Katoin töissä sattumalta uutisia yksi aamu, ja siinä oli pääministeri Orpo jossain haastattelutilanteessa. Viis minuuttia riitti ja mulle tuli rehellisesti paha mieli.\n\nMusta tuntuu, että ne hakkas päitä yhteen. Mihin mä tarvin elämässäni tämmöstä negatiivisuuden kierrettä? Eiks uutisointi voisi olla vähän neutraalimpaa 🤷🏻‍♂️",
     "aika": "2026-10-21T18:00:00+03:00",
-    "tila": "odottaa"
+    "tila": "odottaa",
+    "story": true
   },
   {
     "id": "mk-03",
