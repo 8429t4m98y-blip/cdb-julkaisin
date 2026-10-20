@@ -60,7 +60,8 @@ Skripti luo tarvittaessa releasen, vie liitteen, **tarkistaa että julkinen osoi
 - `video` — `"<release-tagi>/<tiedosto.mp4>"`. Vaihtoehtoisesti `video_url` = valmis julkinen osoite sellaisenaan (mikä tahansa isäntä).
 - Video julkaistaan **reelinä** (`media_type=REELS`); Meta hakee tiedoston itse. Tämä on eri latauspolku kuin `Instagram API/ig_publish_reel.py`:n `rupload`, joka kaatuu yli ~60 s klipeillä.
 - `collab` — valinnainen, `"miikameier"` tai lista. Toimi yritys- ja sisällöntuottajatileille; henkilökohtaiselle tilille mittaamaton. **Varapolku:** jos Meta hylkää kontin collabin kanssa, kontti luodaan ilman sitä, postaus lähtee ajallaan ja riville jää `"collab_pudotettu": true`.
-- **Liite poistetaan vasta kun rivi on `julkaistu`**, samalla kertaa kuin rivi poistetaan jonosta (`--poista media/tiedosto.mp4`). Aiemmin poistettu liite antaa uusinnalle 404:n → klippi jää julkaisematta hiljaa; skripti kieltäytyy siksi itse.
+- `story` — valinnainen, vain videorivit: reelin perään story samalla ajolla. `true` = sama video · `"media/<tiedosto>_story.mp4"` = erillinen story-versio (Metan raja **3–60 s**; yli 60 s klipille leikataan ≤ 59 s versio). Story on oma videonsa ilman tekstiä ja tarroja — rajapinta ei jaa reeliä storyyn. Storyn virhe ei koske reeliin: reel pysyy `julkaistu`, riville jää `story_virhe` + `story_yrityksia`, ja seuraavat 3 ajoa yrittävät vain storya. Onnistuessa `story_media_id`.
+- **Liite poistetaan vasta kun rivi on `julkaistu`** (ja storyrivillä `story_media_id` olemassa), samalla kertaa kuin rivi poistetaan jonosta (`--poista media/tiedosto.mp4`). Aiemmin poistettu liite antaa uusinnalle 404:n → klippi jää julkaisematta hiljaa; skripti kieltäytyy siksi itse.
 
 ## Miten lisään KARUSELLIN jonoon
 

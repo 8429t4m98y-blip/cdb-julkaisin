@@ -16,6 +16,13 @@ kuva (repon polku) tai video (".mp4", muoto "<release-tagi>/<tiedosto.mp4>").
 Kohteista luodaan lapsikontit, ja ne kootaan emokontiksi media_type=CAROUSEL.
 Kenttä "kuvat" ei saa olla samalla rivillä kuin "kuva", "video" tai "video_url".
 
+Kenttä "story" (vain videorivit) julkaisee reelin perään storyn samalla ajolla:
+true = sama video, "<release-tagi>/<tiedosto.mp4>" tai URL = erillinen story-
+versio (Metan raja 3–60 s). Rajapinta ei jaa reeliä storyyn, vaan story on oma
+videonsa ilman tekstiä ja tarroja [mitattu 2026-10-20]. Storyn virhe ei koske
+reeliin: se kirjataan kenttiin story_virhe / story_yrityksia ja yritetään
+seuraavissa ajoissa uudelleen.
+
 Token luetaan ympäristömuuttujasta IG_TOKEN (GitHub Secret); paikallisessa
 ajossa fallback ../../Instagram API/.env (LONG_TOKEN). Tili-ID:t ovat
 allowlistissa alla — ne eivät ole salaisuuksia, vain token on.
@@ -175,6 +182,30 @@ def media_osoite(item, raw_base, release_base):
     raise RuntimeError("rivillä ei ole kenttää kuva, video eikä video_url")
 
 
+def story_osoite(item, laji, url, release_base):
+    """Rivin "story"-kenttä -> storyn videon URL tai None. Validoi ennen verkkoa.
+
+    true = sama video kuin reelillä · "<tagi>/<tiedosto.mp4>" = Release-liite ·
+    "https://…" = valmis osoite. Story tehdään vain videoriville.
+    """
+    story = item.get("story")
+    if not story:
+        return None
+    if laji != "video":
+        raise RuntimeError("'story' vaatii videorivin (video tai video_url) — kuvasta tai karusellista ei tehdä storya")
+    if story is True:
+        return url
+    if isinstance(story, str) and story.strip():
+        story = story.strip()
+        if story.startswith(("http://", "https://")):
+            return story
+        try:
+            return media_osoite({"video": story}, None, release_base)[1]
+        except RuntimeError as e:
+            raise RuntimeError(f"'story': {e}")
+    raise RuntimeError("'story' on true tai '<release-tagi>/<tiedosto.mp4>'")
+
+
 # --------------------------------------------------------------------------- #
 # Graph API -apurit
 # --------------------------------------------------------------------------- #
@@ -242,6 +273,32 @@ def jo_julkaistu(ig_id, token, caption):
         return None
     for media in res.get("data", []):
         if (media.get("caption") or "").strip() == caption.strip():
+            return media.get("id")
+    return None
+
+
+def story_jo_julkaistu(ig_id, token, aika):
+    """Onko tilillä jo story, joka julkaistiin rivin ajastetun ajan jälkeen?
+    Palauttaa media_id:n tai None.
+
+    Storyssa ei ole kuvatekstiä, joten jo_julkaistu ei tunnista sitä. Ajetaan
+    vain kun rivin tila on voinut hävitä (reel löytyi jo tililtä tai story on
+    uusinnassa) — ei tuoreelle julkaisulle, jottei saman ajon aiempi story
+    näyttäisi myöhemmän rivin storylta. Kyselyn virhe → None, kuten jo_julkaistu.
+    """
+    try:
+        res = api_get(f"{ig_id}/stories", {
+            "fields": "id,timestamp",
+            "access_token": token,
+        })
+    except (urllib.error.HTTPError, urllib.error.URLError, ValueError):
+        return None
+    for media in res.get("data", []):
+        try:
+            ts = datetime.strptime(media.get("timestamp", ""), "%Y-%m-%dT%H:%M:%S%z")
+        except ValueError:
+            continue
+        if ts >= aika:
             return media.get("id")
     return None
 
@@ -366,6 +423,66 @@ def julkaise_kontti(ig_id, token, creation_id):
             time.sleep(JULKAISU_ODOTUS)
 
 
+def julkaise_story(ig_id, token, url, item, merkitse_story):
+    """Story: kontti media_type=STORIES → odota FINISHED → media_publish.
+    Uusinta jatkaa riville tallennettua story_creation_id:tä kuten reel."""
+    creation_id = item.get("story_creation_id")
+    if creation_id and not odota_valmista(creation_id, token, "video"):
+        print("  … vanha story-kontti ei kelpaa, luodaan uusi")
+        creation_id = None
+        merkitse_story(None)
+    if not creation_id:
+        creation_id = api_post(f"{ig_id}/media", {
+            "media_type": "STORIES",
+            "video_url": url,
+            "access_token": token,
+        })["id"]
+        merkitse_story(creation_id)
+        if not odota_valmista(creation_id, token, "video"):
+            raise RuntimeError(f"Story-kontti ERROR (creation_id={creation_id})")
+    return julkaise_kontti(ig_id, token, creation_id)
+
+
+def hoida_story(ig_id, token, url, item, jono, aika, tarkista_tili):
+    """Julkaise rivin story ja kirjaa tulos riville. True = ok, False = virhe.
+
+    Reel on tässä vaiheessa jo ulkona: storyn virhe ei muuta rivin tilaa eikä
+    julkaise reeliä uudelleen, vaan jää kenttiin story_virhe / story_yrityksia.
+    """
+    def valmis(media_id):
+        item["story_media_id"] = media_id
+        for kentta in ("story_virhe", "story_yrityksia", "story_creation_id"):
+            item.pop(kentta, None)
+        tallenna(jono)
+
+    if tarkista_tili:
+        vanha = story_jo_julkaistu(ig_id, token, aika)
+        if vanha:
+            print(f"  → story oli jo tilillä (media_id={vanha}) — ei julkaista uudelleen.")
+            valmis(vanha)
+            return True
+
+    def merkitse_story(cid):
+        if cid:
+            item["story_creation_id"] = cid
+        else:
+            item.pop("story_creation_id", None)
+        tallenna(jono)
+
+    try:
+        media_id = julkaise_story(ig_id, token, url, item, merkitse_story)
+    except (urllib.error.HTTPError, RuntimeError, KeyError) as e:
+        msg = e.read().decode() if isinstance(e, urllib.error.HTTPError) else str(e)
+        item["story_virhe"] = msg
+        item["story_yrityksia"] = item.get("story_yrityksia", 0) + 1
+        tallenna(jono)
+        print(f"  ✗ STORYN VIRHE (reel on ulkona): {msg}")
+        return False
+    valmis(media_id)
+    print(f"  ✓ story julkaistu, media_id={media_id}")
+    return True
+
+
 def luo_lapsi(ig_id, token, laji, url):
     """Karusellin lapsikontti: ei omaa kuvatekstiä, vain is_carousel_item."""
     params = {"is_carousel_item": "true", "access_token": token}
@@ -445,7 +562,11 @@ def main():
     for item in jono:
         tila = item.get("tila")
         uusinta = tila == "virhe" and item.get("ajoyrityksia", 1) < MAX_AJOYRITYKSET
-        if tila != "odottaa" and not uusinta:
+        # Reel on ulkona, mutta story puuttuu (virhe tai ajo kuoli välissä).
+        story_kesken = (tila == "julkaistu" and item.get("story")
+                        and not item.get("story_media_id")
+                        and item.get("story_yrityksia", 0) < MAX_AJOYRITYKSET)
+        if tila != "odottaa" and not uusinta and not story_kesken:
             continue
         aika_str = item.get("aika")
         if not aika_str:
@@ -460,12 +581,31 @@ def main():
         if aika > nyt:
             continue  # ei vielä erääntynyt
 
+        if story_kesken:
+            # Vain story: rivin tila pysyy "julkaistu" tapahtui mitä tahansa.
+            try:
+                tili, ig_id = valitse_tili(item, tilit)
+                laji, url = media_osoite(item, raw_base, release_base)
+                story_url = story_osoite(item, laji, url, release_base)
+            except RuntimeError as e:
+                item["story_virhe"] = str(e)
+                item["story_yrityksia"] = MAX_AJOYRITYKSET
+                virheita += 1
+                tallenna(jono)
+                print(f"  ✗ {item.get('id')} (story): {e}")
+                continue
+            print(f"→ {item['id']}: story puuttuu, yritys {item.get('story_yrityksia', 0) + 1}/{MAX_AJOYRITYKSET} → @{tili}")
+            if not hoida_story(ig_id, token, story_url, item, jono, aika, tarkista_tili=True):
+                virheita += 1
+            continue
+
         # Tili, kuvateksti ja median osoite ratkaistaan ennen kuin mitään
         # lähetetään. Rikkinäinen rivi ei saa kaataa koko ajoa muiden alta —
         # ja kuvateksti tarkistetaan tässä, koska jo_julkaistu vertaa sitä.
         try:
             tili, ig_id = valitse_tili(item, tilit)
             laji, url = media_osoite(item, raw_base, release_base)
+            story_url = story_osoite(item, laji, url, release_base)
             if not (item.get("caption") or "").strip():
                 raise RuntimeError("rivillä ei ole kuvatekstiä (caption)")
         except RuntimeError as e:
@@ -498,6 +638,9 @@ def main():
             item.pop("creation_id", None)
             item.pop("lapsi_idt", None)
             tallenna(jono)
+            if story_url and not item.get("story_media_id"):
+                if not hoida_story(ig_id, token, story_url, item, jono, aika, tarkista_tili=True):
+                    virheita += 1
             continue
         if uusinta:
             print(f"→ {item['id']}: uusintayritys {item.get('ajoyrityksia', 1) + 1}/{MAX_AJOYRITYKSET}")
@@ -544,6 +687,11 @@ def main():
             jaljella = MAX_AJOYRITYKSET - item["ajoyrityksia"]
             print(f"  ✗ VIRHE: {msg}")
             print(f"    ({'yritetään seuraavassa ajossa uudelleen, ' + str(jaljella) + ' yritystä jäljellä' if jaljella > 0 else 'yritykset käytetty — jää virheeseen, vaatii käsin korjauksen'})")
+        else:
+            # Story vasta kun reel on ulkona ja tila levyllä (try:n ulkopuolella),
+            # jotta storyn virhe ei koskaan johda reelin uusintaan.
+            if story_url and not hoida_story(ig_id, token, story_url, item, jono, aika, tarkista_tili=False):
+                virheita += 1
 
     tallenna(jono)   # varmistus; tila on kirjoitettu jo joka rivin jälkeen
 
