@@ -850,8 +850,11 @@
     "video": "media/jakso28_klippi5_KE.mp4",
     "caption": "Katoin töissä sattumalta uutisia yksi aamu, ja siinä oli pääministeri Orpo jossain haastattelutilanteessa. Viis minuuttia riitti ja mulle tuli rehellisesti paha mieli.\n\nMusta tuntuu, että ne hakkas päitä yhteen. Mihin mä tarvin elämässäni tämmöstä negatiivisuuden kierrettä? Eiks uutisointi voisi olla vähän neutraalimpaa 🤷🏻‍♂️",
     "aika": "2026-10-21T18:00:00+03:00",
-    "tila": "odottaa",
-    "story": true
+    "tila": "julkaistu",
+    "story": true,
+    "media_id": "18091683515666018",
+    "julkaistu_aika": "2026-10-21T15:00:14.646607+00:00",
+    "story_media_id": "18134875075673553"
   },
   {
     "id": "mk-03",
@@ -864,10 +867,12 @@
     ],
     "caption": "Utti Hietala (@uttihietala) puhuu CDB:n valmennusseminaarissa fysiikan rakentamisesta kilpatasolle klo 14.30.\n\nUtti on ollut lajin parissa 30 vuotta: 27 kilpailua vuodesta 2006, kolme Classic Bodybuildingin SM-overallia ja naturaalikehonrakennuksen masters-EM-voitto 2024. Hänen valmennettavillaan on SM-, PM- ja EM-mitaleita.\n\nEnnakkolipun ostaneet voivat toivoa, mihin luennolla painotetaan.\n\nCDB:n valmennusseminaari on lauantaina 6.2.2027 Helsingissä, ja tallenne kuuluu lippuun. Liput ovat osoitteessa coachesdatabase.fi.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #kehonrakennus #classicbodybuilding #lihasmassa",
     "aika": "2026-10-21T18:00:00+03:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "uttihietala"
-    ]
+    ],
+    "media_id": "18031348298684263",
+    "julkaistu_aika": "2026-10-21T15:00:14.646607+00:00"
   },
   {
     "id": "j28-k6",
