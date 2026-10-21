@@ -878,5 +878,18 @@
     "aika": "2026-10-22T18:00:00+03:00",
     "tila": "odottaa",
     "story": true
+  },
+  {
+    "id": "era-k14",
+    "otsikko": "ERA klippi 14 — parhaat palat longformeista",
+    "tili": "teamera",
+    "video": "media/clip14_parhaat_palat_v3a.mp4",
+    "caption": "ERAN KOOSTEET ☑️\n\nKasattiin meidän longformeista ne kohdat, jotka kertoo eniten siitä mitä ERA:ssa tehdään ja miks. \n\nKaikki longform keskustelut löytyy Miken YouTubesta ja kohta lisää on tulossa 🎥",
+    "aika": "2026-10-22T18:00:00+03:00",
+    "tila": "odottaa",
+    "collab": [
+      "miikameier",
+      "mikkefriman"
+    ]
   }
 ]
