@@ -837,8 +837,11 @@
     "video": "media/jakso28_klippi4_KE.mp4",
     "caption": "Musta tuntuu, et tekoälyllä kaikki toimii. Mut toimiiko ne sitten oikeasti, vai oonko mä jossain vaan ihan valtavassa kuplassa sen kanssa?\n\nToisaalta tuntuu, että asiat huomioidaan, ne käsitellään, niille merkataan päivä. Nään, et asiat etenee, et se ei oo vaan pyöritystä järjestelmän sisällä.",
     "aika": "2026-10-21T10:00:00+03:00",
-    "tila": "odottaa",
-    "story": true
+    "tila": "julkaistu",
+    "story": true,
+    "media_id": "18117842608999673",
+    "julkaistu_aika": "2026-10-21T07:00:11.587097+00:00",
+    "story_media_id": "17962154403249315"
   },
   {
     "id": "j28-k5",
