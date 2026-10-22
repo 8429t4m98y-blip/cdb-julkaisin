@@ -894,8 +894,11 @@
     "video": "media/jakso28_klippi7_TO.mp4",
     "caption": "Musta tuntuu, et epäonnistumisen pelko on hyvin kaukana siitä, mitä ajattelen tai teen. Uskaltaa elää semmosta oman näköistä elämää, kun ei pelkää sitä, et mitä jos hommat meneekin ihan vihkoon.\n\nElokuussa Gauchossa tökkäsin robbarin bisselasin kumoon. Jos ois lähteny kirjottaa ja mä oisin jääny siihen kiinni, ois koko ilta menny pilalle. Sama juttu epäonnistumisen kanssa 🤝",
     "aika": "2026-10-22T18:00:00+03:00",
-    "tila": "odottaa",
-    "story": true
+    "tila": "julkaistu",
+    "story": true,
+    "media_id": "18106155524570978",
+    "julkaistu_aika": "2026-10-22T15:00:18.040048+00:00",
+    "story_media_id": "18107985676945593"
   },
   {
     "id": "era-k14",
@@ -904,12 +907,15 @@
     "video": "media/clip14_parhaat_palat_v3a.mp4",
     "caption": "ERAN KOOSTEET ☑️\n\nKasattiin meidän longformeista ne kohdat, jotka kertoo eniten siitä mitä ERA:ssa tehdään ja miks. \n\nKaikki longform keskustelut löytyy Miken YouTubesta ja kohta lisää on tulossa 🎥",
     "aika": "2026-10-22T18:00:00+03:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier",
       "mikkefriman"
     ],
-    "story": true
+    "story": true,
+    "media_id": "18146033929588316",
+    "julkaistu_aika": "2026-10-22T15:00:18.040048+00:00",
+    "story_media_id": "18100204901562870"
   },
   {
     "id": "j28-k8",
