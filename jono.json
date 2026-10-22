@@ -946,5 +946,15 @@
     "tila": "odottaa",
     "video": "media/j28-k11.mp4",
     "story": true
+  },
+  {
+    "id": "j28-k10",
+    "otsikko": "j28-k10 (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Mä koitan sanoa nöyrästi, et mulla on tosi hyvä itsereflektoinnin taito ja se on tullut ehdottomasti terapian kautta. Etenkin tän podcastin kannalta on hyvä, et mä osaan pohtia asioita monestakin eri suunnasta.\n\nSilloin kun mä en puhunu enkä pukahtanu yhtään mihinkää suuntaan, nii terapiassa joutui reflektoimaan tosi paljon ja siks must on varmasti kasvanu tällane.",
+    "aika": "2026-10-24T10:00:00+03:00",
+    "tila": "odottaa",
+    "video": "media/j28-k10.mp4",
+    "story": true
   }
 ]
