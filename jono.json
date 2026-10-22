@@ -920,5 +920,15 @@
     "tila": "odottaa",
     "video": "media/j28-k8.mp4",
     "story": "media/j28-k8_story.mp4"
+  },
+  {
+    "id": "j28-k9",
+    "otsikko": "j28-k9 (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Ku mä nään sen polun taloudelliseen riippumattomuuteen nii selkeesti, alan jo suunnitella uutta puhelinta, autoa ja asuntoa. Vaikka en oo lähelläkää vielä siellä.\n\nPointti ei oo, et mä oon menossa ostamaan niitä. Mut kun antaa mahdollisuuden sille ajatukselle, nii hankintafiilikset tulee heti 😅",
+    "aika": "2026-10-23T18:00:00+03:00",
+    "tila": "odottaa",
+    "video": "media/j28-k9.mp4",
+    "story": true
   }
 ]
