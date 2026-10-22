@@ -956,5 +956,15 @@
     "tila": "odottaa",
     "video": "media/j28-k10.mp4",
     "story": true
+  },
+  {
+    "id": "j28-k13",
+    "otsikko": "j28-k13 (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Mun kunnianhimo on ihan valtavan katossa tällä hetkellä. Mä oon kuunnellu Sijoituskästiä aika pitkään ja rehellisesti mä haluisin olla siellä vuoden päästä vieraana kertomassa, mitä mä oon puolentoista vuoden sisällä saavuttanu.\n\nLähteekö jo ihan hanskasta nää jutut 🤷🏻‍♂️ Pointtina varmasti, et tehkää ihmiset asioita, niin meette kohti niitä teidän unelmia 💪🏻",
+    "aika": "2026-10-25T18:00:00+02:00",
+    "tila": "odottaa",
+    "video": "media/j28-k13.mp4",
+    "story": true
   }
 ]
