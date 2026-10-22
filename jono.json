@@ -936,5 +936,15 @@
     "tila": "odottaa",
     "video": "media/j28-k9.mp4",
     "story": true
+  },
+  {
+    "id": "j28-k11",
+    "otsikko": "j28-k11 (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Mietin jo ennen nauhotusta, voinko mä sanoa tätä ääneen. Joku pitää 100% ihan tyhmänä, et toi haluaa kirjottaa kirjan elämän merkityksellisyydestä.\n\nMut tekoälyn aikakausi voi poistaa ihmisiltä identiteetin ja merkityksellisyyden. Siin nään ison raon, millä voisin ihmisiä jeesata.",
+    "aika": "2026-10-24T18:00:00+03:00",
+    "tila": "odottaa",
+    "video": "media/j28-k11.mp4",
+    "story": true
   }
 ]
