@@ -923,9 +923,12 @@
     "tili": "monologi",
     "caption": "Palavereissa mulle saatetaan sanoa kahteen otteeseen, et laita mulle toi linkki tosta. Oon tekemässä toista asiaa ja painan vaan putkessa eteenpäin, nii se toine asia saattaa unohtuu kokonaa\n\nSama näkyy puheessa. Kun puhun tosi paljon Claudelle, sanat menee enemmän solmuu. Toki uskon, et se kuormitus vaikuttaa siihenki...",
     "aika": "2026-10-23T10:00:00+03:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/j28-k8.mp4",
-    "story": "media/j28-k8_story.mp4"
+    "story": "media/j28-k8_story.mp4",
+    "media_id": "18448805869127222",
+    "julkaistu_aika": "2026-10-23T07:00:12.292254+00:00",
+    "story_media_id": "18117842131791123"
   },
   {
     "id": "j28-k9",
