@@ -936,9 +936,12 @@
     "tili": "monologi",
     "caption": "Ku mä nään sen polun taloudelliseen riippumattomuuteen nii selkeesti, alan jo suunnitella uutta puhelinta, autoa ja asuntoa. Vaikka en oo lähelläkää vielä siellä.\n\nPointti ei oo, et mä oon menossa ostamaan niitä. Mut kun antaa mahdollisuuden sille ajatukselle, nii hankintafiilikset tulee heti 😅",
     "aika": "2026-10-23T18:00:00+03:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/j28-k9.mp4",
-    "story": true
+    "story": true,
+    "media_id": "17962535910236272",
+    "julkaistu_aika": "2026-10-23T15:00:28.445414+00:00",
+    "story_media_id": "18126080252297594"
   },
   {
     "id": "j28-k11",
