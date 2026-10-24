@@ -949,9 +949,12 @@
     "tili": "monologi",
     "caption": "Mietin jo ennen nauhotusta, voinko mä sanoa tätä ääneen. Joku pitää 100% ihan tyhmänä, et toi haluaa kirjottaa kirjan elämän merkityksellisyydestä.\n\nMut tekoälyn aikakausi voi poistaa ihmisiltä identiteetin ja merkityksellisyyden. Siin nään ison raon, millä voisin ihmisiä jeesata.",
     "aika": "2026-10-24T18:00:00+03:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/j28-k11.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18201130312383166",
+    "julkaistu_aika": "2026-10-24T15:00:12.216711+00:00",
+    "story_media_id": "17895356808686178"
   },
   {
     "id": "j28-k10",
