@@ -972,5 +972,21 @@
     "tila": "odottaa",
     "video": "media/j28-k13.mp4",
     "story": true
+  },
+  {
+    "id": "mk-04",
+    "otsikko": "CDB mk-04 — puhujaesittely 2/3 Tuomas Rytkönen (karuselli 3 diaa, kuvateksti v2, dia 2 «Kouluttaa ja kilpailee»)",
+    "tili": "cdb",
+    "kuvat": [
+      "kuvat/mk04-1-kansi.jpg",
+      "kuvat/mk04-2-kuka.jpg",
+      "kuvat/mk04-3-luentotoive.jpg"
+    ],
+    "caption": "Tuomas Rytkönen (@atleettinenpartasuu) puhuu CDB:n valmennusseminaarissa harjoitusten ohjelmoinnista klo 9.00.\n\nTuomas on liikuntabiologi (LitM) ja Athletican fysiikkavalmentaja, joka on kirjoittanut Voimaharjoittelun käsikirjan (2019). Hän on valmentanut ammatikseen 15 vuotta, ja hänen valmennettavinaan on ollut maailmanmestareita sekä NHL- ja SM-liigan jääkiekkoilijoita.\n\nEnnakkolipun ostaneet voivat toivoa, mihin luennolla painotetaan.\n\nCDB:n valmennusseminaari on lauantaina 6.2.2027 Helsingissä, ja tallenne kuuluu lippuun. Liput ovat osoitteessa coachesdatabase.fi.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #voimaharjoittelu #fysiikkavalmennus #harjoitusohjelma\n\nValokuva dialla 2: Heidi Söderholm",
+    "aika": "2026-10-25T18:00:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "atleettinenpartasuu"
+    ]
   }
 ]
