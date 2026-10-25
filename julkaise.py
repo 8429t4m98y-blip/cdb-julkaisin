@@ -69,6 +69,7 @@ TILIT = {
     "monologi":   "17841435019135389",   # @monologi.podcast
     "miikameier": "17841400232383202",   # @miikameier
     "teamera":    "17841441289626947",   # @teamera.coaching
+    "fta":        "17841472678652316",   # @finnishtrainingacademy
 }
 OLETUSTILI = "cdb"
 

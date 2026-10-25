@@ -1036,5 +1036,50 @@
     "caption": "Loppupaneelissa Tuomas Rytkönen (@atleettinenpartasuu), Juho Suomi (@juhosuom) ja Utti Hietala (@uttihietala) vastaavat yleisön kysymyksiin.\n\nKysymyksen voi lähettää jo nyt osoitteessa coachesdatabase.fi kohdassa Kysy puhujilta. Järjestäjät valitsevat paneeliin kysymykset.\n\nCDB:n valmennusseminaari on lauantaina 6.2.2027 Helsingissä. Ennakkohinta 59 € su 29.11. asti.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #lihaskasvu #rasvanpoltto #hypertrofia",
     "aika": "2026-10-28T18:00:00+02:00",
     "tila": "odottaa"
+  },
+  {
+    "id": "fta-meemi",
+    "otsikko": "FTA meemireeli «kokonaisuus ratkaisee»",
+    "tili": "fta",
+    "video": "media/fta_meemi_kokonaisuus_ratkaisee_v4.mp4",
+    "caption": "#finnishtrainingacademy",
+    "aika": "2026-10-27T17:00:00+02:00",
+    "tila": "luonnos"
+  },
+  {
+    "id": "fta-l3-a",
+    "otsikko": "FTA luentoklippi A oksentaminen",
+    "tili": "fta",
+    "video": "media/fta_luento3_a_oksentaminen.mp4",
+    "caption": "Somessa näkee treenivideoita, joissa oksennetaan jokaisen jalkatreenin päätteeksi. Sitä esitetään todisteena kovuudesta.\n\nUseimmiten kyse on ajoituksesta. Ruoka on syöty liian lähellä harjoitusta eikä se ole ehtinyt siirtyä mahalaukusta eteenpäin, kun treeni alkaa.\n\nKun ajoitus on kunnossa, oire katoaa — ja samalla treenitehot paranevat, koska verenkierto riittää lihaksille eikä sitä tarvita ruoansulatukseen.\n\nJos haluat tietää, mitä sinun kohdallasi kannattaa muuttaa, jätä yhteydenottopyyntö profiilin linkistä ☝️\n\n#finnishtrainingacademy",
+    "aika": "2026-10-29T17:00:00+02:00",
+    "tila": "luonnos"
+  },
+  {
+    "id": "fta-l3-b",
+    "otsikko": "FTA luentoklippi B makrot",
+    "tili": "fta",
+    "video": "media/fta_luento3_b_makrot.mp4",
+    "caption": "Luvut voivat täsmätä täydellisesti ja ravitsemus olla silti pielessä.\n\nÄäriesimerkki: hiilarit pelkästä irtokarkista, proteiini pelkästä heraproteiinista ja rasva pelkästä Fazerin sinisestä. Kolmella tuotteella saa päivän proteiinin, rasvan ja hiilarin kohdalleen.\n\nMitä siitä jää puuttumaan: kuitu, suojaravintoaineet ja nälänhallinta. Ne eivät näy makroissa. Ne näkyvät siinä, miten päivä kulkee.\n\nJos haluat tietää, mitä sinun kohdallasi kannattaa mitata, jätä yhteydenottopyyntö profiilin linkistä ☝️\n\n#finnishtrainingacademy",
+    "aika": "2026-10-31T17:00:00+02:00",
+    "tila": "luonnos"
+  },
+  {
+    "id": "fta-l3-k1",
+    "otsikko": "FTA luentoklippi K1 ruokavaaka ja vesi",
+    "tili": "fta",
+    "video": "media/fta_luento3_k1_tierlist_vesi.mp4",
+    "caption": "Ruokavaa'an kanssa tehdään paljon työtä, joka ei tuota mitään.\n\nKävimme etätiimipäivässä läpi 15 ruoka-ainetta ja sijoitimme jokaisen yhteen listaan sen mukaan, kannattaako se punnita. Vesi meni alimpaan luokkaan. Siitä ei opi mitään, vaikka sen punnitsisi grammalleen.\n\nSama koskee useampaa asiaa kuin moni odottaa. Osa taas kannattaa mitata tarkasti — ja juuri ne jäävät yleensä tekemättä.\n\nJos haluat tietää, mitä sinun kohdallasi kannattaa mitata, jätä yhteydenottopyyntö profiilin linkistä ☝️\n\n#finnishtrainingacademy",
+    "aika": "2026-11-03T17:00:00+02:00",
+    "tila": "luonnos"
+  },
+  {
+    "id": "fta-l3-k2",
+    "otsikko": "FTA luentoklippi K2 joulu",
+    "tili": "fta",
+    "video": "media/fta_luento3_k2_joulu.mp4",
+    "caption": "Punnitsemisen tarpeellisuudella on yläraja, ja se tulee vastaan juhlapyhinä.\n\nKävimme läpi 15 ruoka-ainetta ja sen, mitkä niistä kannattaa punnita. Viimeisenä listalla ei ollut ruoka-aine vaan tilanne: joulu, synttärit ja muut juhlat. Se meni alimpaan luokkaan.\n\nTämä ei ole löysyyttä. Se pätee myös fitnesskisadietillä — yhdellä aterialla ei ratkaista mitään, ja kokonaisuus kestää poikkeukset.\n\nJos haluat tietää, mitä sinun kohdallasi kannattaa mitata, jätä yhteydenottopyyntö profiilin linkistä ☝️\n\n#finnishtrainingacademy",
+    "aika": "2026-12-01T17:00:00+02:00",
+    "tila": "luonnos"
   }
 ]
