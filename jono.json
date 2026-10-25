@@ -975,9 +975,12 @@
     "tili": "monologi",
     "caption": "Mun kunnianhimo on ihan valtavan katossa tällä hetkellä. Mä oon kuunnellu Sijoituskästiä aika pitkään ja rehellisesti mä haluisin olla siellä vuoden päästä vieraana kertomassa, mitä mä oon puolentoista vuoden sisällä saavuttanu.\n\nLähteekö jo ihan hanskasta nää jutut 🤷🏻‍♂️ Pointtina varmasti, et tehkää ihmiset asioita, niin meette kohti niitä teidän unelmia 💪🏻",
     "aika": "2026-10-25T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/j28-k13.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18120590951284107",
+    "julkaistu_aika": "2026-10-25T16:00:19.694432+00:00",
+    "story_media_id": "18098457467118557"
   },
   {
     "id": "mk-04",
@@ -990,10 +993,12 @@
     ],
     "caption": "Tuomas Rytkönen (@atleettinenpartasuu) puhuu CDB:n valmennusseminaarissa harjoitusten ohjelmoinnista klo 9.00.\n\nTuomas on liikuntabiologi (LitM) ja Athletican fysiikkavalmentaja, joka on kirjoittanut Voimaharjoittelun käsikirjan (2019). Hän on valmentanut ammatikseen 15 vuotta, ja hänen valmennettavinaan on ollut maailmanmestareita sekä NHL- ja SM-liigan jääkiekkoilijoita.\n\nEnnakkolipun ostaneet voivat toivoa, mihin luennolla painotetaan.\n\nCDB:n valmennusseminaari on lauantaina 6.2.2027 Helsingissä, ja tallenne kuuluu lippuun. Liput ovat osoitteessa coachesdatabase.fi.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #voimaharjoittelu #fysiikkavalmennus #harjoitusohjelma\n\nValokuva dialla 2: Heidi Söderholm",
     "aika": "2026-10-25T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "atleettinenpartasuu"
-    ]
+    ],
+    "media_id": "18041739887834238",
+    "julkaistu_aika": "2026-10-25T16:00:19.694432+00:00"
   },
   {
     "id": "era-uusinta-energiajuomat",
