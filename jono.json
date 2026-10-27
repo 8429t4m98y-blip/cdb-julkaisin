@@ -1114,5 +1114,15 @@
     "tila": "odottaa",
     "video": "media/j29-k2.mp4",
     "story": true
+  },
+  {
+    "id": "j29-k3",
+    "otsikko": "j29-k3 (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Jos tulee kysymys \"ootsä käyny tänään kaupassa?\", niin toinen voi ottaa sen tosi negatiivisesti. Ja jos siitä tulee semmonen pallottelu juupas, eipäs, niin sehän ei johda mihinkään.\n\nSilloin arvoon nousee sen kierteen pysäyttäminen. Annat sillä omalla kysymyksellä tilaa toiselle kertoa, mikä sillä on nyt huonosti.",
+    "aika": "2026-10-28T18:00:00+02:00",
+    "tila": "odottaa",
+    "video": "media/j29-k3.mp4",
+    "story": true
   }
 ]
