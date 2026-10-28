@@ -1042,7 +1042,9 @@
     ],
     "caption": "Loppupaneelissa Tuomas Rytkönen (@atleettinenpartasuu), Juho Suomi (@juhosuom) ja Utti Hietala (@uttihietala) vastaavat yleisön kysymyksiin.\n\nKysymyksen voi lähettää jo nyt osoitteessa coachesdatabase.fi kohdassa Kysy puhujilta. Järjestäjät valitsevat paneeliin kysymykset.\n\nCDB:n valmennusseminaari on lauantaina 6.2.2027 Helsingissä. Ennakkohinta 59 € su 29.11. asti tai kunnes ennakkoliput on myyty.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #lihaskasvu #rasvanpoltto #hypertrofia",
     "aika": "2026-10-28T18:00:00+02:00",
-    "tila": "odottaa"
+    "tila": "julkaistu",
+    "media_id": "18436805869144331",
+    "julkaistu_aika": "2026-10-28T16:00:16.993442+00:00"
   },
   {
     "id": "fta-meemi",
@@ -1126,9 +1128,12 @@
     "tili": "monologi",
     "caption": "Jos tulee kysymys \"ootsä käyny tänään kaupassa?\", niin toinen voi ottaa sen tosi negatiivisesti. Ja jos siitä tulee semmonen pallottelu juupas, eipäs, niin sehän ei johda mihinkään.\n\nSilloin arvoon nousee sen kierteen pysäyttäminen. Annat sillä omalla kysymyksellä tilaa toiselle kertoa, mikä sillä on nyt huonosti.",
     "aika": "2026-10-28T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/j29-k3.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18110076242211344",
+    "julkaistu_aika": "2026-10-28T16:00:16.993442+00:00",
+    "story_media_id": "18073230845782597"
   },
   {
     "id": "mon-j29-k4-julkaisu",
