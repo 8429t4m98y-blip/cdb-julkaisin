@@ -1129,5 +1129,15 @@
     "tila": "odottaa",
     "video": "media/j29-k3.mp4",
     "story": true
+  },
+  {
+    "id": "mon-j29-k4-julkaisu",
+    "otsikko": "mon-j29-k4-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Oltiin Juhon kaa pelaa tennistä ja pisteenlasku oli aivan mahotonta, koska tekoälyn informaatiotulva on heikentäny mun muistikapasiteettia.\n\nMulla on helposti viistoista chattia auki ja pitää muistaa jokaisesta vähän, et mitä siellä missäkin on kesken. Oon nyt koittanu muuttaa, et mulla olis vaan muutama tärkeempi asia kesken. Toki tää ei oo iso ongelma, et ei tenniksessä muista pisteitä, mut tekoälyinformaatiotulva on.",
+    "aika": "2026-10-29T18:00:00+02:00",
+    "tila": "odottaa",
+    "video": "media/mon-j29-k4-julkaisu.mp4",
+    "story": true
   }
 ]
