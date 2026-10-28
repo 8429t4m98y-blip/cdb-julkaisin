@@ -1139,5 +1139,18 @@
     "tila": "odottaa",
     "video": "media/mon-j29-k4-julkaisu.mp4",
     "story": true
+  },
+  {
+    "id": "era-uusinta-neuvo",
+    "otsikko": "era-uusinta-neuvo (julkaise_kaikkialle)",
+    "tili": "teamera",
+    "caption": "YKSI NEUVO ALOITTELIJALLE 👇\n\nHanki valmentaja. Ja vaikka oisit fitnesspolkusi alkupäässä, mutta kisahaaveet mielessä; voit hakeutua ERAAN.\n\nValmennushakemukset: team-era.com",
+    "aika": "2026-10-29T18:00:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "miikameier",
+      "mikkefriman"
+    ],
+    "video": "media/era-uusinta-neuvo.mp4"
   }
 ]
