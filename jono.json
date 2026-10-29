@@ -1143,9 +1143,12 @@
     "tili": "monologi",
     "caption": "Oltiin Juhon kaa pelaa tennistä ja pisteenlasku oli aivan mahotonta, koska tekoälyn informaatiotulva on heikentäny mun muistikapasiteettia.\n\nMulla on helposti viistoista chattia auki ja pitää muistaa jokaisesta vähän, et mitä siellä missäkin on kesken. Oon nyt koittanu muuttaa, et mulla olis vaan muutama tärkeempi asia kesken. Toki tää ei oo iso ongelma, et ei tenniksessä muista pisteitä, mut tekoälyinformaatiotulva on.",
     "aika": "2026-10-29T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j29-k4-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "17917033020533720",
+    "julkaistu_aika": "2026-10-29T16:00:22.865833+00:00",
+    "story_media_id": "17935954692146086"
   },
   {
     "id": "era-uusinta-neuvo",
@@ -1153,12 +1156,14 @@
     "tili": "teamera",
     "caption": "YKSI NEUVO ALOITTELIJALLE 👇\n\nHanki valmentaja. Ja vaikka oisit fitnesspolkusi alkupäässä, mutta kisahaaveet mielessä; voit hakeutua ERAAN.\n\nValmennushakemukset: team-era.com",
     "aika": "2026-10-29T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier",
       "mikkefriman"
     ],
-    "video": "media/era-uusinta-neuvo.mp4"
+    "video": "media/era-uusinta-neuvo.mp4",
+    "media_id": "17994580851063559",
+    "julkaistu_aika": "2026-10-29T16:00:22.865833+00:00"
   },
   {
     "id": "mm-julkaisu-k2",
