@@ -1183,8 +1183,11 @@
     "tili": "monologi",
     "caption": "Yleensä ekat juoksukilsat ja kerrat salikerrat on todella nihkeitä. Tän takia luulen, että jengi sanoo heti, et toi ei oo mua varten. Mä uskon, et se nautinto tulee vasta ku sitä tekee riittävän kauan ja saa siihen rytmin 🤝",
     "aika": "2026-10-30T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j29-k5-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18057588932581257",
+    "julkaistu_aika": "2026-10-30T16:00:15.184766+00:00",
+    "story_media_id": "18020998988956840"
   }
 ]
