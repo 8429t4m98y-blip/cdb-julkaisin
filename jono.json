@@ -1198,9 +1198,12 @@
     "tili": "monologi",
     "caption": "En haluu ikinä kadottaa mun uteliaisuutta. Haluun aina olla kiinnostunu ympäröivästä maailmasta ja asioiden juurisyistä.",
     "aika": "2026-10-31T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j29-k6-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "17941625586380701",
+    "julkaistu_aika": "2026-10-31T16:00:14.466279+00:00",
+    "story_media_id": "18147845992497769"
   },
   {
     "id": "mon-j29-k7-julkaisu",
