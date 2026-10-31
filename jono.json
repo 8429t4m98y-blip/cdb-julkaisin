@@ -1199,5 +1199,15 @@
     "tila": "odottaa",
     "video": "media/mon-j29-k6-julkaisu.mp4",
     "story": true
+  },
+  {
+    "id": "mon-j29-k7-julkaisu",
+    "otsikko": "mon-j29-k7-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Mulla on joku kirjaamisen pakko. En pysty oottaa sekuntiakaan, jos tulee idea mielee, vaa siit on asap tehtävä muistiinpanoa.\n\nMut jos oikeesti miettii mitä mä menettäisin, jos en kirjais sitä, niin en todennäköisesti yhtään mitään 🤷🏻‍♂️",
+    "aika": "2026-11-01T18:00:00+02:00",
+    "tila": "odottaa",
+    "video": "media/mon-j29-k7-julkaisu.mp4",
+    "story": true
   }
 ]
