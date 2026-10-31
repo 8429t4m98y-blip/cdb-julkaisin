@@ -1209,5 +1209,18 @@
     "tila": "odottaa",
     "video": "media/mon-j29-k7-julkaisu.mp4",
     "story": true
+  },
+  {
+    "id": "era-uusinta-suurin-virhe",
+    "otsikko": "era-uusinta-suurin-virhe (julkaise_kaikkialle)",
+    "tili": "teamera",
+    "caption": "SUURIN VIRHE OMALLA TREENIURALLA 👇\n\nMikke treenas viis vuotta ilman valmentajaa. Hyvä uutinen -> sun ei tarvii.\n\nValmennushakemukset: team-era.com",
+    "aika": "2026-11-01T10:00:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "miikameier",
+      "mikkefriman"
+    ],
+    "video": "media/era-uusinta-suurin-virhe.mp4"
   }
 ]
