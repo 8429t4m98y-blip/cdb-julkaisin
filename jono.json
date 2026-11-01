@@ -1221,11 +1221,13 @@
     "tili": "teamera",
     "caption": "SUURIN VIRHE OMALLA TREENIURALLA 👇\n\nMikke treenas viis vuotta ilman valmentajaa. Hyvä uutinen -> sun ei tarvii.\n\nValmennushakemukset: team-era.com",
     "aika": "2026-11-01T10:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier",
       "mikkefriman"
     ],
-    "video": "media/era-uusinta-suurin-virhe.mp4"
+    "video": "media/era-uusinta-suurin-virhe.mp4",
+    "media_id": "18202123921347941",
+    "julkaistu_aika": "2026-11-01T08:00:14.600486+00:00"
   }
 ]
