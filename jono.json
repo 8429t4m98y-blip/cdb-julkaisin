@@ -1026,10 +1026,12 @@
     ],
     "caption": "Juho Suomi (@juhosuom) puhuu CDB:n valmennusseminaarissa urheiluravitsemuksesta klo 12.00.\n\nJuho on Optimal Performance Centerin voima- ja ravintovalmentaja ja ihmisen ravitsemusfysiologian maisteri Helsingin yliopistosta sekä väitöskirjatutkija Jyväskylän yliopistossa. Hän on valmentanut vuodesta 2016, ja hänen valmennettavinaan on voimanostajia sekä voimamies- ja voimanaislajien urheilijoita kansainvälistä tasoa myöten.\n\nEnnakkolipun ostaneet voivat toivoa, mihin luennolla painotetaan.\n\nCDB:n valmennusseminaari on lauantaina 6.2.2027 Helsingissä, ja tallenne kuuluu lippuun. Liput ovat osoitteessa coachesdatabase.fi.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #urheiluravitsemus #ravitsemus #voimalajit",
     "aika": "2026-11-01T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "juhosuom"
-    ]
+    ],
+    "media_id": "18141083923619868",
+    "julkaistu_aika": "2026-11-01T16:00:20.166069+00:00"
   },
   {
     "id": "mk-05",
@@ -1211,9 +1213,12 @@
     "tili": "monologi",
     "caption": "Mulla on joku kirjaamisen pakko. En pysty oottaa sekuntiakaan, jos tulee idea mielee, vaa siit on asap tehtävä muistiinpanoa.\n\nMut jos oikeesti miettii mitä mä menettäisin, jos en kirjais sitä, niin en todennäköisesti yhtään mitään 🤷🏻‍♂️",
     "aika": "2026-11-01T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j29-k7-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18071277338788677",
+    "julkaistu_aika": "2026-11-01T16:00:20.166069+00:00",
+    "story_media_id": "18160362262507155"
   },
   {
     "id": "era-uusinta-suurin-virhe",
