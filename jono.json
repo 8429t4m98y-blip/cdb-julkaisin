@@ -1296,7 +1296,7 @@
     "tila": "virhe",
     "video": "media/mm-j30-k1.mp4",
     "creation_id": "18644398837007747",
-    "virhe": "{\"error\":{\"message\":\"Fatal\",\"type\":\"OAuthException\",\"code\":-1,\"error_subcode\":2207085,\"is_transient\":false,\"error_user_title\":\"Yleinen sis\\u00e4inen virhe\",\"error_user_msg\":\"Sis\\u00e4inen palvelinvirhe. Yrit\\u00e4 my\\u00f6hemmin uudelleen.\",\"fbtrace_id\":\"A1Erz_W7dhMRMSd5DUw5f93\"}}",
-    "ajoyrityksia": 1
+    "virhe": "{\"error\":{\"message\":\"Fatal\",\"type\":\"OAuthException\",\"code\":-1,\"error_subcode\":2207085,\"is_transient\":false,\"error_user_title\":\"Yleinen sis\\u00e4inen virhe\",\"error_user_msg\":\"Sis\\u00e4inen palvelinvirhe. Yrit\\u00e4 my\\u00f6hemmin uudelleen.\",\"fbtrace_id\":\"AAl8gWHvRdcrTLdLz8tmvoV\"}}",
+    "ajoyrityksia": 2
   }
 ]
