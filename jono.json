@@ -1234,5 +1234,18 @@
     "video": "media/era-uusinta-suurin-virhe.mp4",
     "media_id": "18202123921347941",
     "julkaistu_aika": "2026-11-01T08:00:14.600486+00:00"
+  },
+  {
+    "id": "era-uusinta-kisat-3kk",
+    "otsikko": "era-uusinta-kisat-3kk (julkaise_kaikkialle)",
+    "tili": "teamera",
+    "caption": "KISOIHIN 3 KK PÄÄSTÄ? 🤔\n\nEi mahotonta, mut 99 % tapauksista se vaatii enemmän aikaa. Ainaki ensin pitää käydä läpi historia: ootko kisannu aiemmin ja missä kunnossa oot nyt, ennenku lähetään edes harkitsemaan kisaamista.\n\nValmennushakemukset: team-era.com",
+    "aika": "2026-11-05T18:00:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "miikameier",
+      "mikkefriman"
+    ],
+    "video": "media/era-uusinta-kisat-3kk.mp4"
   }
 ]
