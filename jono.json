@@ -1260,5 +1260,18 @@
       "mikkefriman"
     ],
     "video": "media/era-uusinta-intensiteetti.mp4"
+  },
+  {
+    "id": "era-uusinta-vahemman-enemman",
+    "otsikko": "era-uusinta-vahemman-enemman (julkaise_kaikkialle)",
+    "tili": "teamera",
+    "caption": "VÄHEMMÄN ON USEIN ENEMMÄN 👇\n\nHirveä määrä volyymia treeniohjelmassa johtaa usein huonompiin tuloksiin. Eli laatu korvaa sen perinteisen määrän\n\nValmennushakemukset: team-era.com",
+    "aika": "2026-11-12T18:00:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "miikameier",
+      "mikkefriman"
+    ],
+    "video": "media/era-uusinta-vahemman-enemman.mp4"
   }
 ]
