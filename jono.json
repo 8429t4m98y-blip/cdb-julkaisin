@@ -1247,5 +1247,18 @@
       "mikkefriman"
     ],
     "video": "media/era-uusinta-kisat-3kk.mp4"
+  },
+  {
+    "id": "era-uusinta-intensiteetti",
+    "otsikko": "era-uusinta-intensiteetti (julkaise_kaikkialle)",
+    "tili": "teamera",
+    "caption": "TEETKÖ SARJAT OIKEESTI KOVAA? 🤔\n\nOnko liike tai treenijako optimaalinen, tai teetkö 10 vai 6 sarjaa viikossa -> on tosi vähän merkitystä. Sillä on paljon merkitystä, jos et tee niitä sarjoja kovaa.\n\nValmennushakemukset: team-era.com",
+    "aika": "2026-11-08T10:00:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "miikameier",
+      "mikkefriman"
+    ],
+    "video": "media/era-uusinta-intensiteetti.mp4"
   }
 ]
