@@ -1286,17 +1286,5 @@
     "media_id": "18129875995890339",
     "julkaistu_aika": "2026-11-02T20:00:14.692492+00:00",
     "story_media_id": "18032206721688566"
-  },
-  {
-    "id": "mm-j30-k1",
-    "otsikko": "mm-j30-k1 (julkaise_kaikkialle)",
-    "tili": "miikameier",
-    "caption": "\"Sun on ylitettävä se raja, jotta sä tiedät, missä se raja menee.\" On se sitten salilla failuren kanssa, arjen kuormituksessa tai omien ajatusten reflektoinnissa.\n\nJust ennen jaksoa mä hypin tasajalkaa mun olohuoneessa, ku mä tajusin, mihin tää koko pöhinä on viimeiset puol vuotta johtanu ja mikä on mun yrittäjyyden endgame.\n\nJakso 30 aiheita:\n◾️ Mikä on mun podcastin ydinsanoma?\n◾️ Iltasin raksuttaa aika lujaa\n◾️ Miksei voi koko ajan olla hyvällä fiiliksellä?\n◾️ Burnout on oman tilanteen tunnistamisen puutetta\n◾️ Miks oon nykyään epävarmempi kuin ennen?\n◾️ Kuinka paljon mä haen somesta varmistusta?\n◾️ Missä menee parisuhteen riittävyyden raja?\n◾️ Mun innostus voi olla toiselle kuormaa\n◾️ Oon ylpeä, että pystyn hoitamaan niin montaa asiaa\n\nUusi kuulijakysymys:\nJos te saisitte jonkun työntekijän käyttöön, niin mikä se olisi?\nVastaukset kommentteihin. Mä heittäisin tähän oman sähköpostityöntekijän, ja multa saa siihen apua ja jeesiä.",
-    "aika": "2026-11-02T21:55:00+02:00",
-    "tila": "virhe",
-    "video": "media/mm-j30-k1.mp4",
-    "creation_id": "18644398837007747",
-    "virhe": "{\"error\":{\"message\":\"Fatal\",\"type\":\"OAuthException\",\"code\":-1,\"error_subcode\":2207085,\"is_transient\":false,\"error_user_title\":\"Yleinen sis\\u00e4inen virhe\",\"error_user_msg\":\"Sis\\u00e4inen palvelinvirhe. Yrit\\u00e4 my\\u00f6hemmin uudelleen.\",\"fbtrace_id\":\"A7alWUDGLCXczpwZw9rZpf_\"}}",
-    "ajoyrityksia": 3
   }
 ]
