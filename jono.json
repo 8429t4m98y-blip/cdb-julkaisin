@@ -1307,9 +1307,12 @@
     "tili": "monologi",
     "caption": "Mä käytän nykyää somea enemmän ku koskaa, niin miten paljon mä haen sieltä huomiota ja varmistusta, eli sellast ulkoista motivaatiota?\n\nOhjaako yhteiskunta enemmän ulkonäkökeskeiseen postaamiseen ja lähipiirin ulkopuolelta huomion hakemiseen? Missä menee sosiaalisen median huomionhakuisuuden raja? Minä en kysy kansa kysyy 😆",
     "aika": "2026-11-03T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/j30-k2.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18321847183304482",
+    "julkaistu_aika": "2026-11-03T16:00:27.141510+00:00",
+    "story_media_id": "18151954237479954"
   },
   {
     "id": "mk-08",
