@@ -1308,5 +1308,17 @@
     "tila": "odottaa",
     "video": "media/j30-k2.mp4",
     "story": true
+  },
+  {
+    "id": "mk-08",
+    "otsikko": "CDB mk-08 — yksityiset tukijat / tukilippu (karuselli 2 diaa)",
+    "tili": "cdb",
+    "kuvat": [
+      "kuvat/mk08-1-kansi.jpg",
+      "kuvat/mk08-2-tukilippu.jpg"
+    ],
+    "caption": "Haluatko olla mukana tukemassa valmentajien seminaarikulttuuria Suomessa?\n\nTukilippu maksaa 150 €. Siihen kuuluu tavallinen lippu CDB:n valmennusseminaariin, ja nimesi näkyy kiitoslistassa sivulla coachesdatabase.fi.\n\nSeminaari on lauantaina 6.2.2027 Helsingissä. Puhujina ovat Tuomas Rytkönen (@atleettinenpartasuu), Juho Suomi (@juhosuom) ja Utti Hietala (@uttihietala). Tukilipun saa osoitteesta coachesdatabase.fi kohdasta Voinko tukea seminaaria?\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #voimaharjoittelu #fysiikkavalmennus #urheiluravitsemus",
+    "aika": "2026-11-08T18:00:00+02:00",
+    "tila": "odottaa"
   }
 ]
