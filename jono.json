@@ -1347,5 +1347,15 @@
     "tila": "julkaistu",
     "media_id": "18414337534090310",
     "julkaistu_aika": "2026-11-04T17:00:12.270333+00:00"
+  },
+  {
+    "id": "j30-k3",
+    "otsikko": "j30-k3 (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Kuulijakyssärinä tällä viikolla: jos te saisitte jonkun agenttityöntekijän käyttöön, niin mikä se olisi ja mitä se tekisi?\n\nMulla tuli heti mieleen sähköposti. Ihan jokainen ihminen tarvitsis oman sähköpostityöntekijän, joka lajittelis viestit ja poistais turhat uutiskirjeet jne. Ja sit se tekis samalla kalenterimerkinnät ja lähettäis etäpalavereihin Teams ja Google Meet-kutsut.",
+    "aika": "2026-11-04T20:45:00+02:00",
+    "tila": "odottaa",
+    "video": "media/j30-k3.mp4",
+    "story": true
   }
 ]
