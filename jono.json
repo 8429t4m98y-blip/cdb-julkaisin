@@ -1385,5 +1385,15 @@
     "tila": "odottaa",
     "video": "media/mon-j30-k6-julkaisu.mp4",
     "story": true
+  },
+  {
+    "id": "mon-j30-k7-julkaisu",
+    "otsikko": "mon-j30-k7-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Kun oon yksin, niin mulla on kädet kiinni ratissa ja ohjailen aika smootisti. Mut sit ku tulee parisuhde, ne kädet lentää ratista pois ja auto on kohta ojassa.\n\nMissä tulee se raja, et se toinen sanoo hei nyt rauhoitu ja laittaa ne jalat sinne polkimille? Melkoinen seppä oon näitten juttujen kanssa 🤷🏻‍♂️",
+    "aika": "2026-11-08T18:00:00+02:00",
+    "tila": "odottaa",
+    "video": "media/mon-j30-k7-julkaisu.mp4",
+    "story": true
   }
 ]
