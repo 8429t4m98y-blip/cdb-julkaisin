@@ -1375,5 +1375,15 @@
     "media_id": "18134471497782907",
     "julkaistu_aika": "2026-11-05T16:10:12.534557+00:00",
     "story_media_id": "17984746584104139"
+  },
+  {
+    "id": "mon-j30-k6-julkaisu",
+    "otsikko": "mon-j30-k6-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Pompin tasajalkaa, kun ymmärsin mihin tää koko homma on menossa.\n\nPuoli vuotta sitten vaan sekoilin. Nyt ymmärrän mihin se kaikki on johtanu. Manuaalisel duunil oisin palanut jo loppuun, mut tekoälyn kanssa pystyn delegoimaan asiat työntekijöille ja mulle tulee vaan se olennaisin paketti 😆",
+    "aika": "2026-11-07T18:00:00+02:00",
+    "tila": "odottaa",
+    "video": "media/mon-j30-k6-julkaisu.mp4",
+    "story": true
   }
 ]
