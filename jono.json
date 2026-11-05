@@ -1243,12 +1243,14 @@
     "tili": "teamera",
     "caption": "KISOIHIN 3 KK PÄÄSTÄ? 🤔\n\nEi mahotonta, mut 99 % tapauksista se vaatii enemmän aikaa. Ainaki ensin pitää käydä läpi historia: ootko kisannu aiemmin ja missä kunnossa oot nyt, ennenku lähetään edes harkitsemaan kisaamista.\n\nValmennushakemukset: team-era.com",
     "aika": "2026-11-05T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier",
       "mikkefriman"
     ],
-    "video": "media/era-uusinta-kisat-3kk.mp4"
+    "video": "media/era-uusinta-kisat-3kk.mp4",
+    "media_id": "18373914625213453",
+    "julkaistu_aika": "2026-11-05T16:10:12.534557+00:00"
   },
   {
     "id": "era-uusinta-intensiteetti",
@@ -1367,8 +1369,11 @@
     "tili": "monologi",
     "caption": "Jos oot 16 tuntia koneella tai treenaat liikaa, ja sä unohdat syödä, nukkua ja treenata, nii ei sitä nyt pelkästään voi laittaa sen tekoälyn piikkiin, että sulla tulee burnout.\n\nSehän on mun mielestä itsereflektion tai sen oman tilanteen tunnistamisen puutetta, jossa sä ajat itsesi liian pitkälle sinne burnouttiin. Etkä sä kuuntele etkä mieti niitä asioita, et hei, onkohan mä nyt mennyt liian pitkälle sitä rajaa.",
     "aika": "2026-11-05T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j30-k4-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18134471497782907",
+    "julkaistu_aika": "2026-11-05T16:10:12.534557+00:00",
+    "story_media_id": "17984746584104139"
   }
 ]
