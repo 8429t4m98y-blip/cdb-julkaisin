@@ -1360,5 +1360,15 @@
     "media_id": "18101157557409396",
     "julkaistu_aika": "2026-11-04T18:50:11.628043+00:00",
     "story_media_id": "18102310760385786"
+  },
+  {
+    "id": "mon-j30-k4-julkaisu",
+    "otsikko": "mon-j30-k4-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Jos oot 16 tuntia koneella tai treenaat liikaa, ja sä unohdat syödä, nukkua ja treenata, nii ei sitä nyt pelkästään voi laittaa sen tekoälyn piikkiin, että sulla tulee burnout.\n\nSehän on mun mielestä itsereflektion tai sen oman tilanteen tunnistamisen puutetta, jossa sä ajat itsesi liian pitkälle sinne burnouttiin. Etkä sä kuuntele etkä mieti niitä asioita, et hei, onkohan mä nyt mennyt liian pitkälle sitä rajaa.",
+    "aika": "2026-11-05T18:00:00+02:00",
+    "tila": "odottaa",
+    "video": "media/mon-j30-k4-julkaisu.mp4",
+    "story": true
   }
 ]
