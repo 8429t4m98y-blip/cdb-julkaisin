@@ -7,3 +7,6 @@ __pycache__/
 # Varmuuskopiot .env:sta sisaltavat tokenin — alä koskaan committaa
 .env.bak-*
 *.bak-*
+
+# Tuotantoputkien välitiedostot
+.work/
