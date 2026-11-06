@@ -25,6 +25,7 @@ Lisää `jono.json`:iin objekti ja vaihda `tila` → `"odottaa"`:
   "kuva": "kuvat/04-palaute.png",
   "caption": "Mikä valmennuksessa...\n\n#valmennus #fitness ...",
   "aika": "2026-07-08T18:00:00+03:00",
+  "hyvaksynta": "Even ok <pvm>",
   "tila": "odottaa"
 }
 ```
