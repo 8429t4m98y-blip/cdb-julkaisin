@@ -47,9 +47,11 @@ fi
 # myös rivin jolta tila puuttuu kokonaan. Mitattu 28.9. (j25-k1): käsin
 # kirjoitetusta rivistä puuttui tila, push onnistui ja klippi myöhästyi 1 h 7 min
 # ilman yhtään virheilmoitusta. Tarkistetaan committoitu HEAD, koska se lähtee.
-if ! git -C "$DIR" show HEAD:jono.json | python3 -c '
-import json, sys
+if ! git -C "$DIR" show HEAD:jono.json | CDB="$DIR/.." python3 -c '
+import json, os, sys
 from datetime import datetime
+sys.path.insert(0, os.environ["CDB"])
+from esitarkistus import hyvaksynta_vika  # cdb-rivi ilman Even ok -merkintää ei mene ulos (Miika 6.11.)
 try:
     jono = json.load(sys.stdin)
 except Exception as e:
@@ -71,6 +73,8 @@ for i, r in enumerate(jono):
         viat.append(f"{tunnus}: aika puuttuu tai ei aukea: {aika!r}")
     if not (r.get("video") or r.get("video_url") or r.get("kuva") or r.get("kuvat")):
         viat.append(f"{tunnus}: ei videota, video_urlia, kuvaa eikä kuvat-listaa (karuselli)")
+    if tila == "odottaa" and hyvaksynta_vika(r):
+        viat.append(f"{tunnus}: {hyvaksynta_vika(r)}")
 for v in viat: print("  " + v)
 sys.exit(1 if viat else 0)
 ' >&2; then
