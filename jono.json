@@ -1402,8 +1402,11 @@
     "tili": "monologi",
     "caption": "Mua vähän triggeröi, et muut ei oo niin innostuneita tekoälystä. Tää on ihan valtava juttu ja sit mun on vaikee pidätellä itteeni ja se kääntyy negatiivisen klangin puolelle.\n\nJokainen saa juoda kaljaa ja syödä makkaraa nii paljon, eikä sen pitäs olla multa pois. Silti mun on älyttömän vaikee ymmärtää, et mun innostus voi olla toiselle kuorma 🤷🏻‍♂️",
     "aika": "2026-11-06T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j30-k5-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18118131392087850",
+    "julkaistu_aika": "2026-11-06T16:00:10.387520+00:00",
+    "story_media_id": "18001150668041975"
   }
 ]
