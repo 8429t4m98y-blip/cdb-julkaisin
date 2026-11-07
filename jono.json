@@ -1418,11 +1418,14 @@
     "tili": "miikameier",
     "caption": "Miia koodas mulle ja ehdotti, et tehdäänkö podcast tyyppinen video ja jutellaa miesten parturikokemuksista, sekä miks miehet avautuu usein parturin penkissä. Ja mähä olin tunnetusti heti messissä!\n\nJatkoa tulee varmasti kun päätettii, et tää pitää ottaa uusiks! Koko video tsekattavissa YouTubessa 🤝\n\n💈 @miiaanipreeva @barbersandbeertiksi",
     "aika": "2026-11-07T21:05:00+02:00",
-    "tila": "odottaa",
+    "tila": "virhe",
     "collab": [
       "miiaanipreeva"
     ],
-    "video": "media/mm-parturi-1.mp4"
+    "video": "media/mm-parturi-1.mp4",
+    "creation_id": "18646099666007747",
+    "virhe": "{\"error\":{\"message\":\"Fatal\",\"type\":\"OAuthException\",\"code\":-1,\"error_subcode\":2207085,\"is_transient\":false,\"error_user_title\":\"Yleinen sis\\u00e4inen virhe\",\"error_user_msg\":\"Sis\\u00e4inen palvelinvirhe. Yrit\\u00e4 my\\u00f6hemmin uudelleen.\",\"fbtrace_id\":\"ANLY4PGqR_VkO08_1X01C9W\"}}",
+    "ajoyrityksia": 1
   },
   {
     "id": "mm-parturi-2",
