@@ -1424,8 +1424,8 @@
     ],
     "video": "media/mm-parturi-1.mp4",
     "creation_id": "18646099666007747",
-    "virhe": "{\"error\":{\"message\":\"Fatal\",\"type\":\"OAuthException\",\"code\":-1,\"error_subcode\":2207085,\"is_transient\":false,\"error_user_title\":\"Yleinen sis\\u00e4inen virhe\",\"error_user_msg\":\"Sis\\u00e4inen palvelinvirhe. Yrit\\u00e4 my\\u00f6hemmin uudelleen.\",\"fbtrace_id\":\"ANLY4PGqR_VkO08_1X01C9W\"}}",
-    "ajoyrityksia": 1
+    "virhe": "{\"error\":{\"message\":\"Fatal\",\"type\":\"OAuthException\",\"code\":-1,\"error_subcode\":2207085,\"is_transient\":false,\"error_user_title\":\"Yleinen sis\\u00e4inen virhe\",\"error_user_msg\":\"Sis\\u00e4inen palvelinvirhe. Yrit\\u00e4 my\\u00f6hemmin uudelleen.\",\"fbtrace_id\":\"AAq2jUhnJajePf-SqRAOGj5\"}}",
+    "ajoyrityksia": 2
   },
   {
     "id": "mm-parturi-2",
