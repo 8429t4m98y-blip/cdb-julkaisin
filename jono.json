@@ -1411,5 +1411,17 @@
     "media_id": "18118131392087850",
     "julkaistu_aika": "2026-11-06T16:00:10.387520+00:00",
     "story_media_id": "18001150668041975"
+  },
+  {
+    "id": "mm-parturi-1",
+    "otsikko": "mm-parturi-1 (julkaise_kaikkialle)",
+    "tili": "miikameier",
+    "caption": "Miia koodas mulle ja ehdotti, et tehdäänkö podcast tyyppinen video ja jutellaa miesten parturikokemuksista, sekä miks miehet avautuu usein parturin penkissä. Ja mähä olin tunnetusti heti messissä!\n\nJatkoa tulee varmasti kun päätettii, et tää pitää ottaa uusiks! Koko video tsekattavissa YouTubessa 🤝\n\n💈 @miiaanipreeva @barbersandbeertiksi",
+    "aika": "2026-11-07T21:05:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "miiaanipreeva"
+    ],
+    "video": "media/mm-parturi-1.mp4"
   }
 ]
