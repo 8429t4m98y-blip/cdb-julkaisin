@@ -1258,12 +1258,14 @@
     "tili": "teamera",
     "caption": "TEETKÖ SARJAT OIKEESTI KOVAA? 🤔\n\nOnko liike tai treenijako optimaalinen, tai teetkö 10 vai 6 sarjaa viikossa -> on tosi vähän merkitystä. Sillä on paljon merkitystä, jos et tee niitä sarjoja kovaa.\n\nValmennushakemukset: team-era.com",
     "aika": "2026-11-08T10:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier",
       "mikkefriman"
     ],
-    "video": "media/era-uusinta-intensiteetti.mp4"
+    "video": "media/era-uusinta-intensiteetti.mp4",
+    "media_id": "18112369418600499",
+    "julkaistu_aika": "2026-11-08T08:00:11.235529+00:00"
   },
   {
     "id": "era-uusinta-vahemman-enemman",
