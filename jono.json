@@ -1330,7 +1330,9 @@
     ],
     "caption": "Haluatko olla mukana tukemassa valmentajien seminaarikulttuuria Suomessa?\n\nTukilippu maksaa 150 €. Siihen kuuluu tavallinen lippu CDB:n valmennusseminaariin, ja nimesi näkyy kiitoslistassa sivulla coachesdatabase.fi.\n\nSeminaari on lauantaina 6.2.2027 Helsingissä. Puhujina ovat Tuomas Rytkönen (@atleettinenpartasuu), Juho Suomi (@juhosuom) ja Utti Hietala (@uttihietala). Tukilipun saa osoitteesta coachesdatabase.fi kohdasta Voinko tukea seminaaria?\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #voimaharjoittelu #fysiikkavalmennus #urheiluravitsemus",
     "aika": "2026-11-08T18:00:00+02:00",
-    "tila": "odottaa"
+    "tila": "julkaistu",
+    "media_id": "18005676236808418",
+    "julkaistu_aika": "2026-11-08T16:00:10.244384+00:00"
   },
   {
     "id": "mm-loka26",
@@ -1397,9 +1399,12 @@
     "tili": "monologi",
     "caption": "Kun oon yksin, niin mulla on kädet kiinni ratissa ja ohjailen aika smootisti. Mut sit ku tulee parisuhde, ne kädet lentää ratista pois ja auto on kohta ojassa.\n\nMissä tulee se raja, et se toinen sanoo hei nyt rauhoitu ja laittaa ne jalat sinne polkimille? Melkoinen seppä oon näitten juttujen kanssa 🤷🏻‍♂️",
     "aika": "2026-11-08T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j30-k7-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "17992979483864862",
+    "julkaistu_aika": "2026-11-08T16:00:10.244384+00:00",
+    "story_media_id": "18158445757525519"
   },
   {
     "id": "mon-j30-k5-julkaisu",
