@@ -1430,5 +1430,18 @@
       "miiaanipreeva"
     ],
     "video": "media/mm-parturi-2.mp4"
+  },
+  {
+    "id": "mon-j31-k1-julkaisu",
+    "otsikko": "mon-j31-k1-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Bodiumille 100 käyttäjää viikossa, joten laitanko pillit pussiin podcastin kanssa?\n\nEn oo laittamassa vaik vähän tekoälykuorma painaakin. Usein tuntuu, et oon susi lampaan vaatteissa, ku muut on mun ympärillä pro-tason koodereita ja meikäläinen vaa satusetä, joka juttelee Claudelle. \n\nJakso 31 aiheita:\n◾️ Kovalevy löi kaks kertaa jumiin\n◾️ Miten 414 tehtävästä tuli 3-5 tehtävää per päivä\n◾️ Bodium: 100 käyttäjää viikossa\n◾️ Mihi vedetää agentin raja",
+    "aika": "2026-11-10T18:00:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "miikameier"
+    ],
+    "video": "media/mon-j31-k1-julkaisu.mp4",
+    "story": true
   }
 ]
