@@ -1473,5 +1473,15 @@
     "aika": "2026-11-12T18:00:00+02:00",
     "tila": "odottaa",
     "hyvaksynta": "Miika 12.11.: «1 kyllä ja vie jonoon»"
+  },
+  {
+    "id": "mon-j31-k3-julkaisu",
+    "otsikko": "mon-j31-k3-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Mä oon monta vuotta pyöritelly Exceliä ja WhatsAppia, ku ei koskaan ollu semmosta hyvää valmennusalustaa, mitä alkais käyttää.\n\nNyt meillä on oma treeniäppi ja valmennusalusta Bodium. Viikossa me ollaan saatu 100 käyttäjää ja aivan törkeen hyvää palautetta. Valmennuspuoli ei oo vielä valmis, mut ens viikolla testikäyttäjät ja siit hiotaa älytön timantti!",
+    "aika": "2026-11-14T18:00:00+02:00",
+    "tila": "odottaa",
+    "video": "media/mon-j31-k3-julkaisu.mp4",
+    "story": true
   }
 ]
