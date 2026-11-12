@@ -24,7 +24,7 @@ reeliin: se kirjataan kenttiin story_virhe / story_yrityksia ja yritetään
 seuraavissa ajoissa uudelleen.
 
 Token luetaan ympäristömuuttujasta IG_TOKEN (GitHub Secret); paikallisessa
-ajossa fallback ../../Instagram API/.env (LONG_TOKEN). Tili-ID:t ovat
+ajossa fallback ../../../tools/instagram-api/.env (LONG_TOKEN). Tili-ID:t ovat
 allowlistissa alla — ne eivät ole salaisuuksia, vain token on.
 
 Meta hakee median itse annetusta osoitteesta, joten repon on oltava julkinen
@@ -83,7 +83,7 @@ def load_config():
 
     # Paikallinen fallback: keskitetty Instagram API -kansion .env
     if not token:
-        env_path = os.path.join(HERE, "..", "..", "Instagram API", ".env")
+        env_path = os.path.join(HERE, "..", "..", "..", "tools", "instagram-api", ".env")
         if os.path.exists(env_path):
             with open(env_path, encoding="utf-8") as f:
                 for line in f:
