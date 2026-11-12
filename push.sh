@@ -47,7 +47,7 @@ fi
 # myös rivin jolta tila puuttuu kokonaan. Mitattu 28.9. (j25-k1): käsin
 # kirjoitetusta rivistä puuttui tila, push onnistui ja klippi myöhästyi 1 h 7 min
 # ilman yhtään virheilmoitusta. Tarkistetaan committoitu HEAD, koska se lähtee.
-if ! git -C "$DIR" show HEAD:jono.json | CDB="$DIR/.." python3 -c '
+if ! git -C "$DIR" show HEAD:jono.json | CDB="$DIR/../tyokalut" python3 -c '
 import json, os, sys
 from datetime import datetime
 sys.path.insert(0, os.environ["CDB"])
