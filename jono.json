@@ -1273,12 +1273,14 @@
     "tili": "teamera",
     "caption": "VÄHEMMÄN ON USEIN ENEMMÄN 👇\n\nHirveä määrä volyymia treeniohjelmassa johtaa usein huonompiin tuloksiin. Eli laatu korvaa sen perinteisen määrän\n\nValmennushakemukset: team-era.com",
     "aika": "2026-11-12T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier",
       "mikkefriman"
     ],
-    "video": "media/era-uusinta-vahemman-enemman.mp4"
+    "video": "media/era-uusinta-vahemman-enemman.mp4",
+    "media_id": "17888843607623093",
+    "julkaistu_aika": "2026-11-12T16:00:11.599242+00:00"
   },
   {
     "id": "j30-k1",
@@ -1456,9 +1458,12 @@
     "tili": "monologi",
     "caption": "Kovalevy meni tällä viikolla kaks kertaa ihan täysin jumiin. Ja toisella kerralla aivan mitättömästä asiasta.\n\nKysyin Claudelta, kuinka monta tehtävää on ensi viikolla, ja se ilmoitti et 414. Raapasin niistä 80 % pois ja laitoin kaikki hommat uusiksi. Nyt päivään jää 3–5 tehtävää, mitkä pitää oikeesti hoitaa 😌",
     "aika": "2026-11-12T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j31-k2-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18076772222482294",
+    "julkaistu_aika": "2026-11-12T16:00:11.599242+00:00",
+    "story_media_id": "17921910084458143"
   },
   {
     "id": "mk-09",
@@ -1471,8 +1476,10 @@
     ],
     "caption": "Kenelle CDB:n valmennusseminaari on?\n\nValmennat muita, mutta kuka valmentaa sinua? Päivä on tehty personal trainereille, verkkovalmentajille, kisavalmentajille ja kokeneille harrastajille, jotka valmentavat itseään tavoitteellisesti.\n\nLauantaina 6.2.2027 Helsingissä puhuvat Tuomas Rytkönen (@atleettinenpartasuu) harjoitusten ohjelmoinnista, Juho Suomi (@juhosuom) urheiluravitsemuksesta ja Utti Hietala (@uttihietala) fysiikan rakentamisesta kilpatasolle. Päivä päättyy paneeliin, ja tallenne kuuluu lippuun.\n\nEnnakkolippu maksaa 59 € su 29.11. asti tai kunnes ennakkoliput on myyty. Liput ovat osoitteessa coachesdatabase.fi.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #lihaskasvu #rasvanpoltto #hypertrofia",
     "aika": "2026-11-12T18:00:00+02:00",
-    "tila": "odottaa",
-    "hyvaksynta": "Miika 12.11.: «1 kyllä ja vie jonoon»"
+    "tila": "julkaistu",
+    "hyvaksynta": "Miika 12.11.: «1 kyllä ja vie jonoon»",
+    "media_id": "18121916456006985",
+    "julkaistu_aika": "2026-11-12T16:00:11.599242+00:00"
   },
   {
     "id": "mon-j31-k3-julkaisu",
