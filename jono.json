@@ -1427,14 +1427,15 @@
     "tili": "miikameier",
     "caption": "Oon käyny tyylii vasta vuoden (tai pari) Miian penkissä, mut tuntuu ihan viideltä vuodelta. Eli perinteisesti iha ku oltais tunnettu aina.\n\nToki ku käyt riittävän usein, nii sitä tutustuu aika hyvin ja onhan toi penkissä olo aika sellasta \"terapiaa\" itellekki. Erityisest ku siin ollaa ilman puhelinta tai konetta! 😆\n\nKoko video löytyy YouTubesta 🤝\n\n💈 @miiaanipreeva @barbersandbeertiksi",
     "aika": "2026-11-11T18:00:00+02:00",
-    "tila": "virhe",
+    "tila": "julkaistu",
     "collab": [
       "miiaanipreeva"
     ],
     "video": "media/mm-parturi-2.mp4",
     "creation_id": "18647429851007747",
     "virhe": "{\"error\":{\"message\":\"Fatal\",\"type\":\"OAuthException\",\"code\":-1,\"error_subcode\":2207085,\"is_transient\":false,\"error_user_title\":\"Yleinen sis\\u00e4inen virhe\",\"error_user_msg\":\"Sis\\u00e4inen palvelinvirhe. Yrit\\u00e4 my\\u00f6hemmin uudelleen.\",\"fbtrace_id\":\"AA9N9k-yUHTL7JIFH5o3lHZ\"}}",
-    "ajoyrityksia": 3
+    "ajoyrityksia": 3,
+    "huom": "julkaistu käsin, ei automaatiolla (Miika 12.11.)"
   },
   {
     "id": "mon-j31-k1-julkaisu",
