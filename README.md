@@ -10,7 +10,7 @@ kuvat/         ──>  raw.githubusercontent.com  ─┐
 Release-liite  ──>  github.com/…/releases/…  ───┴─>  Meta hakee median tästä itse
 ```
 
-> 📖 **Tämä tiedosto vastaa vain siihen miten repoa käytetään.** Mitatut luvut, päätökset, tokenien tila ja lukitut linjaukset asuvat työtilassa: **`Projektit/Coaches Database/julkaisuautomaatio.md` (omistaja)** — ⛔ älä kopioi niitä tänne.
+> 📖 **Tämä tiedosto vastaa vain siihen miten repoa käytetään.** Mitatut luvut, päätökset, tokenien tila ja lukitut linjaukset asuvat työtilassa: **`Projektit/Coaches Database/Postaukset/julkaisuautomaatio.md` (omistaja)** — ⛔ älä kopioi niitä tänne.
 
 ## Miten lisään postauksen jonoon
 
@@ -93,8 +93,8 @@ Committaa → aja `./push.sh` → Actions hoitaa loput. Tila päivittyy takaisin
 1. **Luo julkinen repo** (esim. `cdb-julkaisin`). Julkinen, koska Instagram hakee kuvat raw-URL:sta + Actions-minuutit ovat julkisilla repoilla ilmaisia. Salaisuuksia ei ole repossa (`.env` on gitignoressa).
 2. **Pushaa tämän kansion sisältö** repon juureen.
 3. **Lisää 2 Secretiä** (repo → Settings → Secrets and variables → Actions):
-   - `IG_TOKEN` = pitkäkestoinen access token (`Instagram API/.env` → `LONG_TOKEN`)
-   - `IG_ID` = @coaches.database IG Business Account ID (`Instagram API/.env` → `IG_COACHES_DB`). Muiden tilien ID:t ovat `julkaise.py`:n allowlistissa — ne eivät ole salaisuuksia, joten uusi tili ei vaadi uutta secretiä. Tarvittaessa ohitus: `IG_ID_MONOLOGI` jne.
+   - `IG_TOKEN` = pitkäkestoinen access token (`tools/instagram-api/.env` → `LONG_TOKEN`)
+   - `IG_ID` = @coaches.database IG Business Account ID (`tools/instagram-api/.env` → `IG_COACHES_DB`). Muiden tilien ID:t ovat `julkaise.py`:n allowlistissa — ne eivät ole salaisuuksia, joten uusi tili ei vaadi uutta secretiä. Tarvittaessa ohitus: `IG_ID_MONOLOGI` jne.
 4. **Testaa:** Actions → "Julkaise Instagramiin" → Run workflow.
 
 `push.sh` lukee `GH_TOKEN`:n **tämän kansion omasta `.env`:stä** (ei Instagram API:n).
