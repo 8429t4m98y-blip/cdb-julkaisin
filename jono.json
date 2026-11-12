@@ -1449,5 +1449,15 @@
     "media_id": "18120548476790444",
     "julkaistu_aika": "2026-11-10T16:00:14.633381+00:00",
     "story_media_id": "18137252671736818"
+  },
+  {
+    "id": "mon-j31-k2-julkaisu",
+    "otsikko": "mon-j31-k2-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Kovalevy meni tällä viikolla kaks kertaa ihan täysin jumiin. Ja toisella kerralla aivan mitättömästä asiasta.\n\nKysyin Claudelta, kuinka monta tehtävää on ensi viikolla, ja se ilmoitti et 414. Raapasin niistä 80 % pois ja laitoin kaikki hommat uusiksi. Nyt päivään jää 3–5 tehtävää, mitkä pitää oikeesti hoitaa 😌",
+    "aika": "2026-11-12T18:00:00+02:00",
+    "tila": "odottaa",
+    "video": "media/mon-j31-k2-julkaisu.mp4",
+    "story": true
   }
 ]
