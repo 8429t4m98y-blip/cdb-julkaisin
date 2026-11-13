@@ -1491,5 +1491,19 @@
     "tila": "odottaa",
     "video": "media/mon-j31-k3-julkaisu.mp4",
     "story": true
+  },
+  {
+    "id": "mk-10",
+    "otsikko": "CDB mk-10 — kenelle päivä on, ryhmät (karuselli 3 diaa)",
+    "tili": "cdb",
+    "kuvat": [
+      "kuvat/mk10-1-kansi.jpg",
+      "kuvat/mk10-2-ryhmat.jpg",
+      "kuvat/mk10-3-lippu.jpg"
+    ],
+    "caption": "Tunnistatko itsesi?\n\nTorstaina kysyimme, kenelle CDB:n valmennusseminaari on. Tässä vastaus tarkemmin:\n\nPersonal trainereille, joiden asiakkaat tavoittelevat lihaskasvua tai rasvanpolttoa.\nVerkkovalmentajille, jotka haluavat oppia lisää ohjelmoinnista ja ravitsemuksesta.\nKisavalmentajille, jotka valmentavat fitnessurheilijoita ja kehonrakentajia.\nAktiivisille salikävijöille, jotka haluavat kehittää omaa tietotaitoaan.\n\nLauantaina 6.2.2027 Helsingissä puhuvat Tuomas Rytkönen (@atleettinenpartasuu), Juho Suomi (@juhosuom) ja Utti Hietala (@uttihietala). Päivä päättyy paneeliin, ja tallenne kuuluu lippuun.\n\nEnnakkolippu maksaa 59 € su 29.11. asti tai kunnes ennakkoliput on myyty. Liput ovat osoitteessa coachesdatabase.fi.\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #personaltrainer #verkkovalmennus #fitnessvalmentaja",
+    "aika": "2026-11-15T18:00:00+02:00",
+    "tila": "odottaa",
+    "hyvaksynta": "Miika 13.11.: «1 kyllä»"
   }
 ]
