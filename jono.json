@@ -1488,9 +1488,12 @@
     "tili": "monologi",
     "caption": "Mä oon monta vuotta pyöritelly Exceliä ja WhatsAppia, ku ei koskaan ollu semmosta hyvää valmennusalustaa, mitä alkais käyttää.\n\nNyt meillä on oma treeniäppi ja valmennusalusta Bodium. Viikossa me ollaan saatu 100 käyttäjää ja aivan törkeen hyvää palautetta. Valmennuspuoli ei oo vielä valmis, mut ens viikolla testikäyttäjät ja siit hiotaa älytön timantti!",
     "aika": "2026-11-14T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j31-k3-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18105593915367702",
+    "julkaistu_aika": "2026-11-14T16:00:10.544133+00:00",
+    "story_media_id": "18158739670524663"
   },
   {
     "id": "mk-10",
