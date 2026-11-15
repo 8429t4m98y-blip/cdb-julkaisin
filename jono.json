@@ -1515,11 +1515,13 @@
     "tili": "teamera",
     "caption": "VALMENNETTAVA EI NOUDATA SUUNNITELMAA? 🤔\n\nEka selvitetää juurisyy: onko suunnitelmassa jotain, mikä ei oo valmennettavalle mielekästä. Tän jälkee ohjelmaa voidaan muokata niin, että se sopii paremmin valmennettavan arkeen.\n\nValmennushakemukset: team-era.com",
     "aika": "2026-11-15T10:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier",
       "mikkefriman"
     ],
-    "video": "media/era-uusinta-ei-noudata-suunnitelmaa.mp4"
+    "video": "media/era-uusinta-ei-noudata-suunnitelmaa.mp4",
+    "media_id": "17967717327211171",
+    "julkaistu_aika": "2026-11-15T08:00:10.608636+00:00"
   }
 ]
