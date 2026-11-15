@@ -1508,5 +1508,18 @@
     "aika": "2026-11-15T18:00:00+02:00",
     "tila": "odottaa",
     "hyvaksynta": "Miika 13.11.: «1 kyllä»"
+  },
+  {
+    "id": "era-uusinta-ei-noudata-suunnitelmaa",
+    "otsikko": "era-uusinta-ei-noudata-suunnitelmaa (julkaise_kaikkialle)",
+    "tili": "teamera",
+    "caption": "VALMENNETTAVA EI NOUDATA SUUNNITELMAA? 🤔\n\nEka selvitetää juurisyy: onko suunnitelmassa jotain, mikä ei oo valmennettavalle mielekästä. Tän jälkee ohjelmaa voidaan muokata niin, että se sopii paremmin valmennettavan arkeen.\n\nValmennushakemukset: team-era.com",
+    "aika": "2026-11-15T10:00:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "miikameier",
+      "mikkefriman"
+    ],
+    "video": "media/era-uusinta-ei-noudata-suunnitelmaa.mp4"
   }
 ]
