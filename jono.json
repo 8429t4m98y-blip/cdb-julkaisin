@@ -1538,5 +1538,15 @@
     ],
     "video": "media/mon-j32-k1-julkaisu.mp4",
     "story": true
+  },
+  {
+    "id": "mon-j32-k2-julkaisu",
+    "otsikko": "mon-j32-k2-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Jakso 31 jäi julkaisematta, eikä sitä kukaa paljo kaipaillu. Kukaa ei kysellyt missäs uus jakso on. Sit mä aloin miettii, onks tässä mitään järkeä ku ketään ei ees kiinnosta.\n\nMut ei se oo edelleenkää se pointti. Musta on vaa siistiä kuvata ja tehdä näitä joka viikko, nii ei edelleenkää haittaa vaikka kukaa ei kuuntelis 🤷🏻‍♂️",
+    "aika": "2026-11-17T18:00:00+02:00",
+    "tila": "odottaa",
+    "video": "media/mon-j32-k2-julkaisu.mp4",
+    "story": true
   }
 ]
