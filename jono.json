@@ -1525,5 +1525,18 @@
     "video": "media/era-uusinta-ei-noudata-suunnitelmaa.mp4",
     "media_id": "17967717327211171",
     "julkaistu_aika": "2026-11-15T08:00:10.608636+00:00"
+  },
+  {
+    "id": "mon-j32-k1-julkaisu",
+    "otsikko": "mon-j32-k1-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Onko pöhinä elämisen arvoista ja kaipaako kukaan Monologin jaksoja?\n\nMulla tuli semmonen olo, et onko tää elämisen arvosta elämää enää, ku mä pöhisen näin paljon. Saatoin unohtaa julkaista myös edellisen jakson, mut eipä sitä kukaa paljo kaipaillukkaa; eikä tarvikkaa tätähä tehdää pelkästä intohimosta vai miten ne sanoo 😁\n\nJakso 32 aiheita:\n◾️ Miten sitä oppii pysähtymään riittävästi?\n◾️ Miten tärkeeks 30 sekunnin hetket voi olla?\n◾️ Muille on helppo sanoa, et terveys on ykkönen\n◾️ Kirjanpitäjä pyys puuttuvat kuitit, agentti etti ne 5 minuutissa",
+    "aika": "2026-11-16T19:00:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "miikameier"
+    ],
+    "video": "media/mon-j32-k1-julkaisu.mp4",
+    "story": true
   }
 ]
