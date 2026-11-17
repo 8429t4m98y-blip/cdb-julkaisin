@@ -1561,5 +1561,18 @@
     "tila": "odottaa",
     "video": "media/mon-j32-k3-julkaisu.mp4",
     "story": true
+  },
+  {
+    "id": "era-uusinta-kuormituksen-hallinta",
+    "otsikko": "era-uusinta-kuormituksen-hallinta (julkaise_kaikkialle)",
+    "tili": "teamera",
+    "caption": "SUURIN OIVALLUS VALMENNUSTYÖSSÄ 👇\n\nVanha kunnon yksilö pitää huomioida. Vaikka paperilla askelmäärän nosto auttais pudottamaan painoa, sitä ei kannata lisätä, jos kuormitus on muuten elämässä jo korkealla. Silloin vapaa-aika kannattaa käyttää palautumiseen.\n\nValmennushakemukset: team-era.com",
+    "aika": "2026-11-19T18:00:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "miikameier",
+      "mikkefriman"
+    ],
+    "video": "media/era-uusinta-kuormituksen-hallinta.mp4"
   }
 ]
