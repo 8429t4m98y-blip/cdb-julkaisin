@@ -1548,9 +1548,12 @@
     "tili": "monologi",
     "caption": "Jakso 31 jäi julkaisematta, eikä sitä kukaa paljo kaipaillu. Kukaa ei kysellyt missäs uus jakso on. Sit mä aloin miettii, onks tässä mitään järkeä ku ketään ei ees kiinnosta.\n\nMut ei se oo edelleenkää se pointti. Musta on vaa siistiä kuvata ja tehdä näitä joka viikko, nii ei edelleenkää haittaa vaikka kukaa ei kuuntelis 🤷🏻‍♂️",
     "aika": "2026-11-17T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j32-k2-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18134376770307722",
+    "julkaistu_aika": "2026-11-17T16:00:15.308260+00:00",
+    "story_media_id": "18054803174811281"
   },
   {
     "id": "mon-j32-k3-julkaisu",
