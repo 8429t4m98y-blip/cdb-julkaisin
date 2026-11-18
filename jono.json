@@ -1561,9 +1561,12 @@
     "tili": "monologi",
     "caption": "Taloudellinen riippumattomuus on edelleen mun ykkösfokus. Mut miten paljon tämmösen pöhinävaiheen on jatkuttava, et mä voin sen saavuttaa? Vuoden, kaks vai viis?\n\nMun mielestä pöhinä ja elämästä nauttiminen ei poissulje toisiaan. Siitä pöhinävaiheesta pitää oppii nauttimaan, eikä mennä rajan toiselle puolelle sen verukkeella, et jossain kohtaa voi sit vähän enemmän chillaa 🤷🏻‍♂️",
     "aika": "2026-11-18T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j32-k3-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18102088619390789",
+    "julkaistu_aika": "2026-11-18T16:00:13.413533+00:00",
+    "story_media_id": "18005069477807957"
   },
   {
     "id": "era-uusinta-kuormituksen-hallinta",
