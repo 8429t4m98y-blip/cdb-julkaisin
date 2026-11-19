@@ -1574,11 +1574,13 @@
     "tili": "teamera",
     "caption": "SUURIN OIVALLUS VALMENNUSTYÖSSÄ 👇\n\nVanha kunnon yksilö pitää huomioida. Vaikka paperilla askelmäärän nosto auttais pudottamaan painoa, sitä ei kannata lisätä, jos kuormitus on muuten elämässä jo korkealla. Silloin vapaa-aika kannattaa käyttää palautumiseen.\n\nValmennushakemukset: team-era.com",
     "aika": "2026-11-19T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier"
     ],
-    "video": "media/era-uusinta-kuormituksen-hallinta.mp4"
+    "video": "media/era-uusinta-kuormituksen-hallinta.mp4",
+    "media_id": "18122565853973222",
+    "julkaistu_aika": "2026-11-19T16:00:13.173185+00:00"
   },
   {
     "id": "era-uusinta-hakemus-ja-haastattelu",
