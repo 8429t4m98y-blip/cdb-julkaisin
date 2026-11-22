@@ -1588,11 +1588,13 @@
     "tili": "teamera",
     "caption": "MIKSI ON VALMENNUSHAKEMUS JA HAASTATTELU? 🤔\n\nEnnen kuin valmennus alkaa, selvitetää ollaanko me oikeat valmentajat sulle ja onko sulla nyt oikea aika lähteä fitnessvalmennukseen. Haastattelussa käydään läpi mm. sun motivaatiota, terveydentilaa, sitoutumista ja tietty se milloin sun kannattais kisata.\n\nValmennushakemukset: team-era.com",
     "aika": "2026-11-22T10:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier"
     ],
-    "video": "media/era-uusinta-hakemus-ja-haastattelu.mp4"
+    "video": "media/era-uusinta-hakemus-ja-haastattelu.mp4",
+    "media_id": "18352863571255002",
+    "julkaistu_aika": "2026-11-22T08:00:10.062275+00:00"
   },
   {
     "id": "hermes-2026-11-18-ryhma",
