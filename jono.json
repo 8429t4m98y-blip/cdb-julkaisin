@@ -1680,5 +1680,18 @@
     "tila": "odottaa",
     "hyvaksynta": "Miika 24.11. klo 16.02: «1 kyllä» (kuva v5 + kuvateksti)",
     "lahde": "Claude Miikan kanssa"
+  },
+  {
+    "id": "mon-j33-k1-julkaisu",
+    "otsikko": "mon-j33-k1-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Monologin jakso #33 ulkona! Fokus ku on duunissa, nii ei mieti rahan käyttämistä, jolloin tilille kertyy enemmä rahaa. Mietin myös, pitäiskö intensiiviseen tekoälysessioon ottaa PWO ja intra käyttöö, niinku salitreeniin, koska silloi tartteis olla oikeesti full focus.\n\nJakso 33 aiheita:\n◾️ Luonko mä paineita muille pöhisemisellä?\n◾️ Syöminen on edelleen hiton vaikeeta\n◾️ Mihin suunnata fokus, ku rahaa ei vielä tuu?\n◾️ Kuormitus helpotti, kun järjestelin asiat pään sisällä",
+    "aika": "2026-11-24T19:00:00+02:00",
+    "tila": "odottaa",
+    "collab": [
+      "miikameier"
+    ],
+    "video": "media/mon-j33-k1-julkaisu.mp4",
+    "story": true
   }
 ]
