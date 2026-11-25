@@ -1677,9 +1677,11 @@
     "kuva": "kuvat/mk13d.jpg",
     "caption": "Ennakkolippuja on jäljellä kolme.\n\nCDB:n valmennusseminaarin ennakkolippu maksaa 59 € su 29.11. asti tai kunnes ennakkoliput on myyty. Sen jälkeen lippu maksaa 79 €.\n\nSeminaari on lauantaina 6.2.2027 Helsingissä. Lippuun kuuluu kolme luentoa, loppupaneeli ja tallenne. Viiden hengen tai suuremman ryhmän hinta on 59 € / hlö koko myynnin ajan.\n\nLiput: coachesdatabase.fi/?k=cdb-kolme\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #verkkovalmentaja #fitnessvalmentaja #valmentajakoulutus",
     "aika": "2026-11-25T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "hyvaksynta": "Miika 25.11. klo 17.18: «A muuta pikkutekstin, että ennakkohinta päättyy sunnuntaina 29.11. tai kun 3 lippua on myyty» (kuva mk13d; kuvateksti 16.36 versio, «se kuvatksti oli jo hyvä» 17.12)",
-    "lahde": "Claude Miikan kanssa"
+    "lahde": "Claude Miikan kanssa",
+    "media_id": "17978721051052504",
+    "julkaistu_aika": "2026-11-25T16:00:13.398359+00:00"
   },
   {
     "id": "mon-j33-k1-julkaisu",
@@ -1713,8 +1715,11 @@
     "tili": "monologi",
     "caption": "Söin pari viikkoa sen mitä Juhon kanssa sovittiin, ja nyt oma olo on aika järkyttävä. Oikeesti mitää muuta ei oo käyny ku kroppa keränny nestettä ja paino on noussut vähän, mut miten paljon se vaikuttaa mentaalisesti.\n\nuskon edelleen, et täähä on 100% peruja edelleen kisadieetistä. Huomas miten vaikee aihe on ku aloin katumaan tätä, et voiko tätä ikinä julkaista. Mut ku rehellistä podia ku tehdää, nii silloo ollaa rehellisiä 🙃",
     "aika": "2026-11-25T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j33-k2-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18418631029082783",
+    "julkaistu_aika": "2026-11-25T16:00:13.398359+00:00",
+    "story_media_id": "18187346092424501"
   }
 ]
