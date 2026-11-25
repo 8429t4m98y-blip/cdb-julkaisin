@@ -1706,5 +1706,15 @@
     "tila": "odottaa",
     "video": "media/mon-j33-k3-julkaisu.mp4",
     "story": true
+  },
+  {
+    "id": "mon-j33-k2-julkaisu",
+    "otsikko": "mon-j33-k2-julkaisu (julkaise_kaikkialle)",
+    "tili": "monologi",
+    "caption": "Söin pari viikkoa sen mitä Juhon kanssa sovittiin, ja nyt oma olo on aika järkyttävä. Oikeesti mitää muuta ei oo käyny ku kroppa keränny nestettä ja paino on noussut vähän, mut miten paljon se vaikuttaa mentaalisesti.\n\nuskon edelleen, et täähä on 100% peruja edelleen kisadieetistä. Huomas miten vaikee aihe on ku aloin katumaan tätä, et voiko tätä ikinä julkaista. Mut ku rehellistä podia ku tehdää, nii silloo ollaa rehellisiä 🙃",
+    "aika": "2026-11-25T18:00:00+02:00",
+    "tila": "odottaa",
+    "video": "media/mon-j33-k2-julkaisu.mp4",
+    "story": true
   }
 ]
