@@ -1672,13 +1672,13 @@
   },
   {
     "id": "mk-13",
-    "otsikko": "CDB mk-13 — Ennakkohinta loppuu sunnuntaina (1 dia)",
+    "otsikko": "CDB mk-13 — Enää 3 jäljellä (1 dia)",
     "tili": "cdb",
-    "kuva": "kuvat/mk13-v5.jpg",
-    "caption": "Ennakkohinta päättyy sunnuntaina.\n\nCDB:n valmennusseminaarin ennakkolippu maksaa 59 € su 29.11. asti tai kunnes ennakkoliput on myyty. Sen jälkeen lippu maksaa 79 €.\n\nSeminaari on lauantaina 6.2.2027 Helsingissä. Lippuun kuuluu kolme luentoa, loppupaneeli ja tallenne. Viiden hengen tai suuremman ryhmän hinta on 59 € / hlö koko myynnin ajan.\n\nLiput: coachesdatabase.fi/?k=cdb-ennakko\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #verkkovalmentaja #fitnessvalmentaja #valmentajakoulutus",
+    "kuva": "kuvat/mk13d.jpg",
+    "caption": "Ennakkolippuja on jäljellä kolme.\n\nCDB:n valmennusseminaarin ennakkolippu maksaa 59 € su 29.11. asti tai kunnes ennakkoliput on myyty. Sen jälkeen lippu maksaa 79 €.\n\nSeminaari on lauantaina 6.2.2027 Helsingissä. Lippuun kuuluu kolme luentoa, loppupaneeli ja tallenne. Viiden hengen tai suuremman ryhmän hinta on 59 € / hlö koko myynnin ajan.\n\nLiput: coachesdatabase.fi/?k=cdb-kolme\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #verkkovalmentaja #fitnessvalmentaja #valmentajakoulutus",
     "aika": "2026-11-25T18:00:00+02:00",
     "tila": "odottaa",
-    "hyvaksynta": "Miika 24.11. klo 16.02: «1 kyllä» (kuva v5 + kuvateksti)",
+    "hyvaksynta": "Miika 25.11. klo 17.18: «A muuta pikkutekstin, että ennakkohinta päättyy sunnuntaina 29.11. tai kun 3 lippua on myyty» (kuva mk13d; kuvateksti 16.36 versio, «se kuvatksti oli jo hyvä» 17.12)",
     "lahde": "Claude Miikan kanssa"
   },
   {
