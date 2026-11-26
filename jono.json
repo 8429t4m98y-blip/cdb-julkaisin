@@ -1721,5 +1721,27 @@
     "media_id": "18418631029082783",
     "julkaistu_aika": "2026-11-25T16:00:13.398359+00:00",
     "story_media_id": "18187346092424501"
+  },
+  {
+    "id": "mk-14",
+    "otsikko": "CDB mk-14 — 59 € vielä sunnuntaihin (1 dia, mk-11-ilme)",
+    "tili": "cdb",
+    "kuva": "kuvat/mk14-pe.jpg",
+    "caption": "Ennakkohinta päättyy sunnuntaina.\n\nCDB:n valmennusseminaarin ennakkolippu maksaa 59 € su 29.11. asti tai kunnes ennakkoliput on myyty. Sen jälkeen lippu maksaa 79 €.\n\nSeminaari on lauantaina 6.2.2027 Helsingissä. Lippuun kuuluu kolme luentoa, loppupaneeli ja tallenne. Viiden hengen tai suuremman ryhmän hinta on 59 € / hlö koko myynnin ajan.\n\nLiput: coachesdatabase.fi/?k=cdb-ennakko-pe\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #verkkovalmentaja #fitnessvalmentaja #valmentajakoulutus",
+    "aika": "2026-11-27T18:00:00+02:00",
+    "tila": "odottaa",
+    "hyvaksynta": "Miika 26.11. klo 8.14 «kyllä» (pe tumma vino lippu = mk-11 «vielä sunnuntaihin», kuvateksti = mk-13:n hyväksytty 24.11. «1 kyllä»; lauantai pois)",
+    "lahde": "Claude Miikan kanssa"
+  },
+  {
+    "id": "mk-16",
+    "otsikko": "CDB mk-16 — Ennakkohinta päättyy tänään (1 dia)",
+    "tili": "cdb",
+    "kuva": "kuvat/mk16.jpg",
+    "caption": "Ennakkohinta päättyy tänään.\n\nCDB:n valmennusseminaarin lippu maksaa 59 € vielä tänään tai kunnes ennakkoliput on myyty. Huomisesta alkaen lippu maksaa 79 €.\n\nSeminaari on la 6.2.2027 Salmisaaren Lipan auditoriossa Helsingissä. Lippuun kuuluu kolme luentoa, loppupaneeli ja tallenne.\n\nLiput: coachesdatabase.fi/?k=cdb-ennakko-su\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #verkkovalmentaja #fitnessvalmentaja #kisavalmentaja",
+    "aika": "2026-11-29T10:00:00+02:00",
+    "tila": "odottaa",
+    "hyvaksynta": "Miika 26.11. klo 8.14 «kyllä» (su mk16; «jäljellä X» -rivi pois, Miika 7.18 «Kaksi poistetaan»)",
+    "lahde": "Claude Miikan kanssa"
   }
 ]
