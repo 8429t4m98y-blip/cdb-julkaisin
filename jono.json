@@ -1628,12 +1628,14 @@
     "tili": "teamera",
     "caption": "YKSI LIIKE LOPPUELÄMÄKSI? 🤔\n\nMiikalla joku kyykkyliike hakki, pendulum tai prässi ja Mikke taas valkkais vapaan T-kulmasoudun neutraalilla otteella.\n\nValmennushakemukset: team-era.com",
     "aika": "2026-11-26T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "collab": [
       "miikameier",
       "mikkefriman"
     ],
-    "video": "media/era-uusinta-yksi-liike.mp4"
+    "video": "media/era-uusinta-yksi-liike.mp4",
+    "media_id": "18154949908528397",
+    "julkaistu_aika": "2026-11-26T16:00:12.678273+00:00"
   },
   {
     "id": "mk-12",
@@ -1642,9 +1644,11 @@
     "kuva": "kuvat/mk12-1-paikka.jpg",
     "caption": "Paikka varmistui.\n\nLa 6.2.2027 Salmisaaren Lipan auditorio, Porkkalankatu 13, Helsinki.\n\nPuhumassa Tuomas Rytkönen (@atleettinenpartasuu), Juho Suomi (@juhosuom) ja Utti Hietala (@uttihietala). Päivä päättyy paneeliin, ja tallenne kuuluu lippuun.\n\nEnnakkolippu maksaa 59 € su 29.11. asti tai kunnes ennakkoliput on myyty.\n\nLiput: coachesdatabase.fi/?k=cdb-paikka\n\nCOACHES' DATABASE\n@miikameier @eveluhtala\n\n#valmennus #fitness #cdb #coachesdatabase #valmentaja #valmennusosaaminen #ammattivalmentaja #urheiluvalmennus #valmentajuus #valmennusseminaari #personaltrainer #helsinki #salmisaari",
     "aika": "2026-11-26T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "hyvaksynta": "Miika 23.11. klo 17.23: «2 ok» (kysymys: versio A, kuva ja teksti, to 26.11. klo 18) · Miika 23.11. klo 17.35: «1 kyllä» (Lippa-nimi kuvaan ja kuvatekstiin)",
-    "lahde": "Claude Miikan kanssa (Miikan lupaus 17.11. paikkapostauksesta; Miika 18.11. «minä teen postauksen täällä jos agentti ei tee»)"
+    "lahde": "Claude Miikan kanssa (Miikan lupaus 17.11. paikkapostauksesta; Miika 18.11. «minä teen postauksen täällä jos agentti ei tee»)",
+    "media_id": "18080084096459784",
+    "julkaistu_aika": "2026-11-26T16:00:12.678273+00:00"
   },
   {
     "id": "era-uusinta-neuvo-kisadieetille",
@@ -1705,9 +1709,12 @@
     "tili": "monologi",
     "caption": "Monta vuotta oon optimoinu ravitsemusta ja lisäravinteita treenaamisen ympärille. On ollu PWO:ta ja treenin aikasta hiilaria, et on mahdollisimman paljo energiaa treenata.\n\nNyt mietin, et pitäiskö tää kääntää myös työntekemisee. Eli ottais intensiivisee tekoälysessioon PWO:t ja intrahiilarit, et ois full focus 😆",
     "aika": "2026-11-26T18:00:00+02:00",
-    "tila": "odottaa",
+    "tila": "julkaistu",
     "video": "media/mon-j33-k3-julkaisu.mp4",
-    "story": true
+    "story": true,
+    "media_id": "18020225603992417",
+    "julkaistu_aika": "2026-11-26T16:00:12.678273+00:00",
+    "story_media_id": "17961190914329106"
   },
   {
     "id": "mon-j33-k2-julkaisu",
